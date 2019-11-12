@@ -48,6 +48,13 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
     private ImageView card6 = null;
     private ImageView card7 = null;
     private ImageView card8 = null;
+    private ImageView card9 = null;     //humans player card 1
+    private ImageView card10 = null;
+    private ImageView card11 = null;
+    private ImageView card12 = null;
+    private ImageView card13 = null;
+    private ImageView card14 = null;
+    private ImageView card15 = null;
     private ImageView card1Played = null;   //the card that player 1 played
     private ImageView card2Played = null;
     private ImageView card3Played = null;
@@ -99,7 +106,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 //            this.player3Score.setText("Player 3 Total Score: " + (((WizardPlayer) info).getPlayerScore()));
 //            this.player4Score.setText("Player 4 Total Score: " + (((WizardPlayer) info).getPlayerScore()));
             for (ImageView guiCard : guiCards) {
-                //need to change this to use wizardcard objects
                 for (WizardCards card : ((WizardState) info).getPlayerInfo(0).getCurrentHand()) {
                     switch (card.getCardSuit()) {
                         case "diamond":
@@ -338,8 +344,30 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
         card7.setOnTouchListener(this);
         card8 = (ImageView) myActivity.findViewById(R.id.imageView8);
         card8.setOnTouchListener(this);
+        card9 = (ImageView) myActivity.findViewById(R.id.imageView1);
+        card9.setOnTouchListener(this);
+        card10 = (ImageView) myActivity.findViewById(R.id.imageView2);
+        card10.setOnTouchListener(this);
+        card11 = (ImageView) myActivity.findViewById(R.id.imageView3);
+        card11.setOnTouchListener(this);
+        card12 = (ImageView) myActivity.findViewById(R.id.imageView4);
+        card12.setOnTouchListener(this);
+        card13 = (ImageView) myActivity.findViewById(R.id.imageView5);
+        card13.setOnTouchListener(this);
+        card14 = (ImageView) myActivity.findViewById(R.id.imageView6);
+        card14.setOnTouchListener(this);
+        card15 = (ImageView) myActivity.findViewById(R.id.imageView7);
+        card15.setOnTouchListener(this);
 
-        Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8);
+        card1Played = (ImageView) myActivity.findViewById(R.id.player1imageView);
+        card2Played = (ImageView) myActivity.findViewById(R.id.player2ImageView);
+        card3Played = (ImageView) myActivity.findViewById(R.id.player3ImageView);
+        card4Played = (ImageView) myActivity.findViewById(R.id.player4ImageView);
+
+        cardTrump = (ImageView) myActivity.findViewById(R.id.trumpImageView);
+
+        Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8,
+                card9, card10, card11, card12, card13, card14, card15);
     }
 
     /**

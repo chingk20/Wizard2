@@ -17,7 +17,7 @@ public class WizardLocalGame extends LocalGame {
      */
     public WizardLocalGame() {
         //perform superclass initialization
-        //super();
+        super();
 
         // create a new, unfilled-in WizardState object
         state = new WizardState();
