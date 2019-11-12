@@ -1,6 +1,7 @@
 package com.example.wizard2.Wizard;
 
 import android.graphics.Color;
+import android.media.Image;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.example.wizard2.GameFramework.infoMessage.GameInfo;
 import com.example.wizard2.GameFramework.infoMessage.IllegalMoveInfo;
 import com.example.wizard2.R;
 
+import java.nio.InvalidMarkException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -25,6 +27,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 
     WizardPlayAction myPlay = new WizardPlayAction(this, cardToPlay);
     WizardBidAction myBid = new WizardBidAction(this, bidNum);
+
+    WizardPlayer myPlayer;
 
     //Tag for logging
     private static final String TAG = "WizardHumanPlayer1";
@@ -58,6 +62,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
      */
     public WizardHumanPlayer(String name) {
         super(name);
+
+        myPlayer = new WizardPlayer(0, name);
     }
 
     @Override
@@ -322,7 +328,15 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
     }
 
     @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
+    public boolean onTouch(View v, MotionEvent motionEvent) {
+        int i = 0;
+        for (ImageView guiCard : guiCards){
+            if (v == guiCard){
+                cardToPlay = myPlayer.getCurrentHand().get(i);
+                super.game.sendAction(myPlay);
+                return true;
+            }
+        }
         return false;
     }
 }

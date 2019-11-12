@@ -92,39 +92,26 @@ public class WizardLocalGame extends LocalGame {
      */
     @Override
     protected boolean makeMove(GameAction action) {
-
         if (action instanceof WizardBidAction) {
-            // gets the ArrayList of integers that contains each player's bids from WizardGameState
-            state.getPlayerBids().add(state.getPlayerTurn(), ((WizardBidAction) action).getBidNum());
-            //UPDAT ETURN IN STATE BEFORE RETURNING TRUE
-            return true;
-        } else if (action instanceof WizardPlayAction) {
-            // get the suit and value of the player's hand
-            WizardPlayAction tm = (WizardPlayAction) action;
-            //int cardValue = tm.getCardValue();
-            //String cardSuit = tm.getCardSuit();
-            ArrayList<WizardCards> playershand = new ArrayList<WizardCards>();
-            //playershand = state.getCurrentHand();
-
-            // get the id of our player
-            int playerId = getPlayerIdx(tm.getPlayer());
-
-            //if the player tries to play a card when it is not their turn, indicate an illegal move
-            if (playerId != state.getPlayerTurn()) {
+            if (((WizardBidAction) action).getBidNum() <= state.getRoundNum()) {
+                // gets the ArrayList of integers that contains each player's bids from WizardGameState
+                state.getPlayerBids().add(state.getPlayerTurn(), ((WizardBidAction) action).getBidNum());
+                return true;
+            } else {
                 return false;
             }
-                // get the id of the player whose move it is
-                int whoseMove = state.getPlayerTurn();
+        } else if (action instanceof WizardPlayAction) {
+            WizardPlayer myPlayer = state.getPlayerInfo(state.getPlayerTurn());
+            WizardCards cardToPlay = ((WizardPlayAction) action).getCardToPlay();
 
-                //place the player's selected card in the middle
-                //state.setCardPlayed(cardValue, cardSuit, playershand);
-
-                // make it the other player's turn
-                state.setPlayerTurn(whoseMove++);
-
-                // return true, indicating the it was a legal move
+            if (myPlayer.getCurrentHand().contains(cardToPlay)) {
+                myPlayer.getCurrentHand().remove(cardToPlay);
+                state.getCardsPlayed().add(cardToPlay);
                 return true;
+            } else {
+                return false;
             }
-            return false;
         }
+        return false;
+    }
 }

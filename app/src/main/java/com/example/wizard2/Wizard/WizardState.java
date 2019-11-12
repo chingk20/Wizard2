@@ -16,7 +16,7 @@ public class WizardState extends GameState {
     public int roundNum;
 
     private ArrayList<WizardCards> deck = new ArrayList<>();
-    private ArrayList<String> cardsPlayed = new ArrayList<>();
+    private ArrayList<WizardCards> cardsPlayed = new ArrayList<>();
     private ArrayList<WizardPlayer> listOfPlayers = new ArrayList<WizardPlayer>();
     private ArrayList<Integer> playerBids = new ArrayList<>();
 
@@ -169,7 +169,9 @@ public class WizardState extends GameState {
         return listOfPlayers.get(playerID);
     }
 
-    public ArrayList getPlayerBids(){return playerBids;}
+    public ArrayList<Integer> getPlayerBids(){return playerBids;}
+
+    public ArrayList<WizardCards> getCardsPlayed() {return cardsPlayed;}
 
     public void setPlayerBids(ArrayList newPlayerBids){this.playerBids = newPlayerBids;}
 }
