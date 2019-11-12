@@ -2,7 +2,7 @@ package com.example.wizard2.Wizard;
 
 import java.util.ArrayList;
 
-public class WizardPlayer extends WizardState {
+public class WizardPlayer {
     private int playerID;
     private int playerScore;
     private int runningTotal;
@@ -58,5 +58,5 @@ public class WizardPlayer extends WizardState {
     public int getPlayerScore() { return playerScore; }
 
 
-    public ArrayList getCurrentHand() {return currentHand;}
+    public ArrayList<WizardCards> getCurrentHand() {return currentHand;}
 }

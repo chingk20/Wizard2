@@ -103,6 +103,7 @@ public class WizardLocalGame extends LocalGame {
         if (action instanceof WizardBidAction) {
             // gets the ArrayList of integers that contains each player's bids from WizardGameState
             state.getPlayerBids().add(state.getPlayerTurn(), ((WizardBidAction) action).getBidNum());
+            //UPDAT ETURN IN STATE BEFORE RETURNING TRUE
             return true;
         }
         return false;

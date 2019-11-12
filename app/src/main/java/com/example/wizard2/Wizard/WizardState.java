@@ -20,24 +20,25 @@ public class WizardState extends GameState {
     private ArrayList<WizardPlayer> listOfPlayers = new ArrayList<WizardPlayer>();
     private ArrayList<Integer> playerBids = new ArrayList<>();
 
-    WizardPlayer player0 = new WizardPlayer(0, "Player 0");
-    WizardPlayer player1 = new WizardPlayer(1, "Player 1");
-    WizardPlayer player2 = new WizardPlayer(2, "Player 2");
-    WizardPlayer player3 = new WizardPlayer(3, "Player 3");
+    WizardPlayer currentPlayer;
+    WizardPlayer player0;// = new WizardPlayer(0, "Player 0");
+    WizardPlayer player1;// = new WizardPlayer(1, "Player 1");
+    WizardPlayer player2;// = new WizardPlayer(2, "Player 2");
+    WizardPlayer player3 ;//= new WizardPlayer(3, "Player 3");
 
     public WizardState(){
         Log.i("deck", "i am in wizard state");
-        this.playerTurn = 0; //player 0 will go first
-        this.gameStage = 0;      //starts at game state 0: bidding phase
-        this.roundNum = 1;
-
         listOfPlayers.add(player3);
         listOfPlayers.add(player0);
         listOfPlayers.add(player1);
         listOfPlayers.add(player2);
 
-        makeCards();
-        dealDeck(3);
+        this.playerTurn = 0; //player 0 will go first
+        this.gameStage = 0;      //starts at game state 0: bidding phase
+        this.roundNum = 1;
+
+        this.makeCards();
+        this.dealDeck(3);
     }
 
     public void makeCards(){
@@ -135,9 +136,12 @@ public class WizardState extends GameState {
         trumpCard = myState.trumpCard;
         roundNum = myState.roundNum;
 
-        //is this a deep copy?
-        deck = myState.deck;
-        listOfPlayers = myState.listOfPlayers;
+        for (WizardCards card : myState.deck){
+            deck.add(card);
+        }
+        for (WizardPlayer player : myState.listOfPlayers){
+            listOfPlayers.add(player);
+        }
     }
 
     public int getPlayerTurn() {return playerTurn; }

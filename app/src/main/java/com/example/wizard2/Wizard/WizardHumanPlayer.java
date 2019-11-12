@@ -15,6 +15,9 @@ import com.example.wizard2.GameFramework.infoMessage.GameInfo;
 import com.example.wizard2.GameFramework.infoMessage.IllegalMoveInfo;
 import com.example.wizard2.R;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.OnItemSelectedListener, View.OnClickListener , View.OnTouchListener{
     private WizardCards cardToPlay;
 
@@ -47,6 +50,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
     private ImageView card4Played = null;
     private ImageView cardTrump = null;
 
+    private ArrayList<ImageView> guiCards = new ArrayList<ImageView>();
     /**
      * constructor
      *
@@ -88,141 +92,144 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 //            this.player2Score.setText("Player 2 Total Score: " + (((WizardPlayer) info).getPlayerScore()));
 //            this.player3Score.setText("Player 3 Total Score: " + (((WizardPlayer) info).getPlayerScore()));
 //            this.player4Score.setText("Player 4 Total Score: " + (((WizardPlayer) info).getPlayerScore()));
-
-            //need to change this to use wizardcard objects
-            switch (((WizardCards) info).getCardSuit()) {
-                case "diamond":
-                    switch (((WizardCards) info).getCardNumber()) {
-                        case 0:
-                            this.card1.setImageResource(R.drawable.jester);
-                        case 2:
-                            this.card1.setImageResource(R.drawable.two_diamond);
-                        case 3:
-                            this.card1.setImageResource(R.drawable.three_diamond);
-                        case 4:
-                            this.card1.setImageResource(R.drawable.four_diamond);
-                        case 5:
-                            this.card1.setImageResource(R.drawable.five_diamond);
-                        case 6:
-                            this.card1.setImageResource(R.drawable.six_diamond);
-                        case 7:
-                            this.card1.setImageResource(R.drawable.seven_diamond);
-                        case 8:
-                            this.card1.setImageResource(R.drawable.eight_diamond);
-                        case 9:
-                            this.card1.setImageResource(R.drawable.nine_diamond);
-                        case 10:
-                            this.card1.setImageResource(R.drawable.ten_diamond);
-                        case 11:
-                            this.card1.setImageResource(R.drawable.jack_diamond);
-                        case 12:
-                            this.card1.setImageResource(R.drawable.queen_diamond);
-                        case 13:
-                            this.card1.setImageResource(R.drawable.king_diamond);
-                        case 14:
-                            this.card1.setImageResource(R.drawable.ace_diamond);
-                        case 15:
-                            this.card1.setImageResource(R.drawable.wizard);
+            for (ImageView guiCard : guiCards) {
+                //need to change this to use wizardcard objects
+                for (WizardCards card : ((WizardState) info).getPlayerInfo(0).getCurrentHand()) {
+                    switch (card.getCardSuit()) {
+                        case "diamond":
+                            switch (card.getCardValue()) {
+                                case 0:
+                                    guiCard.setImageResource(R.drawable.jester);
+                                case 2:
+                                    guiCard.setImageResource(R.drawable.two_diamond);
+                                case 3:
+                                    guiCard.setImageResource(R.drawable.three_diamond);
+                                case 4:
+                                    guiCard.setImageResource(R.drawable.four_diamond);
+                                case 5:
+                                    guiCard.setImageResource(R.drawable.five_diamond);
+                                case 6:
+                                    guiCard.setImageResource(R.drawable.six_diamond);
+                                case 7:
+                                    guiCard.setImageResource(R.drawable.seven_diamond);
+                                case 8:
+                                    guiCard.setImageResource(R.drawable.eight_diamond);
+                                case 9:
+                                    guiCard.setImageResource(R.drawable.nine_diamond);
+                                case 10:
+                                    guiCard.setImageResource(R.drawable.ten_diamond);
+                                case 11:
+                                    guiCard.setImageResource(R.drawable.jack_diamond);
+                                case 12:
+                                    guiCard.setImageResource(R.drawable.queen_diamond);
+                                case 13:
+                                    guiCard.setImageResource(R.drawable.king_diamond);
+                                case 14:
+                                    guiCard.setImageResource(R.drawable.ace_diamond);
+                                case 15:
+                                    guiCard.setImageResource(R.drawable.wizard);
+                            }
+                        case "heart":
+                            switch (card.getCardValue()) {
+                                case 0:
+                                    guiCard.setImageResource(R.drawable.jester);
+                                case 2:
+                                    guiCard.setImageResource(R.drawable.two_heart);
+                                case 3:
+                                    guiCard.setImageResource(R.drawable.three_heart);
+                                case 4:
+                                    guiCard.setImageResource(R.drawable.four_heart);
+                                case 5:
+                                    guiCard.setImageResource(R.drawable.five_heart);
+                                case 6:
+                                    guiCard.setImageResource(R.drawable.six_heart);
+                                case 7:
+                                    guiCard.setImageResource(R.drawable.seven_heart);
+                                case 8:
+                                    guiCard.setImageResource(R.drawable.eight_heart);
+                                case 9:
+                                    guiCard.setImageResource(R.drawable.nine_heart);
+                                case 10:
+                                    guiCard.setImageResource(R.drawable.ten_heart);
+                                case 11:
+                                    guiCard.setImageResource(R.drawable.jack_heart);
+                                case 12:
+                                    guiCard.setImageResource(R.drawable.queen_heart);
+                                case 13:
+                                    guiCard.setImageResource(R.drawable.king_heart);
+                                case 14:
+                                    guiCard.setImageResource(R.drawable.ace_heart);
+                                case 15:
+                                    guiCard.setImageResource(R.drawable.wizard);
+                            }
+                        case "spade":
+                            switch (card.getCardValue()) {
+                                case 0:
+                                    guiCard.setImageResource(R.drawable.jester);
+                                case 2:
+                                    guiCard.setImageResource(R.drawable.two_spade);
+                                case 3:
+                                    guiCard.setImageResource(R.drawable.three_spade);
+                                case 4:
+                                    guiCard.setImageResource(R.drawable.four_spade);
+                                case 5:
+                                    guiCard.setImageResource(R.drawable.five_spade);
+                                case 6:
+                                    guiCard.setImageResource(R.drawable.six_spade);
+                                case 7:
+                                    guiCard.setImageResource(R.drawable.seven_spade);
+                                case 8:
+                                    guiCard.setImageResource(R.drawable.eight_spade);
+                                case 9:
+                                    guiCard.setImageResource(R.drawable.nine_spade);
+                                case 10:
+                                    guiCard.setImageResource(R.drawable.ten_spade);
+                                case 11:
+                                    guiCard.setImageResource(R.drawable.jack_spade);
+                                case 12:
+                                    guiCard.setImageResource(R.drawable.queen_spade);
+                                case 13:
+                                    guiCard.setImageResource(R.drawable.king_spade);
+                                case 14:
+                                    guiCard.setImageResource(R.drawable.ace_spade);
+                                case 15:
+                                    guiCard.setImageResource(R.drawable.wizard);
+                            }
+                        case "club":
+                            switch (card.getCardValue()) {
+                                case 0:
+                                    guiCard.setImageResource(R.drawable.jester);
+                                case 2:
+                                    guiCard.setImageResource(R.drawable.two_club);
+                                case 3:
+                                    guiCard.setImageResource(R.drawable.three_club);
+                                case 4:
+                                    guiCard.setImageResource(R.drawable.four_club);
+                                case 5:
+                                    guiCard.setImageResource(R.drawable.five_club);
+                                case 6:
+                                    guiCard.setImageResource(R.drawable.six_club);
+                                case 7:
+                                    guiCard.setImageResource(R.drawable.seven_club);
+                                case 8:
+                                    guiCard.setImageResource(R.drawable.eight_club);
+                                case 9:
+                                    guiCard.setImageResource(R.drawable.nine_club);
+                                case 10:
+                                    guiCard.setImageResource(R.drawable.ten_club);
+                                case 11:
+                                    guiCard.setImageResource(R.drawable.jack_club);
+                                case 12:
+                                    guiCard.setImageResource(R.drawable.queen_club);
+                                case 13:
+                                    guiCard.setImageResource(R.drawable.king_club);
+                                case 14:
+                                    guiCard.setImageResource(R.drawable.ace_club);
+                                case 15:
+                                    guiCard.setImageResource(R.drawable.wizard);
+                            }
                     }
-                case "heart":
-                    switch (((WizardCards) info).getCardNumber()) {
-                        case 0:
-                            this.card1.setImageResource(R.drawable.jester);
-                        case 2:
-                            this.card1.setImageResource(R.drawable.two_heart);
-                        case 3:
-                            this.card1.setImageResource(R.drawable.three_heart);
-                        case 4:
-                            this.card1.setImageResource(R.drawable.four_heart);
-                        case 5:
-                            this.card1.setImageResource(R.drawable.five_heart);
-                        case 6:
-                            this.card1.setImageResource(R.drawable.six_heart);
-                        case 7:
-                            this.card1.setImageResource(R.drawable.seven_heart);
-                        case 8:
-                            this.card1.setImageResource(R.drawable.eight_heart);
-                        case 9:
-                            this.card1.setImageResource(R.drawable.nine_heart);
-                        case 10:
-                            this.card1.setImageResource(R.drawable.ten_heart);
-                        case 11:
-                            this.card1.setImageResource(R.drawable.jack_heart);
-                        case 12:
-                            this.card1.setImageResource(R.drawable.queen_heart);
-                        case 13:
-                            this.card1.setImageResource(R.drawable.king_heart);
-                        case 14:
-                            this.card1.setImageResource(R.drawable.ace_heart);
-                        case 15:
-                            this.card1.setImageResource(R.drawable.wizard);
-                    }
-                case "spade":
-                    switch (((WizardCards) info).getCardNumber()) {
-                        case 0:
-                            this.card1.setImageResource(R.drawable.jester);
-                        case 2:
-                            this.card1.setImageResource(R.drawable.two_spade);
-                        case 3:
-                            this.card1.setImageResource(R.drawable.three_spade);
-                        case 4:
-                            this.card1.setImageResource(R.drawable.four_spade);
-                        case 5:
-                            this.card1.setImageResource(R.drawable.five_spade);
-                        case 6:
-                            this.card1.setImageResource(R.drawable.six_spade);
-                        case 7:
-                            this.card1.setImageResource(R.drawable.seven_spade);
-                        case 8:
-                            this.card1.setImageResource(R.drawable.eight_spade);
-                        case 9:
-                            this.card1.setImageResource(R.drawable.nine_spade);
-                        case 10:
-                            this.card1.setImageResource(R.drawable.ten_spade);
-                        case 11:
-                            this.card1.setImageResource(R.drawable.jack_spade);
-                        case 12:
-                            this.card1.setImageResource(R.drawable.queen_spade);
-                        case 13:
-                            this.card1.setImageResource(R.drawable.king_spade);
-                        case 14:
-                            this.card1.setImageResource(R.drawable.ace_spade);
-                        case 15:
-                            this.card1.setImageResource(R.drawable.wizard);
-                    }
-                case "club":
-                    switch (((WizardCards) info).getCardNumber()) {
-                        case 0:
-                            this.card1.setImageResource(R.drawable.jester);
-                        case 2:
-                            this.card1.setImageResource(R.drawable.two_club);
-                        case 3:
-                            this.card1.setImageResource(R.drawable.three_club);
-                        case 4:
-                            this.card1.setImageResource(R.drawable.four_club);
-                        case 5:
-                            this.card1.setImageResource(R.drawable.five_club);
-                        case 6:
-                            this.card1.setImageResource(R.drawable.six_club);
-                        case 7:
-                            this.card1.setImageResource(R.drawable.seven_club);
-                        case 8:
-                            this.card1.setImageResource(R.drawable.eight_club);
-                        case 9:
-                            this.card1.setImageResource(R.drawable.nine_club);
-                        case 10:
-                            this.card1.setImageResource(R.drawable.ten_club);
-                        case 11:
-                            this.card1.setImageResource(R.drawable.jack_club);
-                        case 12:
-                            this.card1.setImageResource(R.drawable.queen_club);
-                        case 13:
-                            this.card1.setImageResource(R.drawable.king_club);
-                        case 14:
-                            this.card1.setImageResource(R.drawable.ace_club);
-                        case 15:
-                            this.card1.setImageResource(R.drawable.wizard);
-                    }
+                }
             }
         }
     }
@@ -262,6 +269,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
         card8 = (ImageView) myActivity.findViewById(R.id.imageView8);
         card8.setOnTouchListener(this);
 
+        Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8);
     }
 
     /**
