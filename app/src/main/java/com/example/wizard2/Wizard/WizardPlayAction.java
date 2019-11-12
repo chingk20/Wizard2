@@ -14,4 +14,5 @@ public class WizardPlayAction extends GameAction {
     public WizardCards getCardToPlay() {
         return cardToPlay;
     }
+
 }

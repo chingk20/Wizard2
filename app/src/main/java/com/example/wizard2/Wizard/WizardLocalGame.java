@@ -4,6 +4,8 @@ import com.example.wizard2.GameFramework.GamePlayer;
 import com.example.wizard2.GameFramework.LocalGame;
 import com.example.wizard2.GameFramework.actionMessage.GameAction;
 
+import java.util.ArrayList;
+
 public class WizardLocalGame extends LocalGame {
     //Tag for logging
     private static final String TAG = "WizardLocalGame";
@@ -14,9 +16,8 @@ public class WizardLocalGame extends LocalGame {
      * Constructor for the WizardLocalGame.
      */
     public WizardLocalGame() {
-
-        // perform superclass initialization
-        super();
+        //perform superclass initialization
+        //super();
 
         // create a new, unfilled-in WizardState object
         state = new WizardState();
@@ -26,12 +27,10 @@ public class WizardLocalGame extends LocalGame {
      * Check if the game is over. It is over, return a string that tells
      * who the winner(s), if any, are. If the game is not over, return null;
      *
-     * @return
-     * 		a message that tells who has won the game, or null if the
-     * 		game is not over
+     * @return a message that tells who has won the game, or null if the
+     * game is not over
      */
     @Override
-    //CHANGED
     protected String checkIfGameOver() {
         //Game is over after 15 rounds
         if (state.roundNum == 16) {
@@ -50,8 +49,7 @@ public class WizardLocalGame extends LocalGame {
             } else {
                 return ("There is a tie");
             }
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -62,8 +60,7 @@ public class WizardLocalGame extends LocalGame {
      * this method should remove any information from the game that the player is not
      * allowed to know.
      *
-     * @param p
-     * 			the player to notify
+     * @param p the player to notify
      */
     @Override
     protected void sendUpdatedStateTo(GamePlayer p) {
@@ -76,10 +73,8 @@ public class WizardLocalGame extends LocalGame {
      * Tell whether the given player is allowed to make a move at the
      * present point in the game.
      *
-     * @param playerIdx
-     * 		the player's player-number (ID)
-     * @return
-     * 		true iff the player is allowed to move
+     * @param playerIdx the player's player-number (ID)
+     * @return true iff the player is allowed to move
      */
     protected boolean canMove(int playerIdx) {
         if (state.getPlayerTurn() == playerIdx) {
@@ -92,10 +87,8 @@ public class WizardLocalGame extends LocalGame {
     /**
      * Makes a move on behalf of a player.
      *
-     * @param action
-     * 			The move that the player has sent to the game
-     * @return
-     * 			Tells whether the move was a legal one.
+     * @param action The move that the player has sent to the game
+     * @return Tells whether the move was a legal one.
      */
     @Override
     protected boolean makeMove(GameAction action) {
@@ -105,46 +98,33 @@ public class WizardLocalGame extends LocalGame {
             state.getPlayerBids().add(state.getPlayerTurn(), ((WizardBidAction) action).getBidNum());
             //UPDAT ETURN IN STATE BEFORE RETURNING TRUE
             return true;
-        }
-        return false;
+        } else if (action instanceof WizardPlayAction) {
+            // get the suit and value of the player's hand
+            WizardPlayAction tm = (WizardPlayAction) action;
+            //int cardValue = tm.getCardValue();
+            //String cardSuit = tm.getCardSuit();
+            ArrayList<WizardCards> playershand = new ArrayList<WizardCards>();
+            //playershand = state.getCurrentHand();
 
+            // get the id of our player
+            int playerId = getPlayerIdx(tm.getPlayer());
 
-/*
-        // get the suit and value of the player's hand
-        WizardMoveAction tm = (WizardMoveAction) action;
-        int cardValue = tm.getCardValue();
-        String cardSuit = tm.getCardSuit();
+            //if the player tries to play a card when it is not their turn, indicate an illegal move
+            if (playerId != state.getPlayerTurn()) {
+                return false;
+            }
+                // get the id of the player whose move it is
+                int whoseMove = state.getPlayerTurn();
 
-        // get the id of our player
-        int playerId = getPlayerIdx(tm.getPlayer());
+                //place the player's selected card in the middle
+                //state.setCardPlayed(cardValue, cardSuit, playershand);
 
-        //if the player tries to play a card when it is not their turn, indicate an illegal move
-        if(playerId != state.getPlayerTurn()){
+                // make it the other player's turn
+                state.setPlayerTurn(whoseMove++);
+
+                // return true, indicating the it was a legal move
+                return true;
+            }
             return false;
         }
-
-        // if that space is not blank, indicate an illegal move
-        //if (state.getPiece(row, col) != ' ') {
-        //    return false;
-        //}
-
-        // get the id of the player whose move it is
-        int whoseMove = state.getPlayerTurn();
-
-        //place the player's selected card in the middle
-        state.setCardPlayed(cardValue, cardSuit, player's hand);
-        // place the player's piece on the selected square
-        state.setPiece(row, col, mark[playerId]);
-
-        // make it the other player's turn
-        state.setPlayerTurn(whoseMove++);
-
-        // bump the move count
-        moveCount++;
-
-        // return true, indicating the it was a legal move
-        return true;
-*/
-    }
-
 }
