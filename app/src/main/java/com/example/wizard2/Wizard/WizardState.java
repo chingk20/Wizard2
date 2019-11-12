@@ -30,6 +30,7 @@ public class WizardState extends GameState {
         this.playerTurn = 0; //player 0 will go first
         this.gameStage = 0;      //starts at game state 0: bidding phase
         this.roundNum = 1;
+        this.trumpCard = null;
 
         listOfPlayers.add(player3);
         listOfPlayers.add(player0);
@@ -37,7 +38,7 @@ public class WizardState extends GameState {
         listOfPlayers.add(player2);
 
         makeCards();
-        dealDeck(3);
+        //dealDeck(3);
     }
 
     public void makeCards(){
@@ -112,7 +113,6 @@ public class WizardState extends GameState {
 
     }
 
-
     //deals a card out to a player
     public void dealDeck(int numTricks){
         Log.i("deck", "i am in deal deck");
@@ -140,6 +140,10 @@ public class WizardState extends GameState {
         listOfPlayers = myState.listOfPlayers;
     }
 
+    public void setCardsPlayed(int cardValue, String cardSuit, ArrayList playershand){
+
+    }
+
     public int getPlayerTurn() {return playerTurn; }
 
     public int getGameStage() { return gameStage; }
@@ -155,10 +159,6 @@ public class WizardState extends GameState {
     public void setTrumpCard(String trumpCard) { this.trumpCard = trumpCard; }
 
     public void setRoundNum(int roundNum) { this.roundNum = roundNum; }
-
-    //public void setCardNumber(int cardNumber) {this.cardNumber = cardNumber; }
-
-    //public void setCardSuit(String cardSuit) {this.cardSuit = cardSuit; }
 
     //Get information from a certain player, must provide the desired player number
     public WizardPlayer getPlayerInfo(int playerID){

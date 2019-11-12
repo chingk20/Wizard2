@@ -8,6 +8,7 @@ import com.example.wizard2.GameFramework.utilities.Logger;
 public class WizardDumbAI extends GameComputerPlayer {
 
     private int bidNum;
+    private int randomCard;
     private WizardCards cardToPlay;
     WizardPlayAction myPlay = new WizardPlayAction(this, cardToPlay);
     WizardBidAction myBid = new WizardBidAction(this, bidNum);
@@ -29,13 +30,11 @@ public class WizardDumbAI extends GameComputerPlayer {
         // if it was a "not your turn" message, just ignore it
         if (info instanceof NotYourTurnInfo) return;
         Logger.log("WizardComputer", "My turn!");
-        // pick x and y positions at random (0-2)
-        int xVal = (int)(3*Math.random());
-        int yVal = (int)(3*Math.random());
 
         if (info instanceof WizardState){
             bidNum = (int)((((WizardState) info).getRoundNum()+1)*Math.random());
-            //cardToPlay = (int)((((WizardState) info).getRoundNum()+1)*Math.random());
+            randomCard = (int)((((WizardState) info).getRoundNum()+1)*Math.random());
+            //cardToPlay = ;
         }
 
         // delay for a second to make opponent think we're thinking
@@ -47,7 +46,6 @@ public class WizardDumbAI extends GameComputerPlayer {
         // we'll end up here again (and possibly again, and again). At some point,
         // we'll end up randomly pick a move that is legal.
         Logger.log("WizardComputer", "Sending move");
-        //game.sendAction(new WizardMoveAction(this, yVal, xVal));
         super.game.sendAction(myBid);
         super.game.sendAction(myPlay);
 

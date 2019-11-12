@@ -13,11 +13,13 @@ import com.example.wizard2.GameFramework.GameHumanPlayer;
 import com.example.wizard2.GameFramework.GameMainActivity;
 import com.example.wizard2.GameFramework.infoMessage.GameInfo;
 import com.example.wizard2.GameFramework.infoMessage.IllegalMoveInfo;
+import com.example.wizard2.GameFramework.infoMessage.NotYourTurnInfo;
+import com.example.wizard2.GameFramework.utilities.Logger;
 import com.example.wizard2.R;
 
-public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.OnItemSelectedListener, View.OnClickListener , View.OnTouchListener{
-    private WizardCards cardToPlay;
+public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.OnItemSelectedListener, View.OnClickListener , View.OnTouchListener {
 
+    private WizardCards cardToPlay;
     private int bidNum = 0;
 
     WizardPlayAction myPlay = new WizardPlayAction(this, cardToPlay);
@@ -58,6 +60,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 
     @Override
     public View getTopView() {
+        //return myActivity.findViewById(R.id.top_gui_layout);
         return null;
     }
 
@@ -74,157 +77,156 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 //        if (info instanceof IllegalMoveInfo || info instanceof NotYourTurnInfo) {
 //            // if the move was out of turn or otherwise illegal, flash the screen
 //            surfaceView.flash(Color.RED, 50);
-//        } else if (!(info instanceof WizardGameState))
+//        } else if (!(info instanceof WizardState))
 //            // if we do not have a WizardState, ignore
 //            return;
 //        else {
-//            surfaceView.setState((WizardGameState) info);
+//            surfaceView.setState((WizardState) info);
 //            surfaceView.invalidate();
 //            Logger.log(TAG, "receiving");
-//       }
+//        }
 
-        if (info instanceof WizardState) {
+//        if (info instanceof WizardState) {
 //            this.player1Score.setText("Player 1 Total Score: " + (((WizardPlayer) info).getPlayerScore()));
 //            this.player2Score.setText("Player 2 Total Score: " + (((WizardPlayer) info).getPlayerScore()));
 //            this.player3Score.setText("Player 3 Total Score: " + (((WizardPlayer) info).getPlayerScore()));
 //            this.player4Score.setText("Player 4 Total Score: " + (((WizardPlayer) info).getPlayerScore()));
-
-            //need to change this to use wizardcard objects
-            switch (((WizardCards) info).getCardSuit()) {
-                case "diamond":
-                    switch (((WizardCards) info).getCardNumber()) {
-                        case 0:
-                            this.card1.setImageResource(R.drawable.jester);
-                        case 2:
-                            this.card1.setImageResource(R.drawable.two_diamond);
-                        case 3:
-                            this.card1.setImageResource(R.drawable.three_diamond);
-                        case 4:
-                            this.card1.setImageResource(R.drawable.four_diamond);
-                        case 5:
-                            this.card1.setImageResource(R.drawable.five_diamond);
-                        case 6:
-                            this.card1.setImageResource(R.drawable.six_diamond);
-                        case 7:
-                            this.card1.setImageResource(R.drawable.seven_diamond);
-                        case 8:
-                            this.card1.setImageResource(R.drawable.eight_diamond);
-                        case 9:
-                            this.card1.setImageResource(R.drawable.nine_diamond);
-                        case 10:
-                            this.card1.setImageResource(R.drawable.ten_diamond);
-                        case 11:
-                            this.card1.setImageResource(R.drawable.jack_diamond);
-                        case 12:
-                            this.card1.setImageResource(R.drawable.queen_diamond);
-                        case 13:
-                            this.card1.setImageResource(R.drawable.king_diamond);
-                        case 14:
-                            this.card1.setImageResource(R.drawable.ace_diamond);
-                        case 15:
-                            this.card1.setImageResource(R.drawable.wizard);
-                    }
-                case "heart":
-                    switch (((WizardCards) info).getCardNumber()) {
-                        case 0:
-                            this.card1.setImageResource(R.drawable.jester);
-                        case 2:
-                            this.card1.setImageResource(R.drawable.two_heart);
-                        case 3:
-                            this.card1.setImageResource(R.drawable.three_heart);
-                        case 4:
-                            this.card1.setImageResource(R.drawable.four_heart);
-                        case 5:
-                            this.card1.setImageResource(R.drawable.five_heart);
-                        case 6:
-                            this.card1.setImageResource(R.drawable.six_heart);
-                        case 7:
-                            this.card1.setImageResource(R.drawable.seven_heart);
-                        case 8:
-                            this.card1.setImageResource(R.drawable.eight_heart);
-                        case 9:
-                            this.card1.setImageResource(R.drawable.nine_heart);
-                        case 10:
-                            this.card1.setImageResource(R.drawable.ten_heart);
-                        case 11:
-                            this.card1.setImageResource(R.drawable.jack_heart);
-                        case 12:
-                            this.card1.setImageResource(R.drawable.queen_heart);
-                        case 13:
-                            this.card1.setImageResource(R.drawable.king_heart);
-                        case 14:
-                            this.card1.setImageResource(R.drawable.ace_heart);
-                        case 15:
-                            this.card1.setImageResource(R.drawable.wizard);
-                    }
-                case "spade":
-                    switch (((WizardCards) info).getCardNumber()) {
-                        case 0:
-                            this.card1.setImageResource(R.drawable.jester);
-                        case 2:
-                            this.card1.setImageResource(R.drawable.two_spade);
-                        case 3:
-                            this.card1.setImageResource(R.drawable.three_spade);
-                        case 4:
-                            this.card1.setImageResource(R.drawable.four_spade);
-                        case 5:
-                            this.card1.setImageResource(R.drawable.five_spade);
-                        case 6:
-                            this.card1.setImageResource(R.drawable.six_spade);
-                        case 7:
-                            this.card1.setImageResource(R.drawable.seven_spade);
-                        case 8:
-                            this.card1.setImageResource(R.drawable.eight_spade);
-                        case 9:
-                            this.card1.setImageResource(R.drawable.nine_spade);
-                        case 10:
-                            this.card1.setImageResource(R.drawable.ten_spade);
-                        case 11:
-                            this.card1.setImageResource(R.drawable.jack_spade);
-                        case 12:
-                            this.card1.setImageResource(R.drawable.queen_spade);
-                        case 13:
-                            this.card1.setImageResource(R.drawable.king_spade);
-                        case 14:
-                            this.card1.setImageResource(R.drawable.ace_spade);
-                        case 15:
-                            this.card1.setImageResource(R.drawable.wizard);
-                    }
-                case "club":
-                    switch (((WizardCards) info).getCardNumber()) {
-                        case 0:
-                            this.card1.setImageResource(R.drawable.jester);
-                        case 2:
-                            this.card1.setImageResource(R.drawable.two_club);
-                        case 3:
-                            this.card1.setImageResource(R.drawable.three_club);
-                        case 4:
-                            this.card1.setImageResource(R.drawable.four_club);
-                        case 5:
-                            this.card1.setImageResource(R.drawable.five_club);
-                        case 6:
-                            this.card1.setImageResource(R.drawable.six_club);
-                        case 7:
-                            this.card1.setImageResource(R.drawable.seven_club);
-                        case 8:
-                            this.card1.setImageResource(R.drawable.eight_club);
-                        case 9:
-                            this.card1.setImageResource(R.drawable.nine_club);
-                        case 10:
-                            this.card1.setImageResource(R.drawable.ten_club);
-                        case 11:
-                            this.card1.setImageResource(R.drawable.jack_club);
-                        case 12:
-                            this.card1.setImageResource(R.drawable.queen_club);
-                        case 13:
-                            this.card1.setImageResource(R.drawable.king_club);
-                        case 14:
-                            this.card1.setImageResource(R.drawable.ace_club);
-                        case 15:
-                            this.card1.setImageResource(R.drawable.wizard);
-                    }
-            }
-        }
+//        }
+        //need to change this to use wizardcard objects
+//        switch (((WizardCards) info).getCardSuit()) {
+//            case "diamond":
+//                switch (((WizardCards) info).getCardNumber()) {
+//                    case 0:
+//                        this.card1.setImageResource(R.drawable.jester);
+//                    case 2:
+//                        this.card1.setImageResource(R.drawable.two_diamond);
+//                    case 3:
+//                        this.card1.setImageResource(R.drawable.three_diamond);
+//                    case 4:
+//                        this.card1.setImageResource(R.drawable.four_diamond);
+//                    case 5:
+//                        this.card1.setImageResource(R.drawable.five_diamond);
+//                    case 6:
+//                        this.card1.setImageResource(R.drawable.six_diamond);
+//                    case 7:
+//                        this.card1.setImageResource(R.drawable.seven_diamond);
+//                    case 8:
+//                        this.card1.setImageResource(R.drawable.eight_diamond);
+//                    case 9:
+//                        this.card1.setImageResource(R.drawable.nine_diamond);
+//                    case 10:
+//                        this.card1.setImageResource(R.drawable.ten_diamond);
+//                    case 11:
+//                        this.card1.setImageResource(R.drawable.jack_diamond);
+//                    case 12:
+//                        this.card1.setImageResource(R.drawable.queen_diamond);
+//                    case 13:
+//                        this.card1.setImageResource(R.drawable.king_diamond);
+//                    case 14:
+//                        this.card1.setImageResource(R.drawable.ace_diamond);
+//                    case 15:
+//                        this.card1.setImageResource(R.drawable.wizard);
+//                }
+//            case "heart":
+//                switch (((WizardCards) info).getCardNumber()) {
+//                    case 0:
+//                        this.card1.setImageResource(R.drawable.jester);
+//                    case 2:
+//                        this.card1.setImageResource(R.drawable.two_heart);
+//                    case 3:
+//                        this.card1.setImageResource(R.drawable.three_heart);
+//                    case 4:
+//                        this.card1.setImageResource(R.drawable.four_heart);
+//                    case 5:
+//                        this.card1.setImageResource(R.drawable.five_heart);
+//                    case 6:
+//                        this.card1.setImageResource(R.drawable.six_heart);
+//                    case 7:
+//                        this.card1.setImageResource(R.drawable.seven_heart);
+//                    case 8:
+//                        this.card1.setImageResource(R.drawable.eight_heart);
+//                    case 9:
+//                        this.card1.setImageResource(R.drawable.nine_heart);
+//                    case 10:
+//                        this.card1.setImageResource(R.drawable.ten_heart);
+//                    case 11:
+//                        this.card1.setImageResource(R.drawable.jack_heart);
+//                    case 12:
+//                        this.card1.setImageResource(R.drawable.queen_heart);
+//                    case 13:
+//                        this.card1.setImageResource(R.drawable.king_heart);
+//                    case 14:
+//                        this.card1.setImageResource(R.drawable.ace_heart);
+//                    case 15:
+//                        this.card1.setImageResource(R.drawable.wizard);
+//                }
+//            case "spade":
+//                switch (((WizardCards) info).getCardNumber()) {
+//                    case 0:
+//                        this.card1.setImageResource(R.drawable.jester);
+//                    case 2:
+//                        this.card1.setImageResource(R.drawable.two_spade);
+//                    case 3:
+//                        this.card1.setImageResource(R.drawable.three_spade);
+//                    case 4:
+//                        this.card1.setImageResource(R.drawable.four_spade);
+//                    case 5:
+//                        this.card1.setImageResource(R.drawable.five_spade);
+//                    case 6:
+//                        this.card1.setImageResource(R.drawable.six_spade);
+//                    case 7:
+//                        this.card1.setImageResource(R.drawable.seven_spade);
+//                    case 8:
+//                        this.card1.setImageResource(R.drawable.eight_spade);
+//                    case 9:
+//                        this.card1.setImageResource(R.drawable.nine_spade);
+//                    case 10:
+//                        this.card1.setImageResource(R.drawable.ten_spade);
+//                    case 11:
+//                        this.card1.setImageResource(R.drawable.jack_spade);
+//                    case 12:
+//                        this.card1.setImageResource(R.drawable.queen_spade);
+//                    case 13:
+//                        this.card1.setImageResource(R.drawable.king_spade);
+//                    case 14:
+//                        this.card1.setImageResource(R.drawable.ace_spade);
+//                    case 15:
+//                        this.card1.setImageResource(R.drawable.wizard);
+//                }
+//            case "club":
+//                switch (((WizardCards) info).getCardNumber()) {
+//                    case 0:
+//                        this.card1.setImageResource(R.drawable.jester);
+//                    case 2:
+//                        this.card1.setImageResource(R.drawable.two_club);
+//                    case 3:
+//                        this.card1.setImageResource(R.drawable.three_club);
+//                    case 4:
+//                        this.card1.setImageResource(R.drawable.four_club);
+//                    case 5:
+//                        this.card1.setImageResource(R.drawable.five_club);
+//                    case 6:
+//                        this.card1.setImageResource(R.drawable.six_club);
+//                    case 7:
+//                        this.card1.setImageResource(R.drawable.seven_club);
+//                    case 8:
+//                        this.card1.setImageResource(R.drawable.eight_club);
+//                    case 9:
+//                        this.card1.setImageResource(R.drawable.nine_club);
+//                    case 10:
+//                        this.card1.setImageResource(R.drawable.ten_club);
+//                    case 11:
+//                        this.card1.setImageResource(R.drawable.jack_club);
+//                    case 12:
+//                        this.card1.setImageResource(R.drawable.queen_club);
+//                    case 13:
+//                        this.card1.setImageResource(R.drawable.king_club);
+//                    case 14:
+//                        this.card1.setImageResource(R.drawable.ace_club);
+//                    case 15:
+//                        this.card1.setImageResource(R.drawable.wizard);
+//                }
+//        }
     }
 
     /**
@@ -245,22 +247,22 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 
         SurfaceView mySurfaceView = (SurfaceView) myActivity.findViewById((R.id.surfaceView));
 
-        card1 = (ImageView) myActivity.findViewById(R.id.imageView1);
-        card1.setOnTouchListener(this);
-        card2 = (ImageView) myActivity.findViewById(R.id.imageView2);
-        card2.setOnTouchListener(this);
-        card3 = (ImageView) myActivity.findViewById(R.id.imageView3);
-        card3.setOnTouchListener(this);
-        card4 = (ImageView) myActivity.findViewById(R.id.imageView4);
-        card4.setOnTouchListener(this);
-        card5 = (ImageView) myActivity.findViewById(R.id.imageView5);
-        card5.setOnTouchListener(this);
-        card6 = (ImageView) myActivity.findViewById(R.id.imageView6);
-        card6.setOnTouchListener(this);
-        card7 = (ImageView) myActivity.findViewById(R.id.imageView7);
-        card7.setOnTouchListener(this);
-        card8 = (ImageView) myActivity.findViewById(R.id.imageView8);
-        card8.setOnTouchListener(this);
+//        this.card1 = (ImageView) myActivity.findViewById(R.id.imageView1);
+//        card1.setOnTouchListener(this);
+//        this.card2 = (ImageView) myActivity.findViewById(R.id.imageView2);
+//        card2.setOnTouchListener(this);
+//        this.card3 = (ImageView) myActivity.findViewById(R.id.imageView3);
+//        card3.setOnTouchListener(this);
+//        this.card4 = (ImageView) myActivity.findViewById(R.id.imageView4);
+//        card4.setOnTouchListener(this);
+//        this.card5 = (ImageView) myActivity.findViewById(R.id.imageView5);
+//        card5.setOnTouchListener(this);
+//        this.card6 = (ImageView) myActivity.findViewById(R.id.imageView6);
+//        card6.setOnTouchListener(this);
+//        this.card7 = (ImageView) myActivity.findViewById(R.id.imageView7);
+//        card7.setOnTouchListener(this);
+//        this.card8 = (ImageView) myActivity.findViewById(R.id.imageView8);
+//        card8.setOnTouchListener(this);
 
     }
 
@@ -279,20 +281,19 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
      * knows what their game-position and opponents' names are.
      */
     protected void initAfterReady() {
-        myActivity.setTitle("Tic-Tac-Toe: " + allPlayerNames[0] + " vs. " + allPlayerNames[1]);
+//        myActivity.setTitle("Tic-Tac-Toe: " + allPlayerNames[0] + " vs. " + allPlayerNames[1]);
     }
 
     /*
     bid number dropdown and imageview on click listeners go here
      */
 
-
     //spinner listener for the bid dropdown menu
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        if (view.getId() == R.id.bidDropdown) {
-            bidNum = (Integer) parent.getItemAtPosition(pos);
-            super.game.sendAction(myBid);
-        }
+//        if (view.getId() == R.id.bidDropdown) {
+//            bidNum = (Integer) parent.getItemAtPosition(pos);
+//            super.game.sendAction(myBid);
+//        }
 
         //WizardHumanPlayer is like the controller, so when user interacts with dropdown and chooses a bid
         //we handle that bid here, set it equal to bidNum, and send bidNum through sendAction to the game class

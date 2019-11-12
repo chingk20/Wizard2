@@ -50,13 +50,11 @@ public class WizardPlayer extends WizardState {
 
     public void setPlayerScore(int runningTotal) { this.playerScore = playerScore + getRunningTotal(); }
 
-
     public int getBidNum() { return bidNum; }
 
     public int getRunningTotal() { return runningTotal; }
 
     public int getPlayerScore() { return playerScore; }
-
 
     public ArrayList getCurrentHand() {return currentHand;}
 }
