@@ -21,10 +21,10 @@ public class WizardState extends GameState {
     private ArrayList<Integer> playerBids = new ArrayList<>();
 
     WizardPlayer currentPlayer;
-    WizardPlayer player0;// = new WizardPlayer(0, "Player 0");
-    WizardPlayer player1;// = new WizardPlayer(1, "Player 1");
-    WizardPlayer player2;// = new WizardPlayer(2, "Player 2");
-    WizardPlayer player3 ;//= new WizardPlayer(3, "Player 3");
+    WizardPlayer player0 = new WizardPlayer(0, "Player 0");
+    WizardPlayer player1 = new WizardPlayer(1, "Player 1");
+    WizardPlayer player2 = new WizardPlayer(2, "Player 2");
+    WizardPlayer player3 = new WizardPlayer(3, "Player 3");
 
     public WizardState(){
         Log.i("deck", "i am in wizard state");
