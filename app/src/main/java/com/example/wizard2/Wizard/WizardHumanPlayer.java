@@ -29,7 +29,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
     WizardPlayAction myPlay = new WizardPlayAction(this, cardToPlay);
     WizardBidAction myBid = new WizardBidAction(this, bidNum);
 
-    WizardPlayer myPlayer;
+    //WizardPlayer myPlayer;
     private WizardState state;
 
     private ArrayList<ImageView> guiCards = new ArrayList<ImageView>();
@@ -76,7 +76,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
      */
     public WizardHumanPlayer(String name) {
         super(name);
-        myPlayer = new WizardPlayer(0, name);
+       // myPlayer = new WizardPlayer(0, name);
     }
 
     /**
@@ -526,12 +526,18 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 
             //sets text on gui
             roundText.setText("Round " + state.getRoundNum());
-            player1Score.setText("PLAYER 1\n Bid: " + myPlayer.getBidNum() + "\nBids Won: "
-                    + myPlayer.getBidNum() + "\nTotal Score: " + myPlayer.getPlayerScore());
+            player1Score.setText("PLAYER 1\n Bid: " + state.getPlayerInfo(0).getBidNum() + "\nBids Won: "
+                    + state.getPlayerInfo(0).getBidNum() + "\nTotal Score: " + state.getPlayerInfo(0).getPlayerScore());
+
+            if(cardToPlay != null){
+                player1Score.append("\n Card Played: " + cardToPlay.getCardSuit() + " " + cardToPlay.getCardNumber());
+            }
 
             //need for spinner
             for (i = 0; i < state.getRoundNum()+1; i++) {
-                spinVal.add(""+i);
+                if(!spinVal.contains(""+i)) {
+                    spinVal.add("" + i);
+                }
             }
         }
     }
@@ -605,21 +611,18 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
                 card9, card10, card11, card12, card13, card14, card15);
     }
 
-    /**
-     * perform any initialization that needs to be done after the player
-     * knows what their game-position and opponents' names are.
-     */
-    protected void initAfterReady() {
-        myActivity.setTitle("Tic-Tac-Toe: " + allPlayerNames[0] + " vs. " + allPlayerNames[1]);
-    }
 
     //spinner listener for the bid dropdown menu
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        Logger.log("BidNum","bid placed "+ myPlayer.getBidNum());
-        if(state.getPlayerTurn()==0 && state.getGameStage()==0) {
-            bidNum = pos;
+
+        //if(state.getPlayerTurn()==0 /*&& state.getGameStage()==0*/) {
+        if(view.getId() == R.id.bidDropdown) {
+            //bidNum = (Integer) parent.getItemAtPosition(pos);
+            bidNum = (Integer)bidSpinner.getSelectedItem();
+            Logger.log("BidNum", "bid placed " + bidNum);
             super.game.sendAction(myBid);
         }
+        //}
 
 //        if (view.getId() == R.id.bidDropdown) {
 //            bidNum = (Integer) parent.getItemAtPosition(pos);
@@ -648,12 +651,12 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
     @Override
     public boolean onTouch(View v, MotionEvent motionEvent) {
         int i = 0;
-        Logger.log("onTouch","size of hand "+state.getPlayerInfo(0).getCurrentHand().size());
+        //Logger.log("onTouch","size of hand "+state.getPlayerInfo(0).getCurrentHand().size());
         for (ImageView guiCard : guiCards){
-            Logger.log("onTouch","card picked "+ myPlayer.getCurrentHand().get(i));
-            if (v == guiCards.get(i)){
-                Logger.log("onTouch","card picked "+ myPlayer.getCurrentHand().get(i));
-                cardToPlay = myPlayer.getCurrentHand().get(i);
+            Logger.log("onTouch","size of hand "+state.getPlayerInfo(0).getCurrentHand().size());
+            if (v == guiCard){
+                cardToPlay = state.getPlayerInfo(0).getCurrentHand().get(i);
+                Logger.log("onTouch","card picked "+ cardToPlay.getCardSuit() + cardToPlay.getCardNumber());
                 super.game.sendAction(myPlay);
                 return true;
             }
