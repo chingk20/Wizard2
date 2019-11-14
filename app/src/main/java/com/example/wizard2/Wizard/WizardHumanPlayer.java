@@ -118,6 +118,206 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 //            this.player3Score.setText("Player 3 Total Score: " + (((WizardPlayer) info).getPlayerScore()));
 //            this.player4Score.setText("Player 4 Total Score: " + (((WizardPlayer) info).getPlayerScore()));
 
+            //sets image to trump card
+            WizardCards trumpCard = ((WizardState) info).getTrumpCard();
+            switch (trumpCard.getCardSuit()) {
+                case "diamond":
+                    switch (trumpCard.getCardValue()) {
+                        case 0:
+                            cardTrump.setImageResource(R.drawable.jester);
+                            break;
+                        case 2:
+                            cardTrump.setImageResource(R.drawable.two_diamond);
+                            break;
+                        case 3:
+                            cardTrump.setImageResource(R.drawable.three_diamond);
+                            break;
+                        case 4:
+                            cardTrump.setImageResource(R.drawable.four_diamond);
+                            break;
+                        case 5:
+                            cardTrump.setImageResource(R.drawable.five_diamond);
+                            break;
+                        case 6:
+                            cardTrump.setImageResource(R.drawable.six_diamond);
+                            break;
+                        case 7:
+                            cardTrump.setImageResource(R.drawable.seven_diamond);
+                            break;
+                        case 8:
+                            cardTrump.setImageResource(R.drawable.eight_diamond);
+                            break;
+                        case 9:
+                            cardTrump.setImageResource(R.drawable.nine_diamond);
+                            break;
+                        case 10:
+                            cardTrump.setImageResource(R.drawable.ten_diamond);
+                            break;
+                        case 11:
+                            cardTrump.setImageResource(R.drawable.jack_diamond);
+                            break;
+                        case 12:
+                            cardTrump.setImageResource(R.drawable.queen_diamond);
+                            break;
+                        case 13:
+                            cardTrump.setImageResource(R.drawable.king_diamond);
+                            break;
+                        case 14:
+                            cardTrump.setImageResource(R.drawable.ace_diamond);
+                            break;
+                        case 15:
+                            cardTrump.setImageResource(R.drawable.wizard);
+                            break;
+                    }
+                    break;
+                case "heart":
+                    switch (trumpCard.getCardValue()) {
+                        case 0:
+                            cardTrump.setImageResource(R.drawable.jester);
+                            break;
+                        case 2:
+                            cardTrump.setImageResource(R.drawable.two_heart);
+                            break;
+                        case 3:
+                            cardTrump.setImageResource(R.drawable.three_heart);
+                            break;
+                        case 4:
+                            cardTrump.setImageResource(R.drawable.four_heart);
+                            break;
+                        case 5:
+                            cardTrump.setImageResource(R.drawable.five_heart);
+                            break;
+                        case 6:
+                            cardTrump.setImageResource(R.drawable.six_heart);
+                            break;
+                        case 7:
+                            cardTrump.setImageResource(R.drawable.seven_heart);
+                            break;
+                        case 8:
+                            cardTrump.setImageResource(R.drawable.eight_heart);
+                            break;
+                        case 9:
+                            cardTrump.setImageResource(R.drawable.nine_heart);
+                            break;
+                        case 10:
+                            cardTrump.setImageResource(R.drawable.ten_heart);
+                            break;
+                        case 11:
+                            cardTrump.setImageResource(R.drawable.jack_heart);
+                            break;
+                        case 12:
+                            cardTrump.setImageResource(R.drawable.queen_heart);
+                            break;
+                        case 13:
+                            cardTrump.setImageResource(R.drawable.king_heart);
+                            break;
+                        case 14:
+                            cardTrump.setImageResource(R.drawable.ace_heart);
+                            break;
+                        case 15:
+                            cardTrump.setImageResource(R.drawable.wizard);
+                            break;
+                    }
+                    break;
+                case "spade":
+                    switch (trumpCard.getCardValue()) {
+                        case 0:
+                            cardTrump.setImageResource(R.drawable.jester);
+                            break;
+                        case 2:
+                            cardTrump.setImageResource(R.drawable.two_spade);
+                            break;
+                        case 3:
+                            cardTrump.setImageResource(R.drawable.three_spade);
+                            break;
+                        case 4:
+                            cardTrump.setImageResource(R.drawable.four_spade);
+                            break;
+                        case 5:
+                            cardTrump.setImageResource(R.drawable.five_spade);
+                            break;
+                        case 6:
+                            cardTrump.setImageResource(R.drawable.six_spade);
+                            break;
+                        case 7:
+                            cardTrump.setImageResource(R.drawable.seven_spade);
+                            break;
+                        case 8:
+                            cardTrump.setImageResource(R.drawable.eight_spade);
+                            break;
+                        case 9:
+                            cardTrump.setImageResource(R.drawable.nine_spade);
+                            break;
+                        case 10:
+                            cardTrump.setImageResource(R.drawable.ten_spade);
+                            break;
+                        case 11:
+                            cardTrump.setImageResource(R.drawable.jack_spade);
+                            break;
+                        case 12:
+                            cardTrump.setImageResource(R.drawable.queen_spade);
+                            break;
+                        case 13:
+                            cardTrump.setImageResource(R.drawable.king_spade);
+                            break;
+                        case 14:
+                            cardTrump.setImageResource(R.drawable.ace_spade);
+                            break;
+                        case 15:
+                            cardTrump.setImageResource(R.drawable.wizard);
+                            break;
+                    }
+                    break;
+                case "club":
+                    switch (trumpCard.getCardValue()) {
+                        case 0:
+                            cardTrump.setImageResource(R.drawable.jester);
+                            break;
+                        case 2:
+                            cardTrump.setImageResource(R.drawable.two_club);
+                            break;
+                        case 3:
+                            cardTrump.setImageResource(R.drawable.three_club);
+                            break;
+                        case 4:
+                            cardTrump.setImageResource(R.drawable.four_club);
+                            break;
+                        case 5:
+                            cardTrump.setImageResource(R.drawable.five_club);
+                            break;
+                        case 6:
+                            cardTrump.setImageResource(R.drawable.six_club);
+                            break;
+                        case 7:
+                            cardTrump.setImageResource(R.drawable.seven_club);
+                            break;
+                        case 8:
+                            cardTrump.setImageResource(R.drawable.eight_club);
+                            break;
+                        case 9:
+                            cardTrump.setImageResource(R.drawable.nine_club);
+                            break;
+                        case 10:
+                            cardTrump.setImageResource(R.drawable.ten_club);
+                            break;
+                        case 11:
+                            cardTrump.setImageResource(R.drawable.jack_club);
+                            break;
+                        case 12:
+                            cardTrump.setImageResource(R.drawable.queen_club);
+                            break;
+                        case 13:
+                            cardTrump.setImageResource(R.drawable.king_club);
+                            break;
+                        case 14:
+                            cardTrump.setImageResource(R.drawable.ace_club);
+                            break;
+                        case 15:
+                            cardTrump.setImageResource(R.drawable.wizard);
+                            break;
+                    }
+            }
+
             //sets image to cards in hand
             int i = 0;
             for (; i < state.getRoundNum(); i++) {

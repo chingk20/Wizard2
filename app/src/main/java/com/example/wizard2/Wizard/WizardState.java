@@ -12,8 +12,11 @@ import java.util.Random;
 public class WizardState extends GameState {
     public int playerTurn; //which players turn it is
     private int gameStage;  //which state of the game the player is in
-    private String trumpCard;  //suit of trump card
+    private String trumpSuit;  //suit of trump card
     public int roundNum;
+
+    WizardCards trumpCard;
+
 
     private ArrayList<WizardCards> deck = new ArrayList<>();
     private ArrayList<WizardCards> cardsPlayed = new ArrayList<>();
@@ -127,6 +130,12 @@ public class WizardState extends GameState {
             }
         }
         Log.i("player 1 hand", "player 1 hand: "+player1.getCurrentHand());
+        int randomCard = random.nextInt(deck.size());
+        trumpCard = deck.get(randomCard);
+        trumpSuit = deck.get(randomCard).getCardSuit();
+        deck.remove(randomCard);
+
+        Log.i("trumpCard", "trump card: "+ trumpCard);
     }
 
     //copy constructor
@@ -148,7 +157,9 @@ public class WizardState extends GameState {
 
     public int getGameStage() { return gameStage; }
 
-    public String getTrumpCard() { return trumpCard; }
+    public WizardCards getTrumpCard() { return trumpCard; }
+
+    public String getTrumpSuit() {return trumpSuit;}
 
     public int getRoundNum() { return roundNum; }
 
@@ -156,7 +167,9 @@ public class WizardState extends GameState {
 
     public void setGameStage(int gameStage) { this.gameStage = gameStage; }
 
-    public void setTrumpCard(String trumpCard) { this.trumpCard = trumpCard; }
+    public void setTrumpCard(WizardCards trumpCard) { this.trumpCard = trumpCard; }
+
+    public void setTrumpSuit(String trumpSuit) {this.trumpSuit = trumpSuit;}
 
     public void setRoundNum(int roundNum) { this.roundNum = roundNum; }
 
