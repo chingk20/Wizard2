@@ -18,6 +18,7 @@ public class WizardStateTest {
 
     @Test
     public void getPlayerTurn() {
+        //Kori wrote this test
         WizardState testState = new WizardState();
         assertTrue(testState.getPlayerTurn() <= 4);
         assertFalse(testState.getPlayerTurn() > 4);
@@ -26,6 +27,14 @@ public class WizardStateTest {
 
     @Test
     public void getGameStage() {
+        //Kori wrote this test
+        WizardState testState = new WizardState();
+        testState.setGameStage(13);
+        assertFalse(testState.getGameStage() == 4);
+        assertTrue(testState.getGameStage() == 13);
+        testState.setGameStage(testState.getGameStage()+1) ;
+        assertTrue(testState.getGameStage() == 14);
+
 
     }
 
@@ -36,6 +45,7 @@ public class WizardStateTest {
 
     @Test
     public void getRoundNum() {
+        //Kori wrote this test
         WizardState testState = new WizardState();
         assertFalse(testState.getRoundNum() > 15);
         assertTrue(testState.getRoundNum() <= 15);
@@ -43,6 +53,7 @@ public class WizardStateTest {
 
     @Test
     public void setPlayerTurn() {
+        //Kori wrote this test
         WizardState testState = new WizardState();
         testState.setPlayerTurn(1);
         assertTrue(testState.getPlayerTurn() == 1);
@@ -60,6 +71,7 @@ public class WizardStateTest {
 
     @Test
     public void setTrumpCard() {
+        //Kori wrote this test
         WizardState testState = new WizardState();
         WizardCards testCard1 = new WizardCards("hearts", 15);
         WizardCards testCard2 = new WizardCards("spades", 15);
@@ -72,6 +84,7 @@ public class WizardStateTest {
 
     @Test
     public void setRoundNum() {
+        //Kori wrote this test
         WizardState testState = new WizardState();
         testState.setRoundNum(4);
         assertTrue(testState.roundNum == 4);
