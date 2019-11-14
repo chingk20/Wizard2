@@ -107,6 +107,8 @@ public class WizardLocalGame extends LocalGame {
             if (myPlayer.getCurrentHand().contains(cardToPlay)) {
                 myPlayer.getCurrentHand().remove(cardToPlay);
                 state.getCardsPlayed().add(cardToPlay);
+                //check for next round, redeal if needed
+                //if everyones had is empty then increment round num and redeal
                 return true;
             } else {
                 return false;

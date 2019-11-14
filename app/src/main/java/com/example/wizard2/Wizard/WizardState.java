@@ -35,10 +35,10 @@ public class WizardState extends GameState {
 
         this.playerTurn = 0; //player 0 will go first
         this.gameStage = 0;      //starts at game state 0: bidding phase
-        this.roundNum = 1;
+        this.roundNum = 4;
 
         this.makeCards();
-        this.dealDeck(3);
+        this.dealDeck(roundNum);
     }
 
     public void makeCards(){
@@ -127,6 +127,7 @@ public class WizardState extends GameState {
             }
         }
         Log.i("player 1 hand", "player 1 hand: "+player1.getCurrentHand());
+        Log.i("player 2 hand", "player 2 hand: "+player2.getCurrentHand());
     }
 
     //copy constructor
