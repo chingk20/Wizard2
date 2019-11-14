@@ -110,9 +110,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="3sp"
                         android:layout_marginBottom="3sp"
-                        android:layout_weight="1"
-                        android:src="@drawable/four_club"
-                        app:srcCompat="@drawable/eight_club" />
+                        android:layout_weight="1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -126,8 +124,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:rotation="90"
-                        app:srcCompat="@drawable/three_diamond" />
+                        android:rotation="90" />
 
                     <ImageView
                         android:id="@+id/trumpImageView"
@@ -135,16 +132,14 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="3sp"
                         android:layout_marginBottom="3sp"
-                        android:layout_weight="1"
-                        android:src="@drawable/eight_diamond" />
+                        android:layout_weight="1" />
 
                     <ImageView
                         android:id="@+id/player4ImageView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:rotation="270"
-                        app:srcCompat="@drawable/king_club" />
+                        android:rotation="270" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -159,8 +154,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="3sp"
                         android:layout_marginBottom="3sp"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/eight_club" />
+                        android:layout_weight="1" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -202,8 +196,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="3sp"
                         android:layout_weight="1"
-                        android:clickable="true"
-                        android:src="@drawable/ace_heart" />
+                        android:clickable="true" />
 
                     <ImageView
                         android:id="@+id/imageView2"
@@ -211,8 +204,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="3sp"
                         android:layout_weight="1"
-                        android:clickable="true"
-                        android:src="@drawable/five_spade" />
+                        android:clickable="true"/>
 
                     <ImageView
                         android:id="@+id/imageView3"
@@ -220,8 +212,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="3sp"
                         android:layout_weight="1"
-                        android:clickable="true"
-                        android:src="@drawable/queen_spade" />
+                        android:clickable="true" />
 
                     <ImageView
                         android:id="@+id/imageView4"
@@ -229,8 +220,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="3sp"
                         android:layout_weight="1"
-                        android:clickable="true"
-                        android:src="@drawable/two_diamond" />
+                        android:clickable="true" />
 
                     <ImageView
                         android:id="@+id/imageView5"
@@ -238,8 +228,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="3sp"
                         android:layout_weight="1"
-                        android:clickable="true"
-                        android:src="@drawable/four_diamond" />
+                        android:clickable="true" />
 
                     <ImageView
                         android:id="@+id/imageView6"
@@ -247,8 +236,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="3sp"
                         android:layout_weight="1"
-                        android:clickable="true"
-                        android:src="@drawable/queen_heart" />
+                        android:clickable="true" />
 
                     <ImageView
                         android:id="@+id/imageView7"
@@ -256,8 +244,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="3sp"
                         android:layout_weight="1"
-                        android:clickable="true"
-                        android:src="@drawable/eight_diamond" />
+                        android:clickable="true" />
 
                     <ImageView
                         android:id="@+id/imageView8"
@@ -265,8 +252,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="3sp"
                         android:layout_weight="1"
-                        android:clickable="true"
-                        android:src="@drawable/queen_club" />
+                        android:clickable="true" />
 
                     <ImageView
                         android:id="@+id/imageView9"
@@ -274,8 +260,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="3sp"
                         android:layout_weight="1"
-                        android:clickable="true"
-                        android:src="@drawable/eight_diamond" />
+                        android:clickable="true" />
 
                     <ImageView
                         android:id="@+id/imageView10"
@@ -283,8 +268,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="3sp"
                         android:layout_weight="1"
-                        android:clickable="true"
-                        android:src="@drawable/eight_heart" />
+                        android:clickable="true" />
 
                     <ImageView
                         android:id="@+id/imageView11"
@@ -292,8 +276,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="3sp"
                         android:layout_weight="1"
-                        android:clickable="true"
-                        android:src="@drawable/king_diamond" />
+                        android:clickable="true" />
 
                     <ImageView
                         android:id="@+id/imageView12"
@@ -301,8 +284,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="3sp"
                         android:layout_weight="1"
-                        android:clickable="true"
-                        android:src="@drawable/eight_spade" />
+                        android:clickable="true" />
 
                     <ImageView
                         android:id="@+id/imageView13"
@@ -310,8 +292,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="3sp"
                         android:layout_weight="1"
-                        android:clickable="true"
-                        android:src="@drawable/queen_heart" />
+                        android:clickable="true" />
 
                     <ImageView
                         android:id="@+id/imageView14"
@@ -319,8 +300,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="3sp"
                         android:layout_weight="1"
-                        android:clickable="true"
-                        android:src="@drawable/ten_club" />
+                        android:clickable="true" />
 
                     <ImageView
                         android:id="@+id/imageView15"
@@ -328,8 +308,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="3sp"
                         android:layout_weight="1"
-                        android:clickable="true"
-                        android:src="@drawable/six_heart" />
+                        android:clickable="true" />
 
                 </LinearLayout>
 

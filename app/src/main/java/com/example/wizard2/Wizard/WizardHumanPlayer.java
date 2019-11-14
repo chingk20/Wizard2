@@ -27,11 +27,10 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 
     boolean alreadyChosen = false;
 
-
     private WizardCards cardToPlay;
     private int bidNum = 0;
 
-    WizardPlayAction myPlay = new WizardPlayAction(this, cardToPlay);
+    WizardPlayAction myPlay;
     WizardBidAction myBid = new WizardBidAction(this, bidNum);
 
     //WizardPlayer myPlayer;
@@ -631,12 +630,12 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
         //if(state.getPlayerTurn()==0 /*&& state.getGameStage()==0*/) {
-        //if(view.getId() == R.id.bidDropdown) {
-            //bidNum = (Integer) parent.getItemAtPosition(pos);
-            bidNum = (Integer)bidSpinner.getSelectedItem();
+        if(view.getId() == R.id.bidDropdown && state.getGameStage()==0 && state.getPlayerTurn()==0) {
+            bidNum = (Integer) parent.getItemAtPosition(pos);
+            //bidNum = (Integer)bidSpinner.getSelectedItem();
             Logger.log("BidNum", "bid placed " + bidNum);
             super.game.sendAction(myBid);
-       // }
+        }
         //}
 
 //        if (view.getId() == R.id.bidDropdown) {
@@ -662,12 +661,11 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
     public boolean onTouch(View v, MotionEvent motionEvent) {
         int i = 0;
         for (ImageView guiCard : guiCards){
-            if (v == guiCard && i<state.getPlayerInfo(0).getCurrentHand().size() && !alreadyChosen){
+            if (v == guiCard && i<state.getRoundNum()
+                    && !alreadyChosen && state.getGameStage()==1 && state.getPlayerTurn()==0){
                 alreadyChosen = true;
                 cardToPlay = state.getPlayerInfo(0).getCurrentHand().get(i);
                 Logger.log("onTouch","card picked "+ cardToPlay.getCardSuit() + cardToPlay.getCardNumber());
-                super.game.sendAction(myPlay);
-
                 switch (cardToPlay.getCardSuit()) {
                     case "diamond":
                         switch (cardToPlay.getCardValue()) {
@@ -867,9 +865,9 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
                         break;
                 }
                 guiCards.get(i).setVisibility(View.INVISIBLE);
-                Log.i("setting invisible: ", ""+i);
-                state.getPlayerInfo(0).getCurrentHand().remove(i);
                 Logger.log("onTouch","size of hand "+state.getPlayerInfo(0).getCurrentHand().size());
+                myPlay = new WizardPlayAction(this, cardToPlay);
+                super.game.sendAction(myPlay);
                 return true;
             }
             else {

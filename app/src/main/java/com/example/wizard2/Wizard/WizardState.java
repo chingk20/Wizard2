@@ -37,7 +37,12 @@ public class WizardState extends GameState {
 
         currentPlayer = player0;
 
-        this.playerTurn = 0;    //player 0 will go first
+        playerBids.add(0);
+        playerBids.add(0);
+        playerBids.add(0);
+        playerBids.add(0);
+
+        this.playerTurn = 1;    //player 0 will go first
         this.gameStage = 0;     //starts at game state 0: bidding phase
         this.roundNum = 5;
 
@@ -185,5 +190,7 @@ public class WizardState extends GameState {
 
     public ArrayList<WizardCards> getCardsPlayed() {return cardsPlayed;}
 
-    public void setPlayerBids(ArrayList newPlayerBids){this.playerBids = newPlayerBids;}
+    public void setPlayerBids(int newPlayerBids, int playerID) {
+        if(0 <= playerID && playerID <= 3){
+        this.playerBids.set(playerID, newPlayerBids);} }
 }
