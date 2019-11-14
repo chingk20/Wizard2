@@ -10,7 +10,7 @@ import java.util.Hashtable;
 import java.util.Random;
 
 public class WizardState extends GameState {
-    private int playerTurn; //which players turn it is
+    public int playerTurn; //which players turn it is
     private int gameStage;  //which state of the game the player is in
     private String trumpCard;  //suit of trump card
     public int roundNum;
@@ -27,7 +27,7 @@ public class WizardState extends GameState {
     WizardPlayer player3 = new WizardPlayer(3, "Player 3");
 
     public WizardState(){
-        Log.i("deck", "i am in wizard state");
+        //Log.i("deck", "i am in wizard state");
         listOfPlayers.add(player3);
         listOfPlayers.add(player0);
         listOfPlayers.add(player1);
@@ -116,17 +116,17 @@ public class WizardState extends GameState {
 
     //deals a card out to a player
     public void dealDeck(int numTricks){
-        Log.i("deck", "i am in deal deck");
+        //Log.i("deck", "i am in deal deck");
         Random random = new Random();
         for (int i = 0; i < listOfPlayers.size(); i++){
             for (int round = 0; round < numTricks; round++) {
                 int randomCard = random.nextInt(deck.size());
                 listOfPlayers.get(i).addCardtoHand(deck.get(randomCard));
                 deck.remove(randomCard);
-                Log.i("deck", "deck:"+deck);
+                //Log.i("deck", "deck:"+deck);
             }
         }
-        Log.i("player 1 hand", "player 1 hand: "+player1.getCurrentHand());
+        //Log.i("player 1 hand", "player 1 hand: "+player1.getCurrentHand());
     }
 
     //copy constructor
