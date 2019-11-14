@@ -10,13 +10,15 @@ import java.util.Hashtable;
 import java.util.Random;
 
 public class WizardState extends GameState {
-    private int playerTurn; //which players turn it is
+    public int playerTurn; //which players turn it is
     private int gameStage;  //which state of the game the player is in
-    private String trumpCard;  //suit of trump card
+    private String trumpSuit;  //suit of trump card
     public int roundNum;
 
+    WizardCards trumpCard;
+
     private ArrayList<WizardCards> deck = new ArrayList<>();
-    private ArrayList<WizardCards> cardsPlayed = new ArrayList<>();
+    public ArrayList<WizardCards> cardsPlayed = new ArrayList<>();
     private ArrayList<WizardPlayer> listOfPlayers = new ArrayList<WizardPlayer>();
     private ArrayList<Integer> playerBids = new ArrayList<>();
 
@@ -27,18 +29,20 @@ public class WizardState extends GameState {
     WizardPlayer player3 = new WizardPlayer(3, "Player 3");
 
     public WizardState(){
-        Log.i("deck", "i am in wizard state");
+        //Log.i("deck", "i am in wizard state");
         listOfPlayers.add(player3);
         listOfPlayers.add(player0);
         listOfPlayers.add(player1);
         listOfPlayers.add(player2);
 
-        this.playerTurn = 0; //player 0 will go first
-        this.gameStage = 0;      //starts at game state 0: bidding phase
+        currentPlayer = player0;
+
+        this.playerTurn = 0;    //player 0 will go first
+        this.gameStage = 0;     //starts at game state 0: bidding phase
         this.roundNum = 1;
 
         this.makeCards();
-        this.dealDeck(3);
+        this.dealDeck(roundNum);
     }
 
     public void makeCards(){
@@ -116,17 +120,21 @@ public class WizardState extends GameState {
 
     //deals a card out to a player
     public void dealDeck(int numTricks){
-        Log.i("deck", "i am in deal deck");
+        //Log.i("deck", "i am in deal deck");
         Random random = new Random();
         for (int i = 0; i < listOfPlayers.size(); i++){
             for (int round = 0; round < numTricks; round++) {
                 int randomCard = random.nextInt(deck.size());
                 listOfPlayers.get(i).addCardtoHand(deck.get(randomCard));
                 deck.remove(randomCard);
-                Log.i("deck", "deck:"+deck);
             }
         }
-        Log.i("player 1 hand", "player 1 hand: "+player1.getCurrentHand());
+        //Log.i("player 1 hand", "player 1 hand: "+player1.getCurrentHand());
+        int randomCard = random.nextInt(deck.size());
+        trumpCard = deck.get(randomCard);
+        trumpSuit = deck.get(randomCard).getCardSuit();
+        deck.remove(randomCard);
+        //Log.i("trumpCard", "trump card: "+ trumpCard);
     }
 
     //copy constructor
@@ -148,7 +156,9 @@ public class WizardState extends GameState {
 
     public int getGameStage() { return gameStage; }
 
-    public String getTrumpCard() { return trumpCard; }
+    public WizardCards getTrumpCard() { return trumpCard; }
+
+    public String getTrumpSuit() {return trumpSuit;}
 
     public int getRoundNum() { return roundNum; }
 
@@ -156,7 +166,9 @@ public class WizardState extends GameState {
 
     public void setGameStage(int gameStage) { this.gameStage = gameStage; }
 
-    public void setTrumpCard(String trumpCard) { this.trumpCard = trumpCard; }
+    public void setTrumpCard(WizardCards trumpCard) { this.trumpCard = trumpCard; }
+
+    public void setTrumpSuit(String trumpSuit) {this.trumpSuit = trumpSuit;}
 
     public void setRoundNum(int roundNum) { this.roundNum = roundNum; }
 

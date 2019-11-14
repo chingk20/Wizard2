@@ -8,7 +8,7 @@ public class WizardPlayer {
     private int runningTotal;
     private String playerName;
     private int bidNum;
-    private ArrayList<WizardCards> currentHand = new ArrayList<WizardCards>();
+    public ArrayList<WizardCards> currentHand = new ArrayList<WizardCards>();
 
     public WizardPlayer(int playerID, String playerName){
         this.playerID = playerID;
