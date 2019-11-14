@@ -18,7 +18,7 @@ public class WizardState extends GameState {
     WizardCards trumpCard;
 
     private ArrayList<WizardCards> deck = new ArrayList<>();
-    private ArrayList<WizardCards> cardsPlayed = new ArrayList<>();
+    public ArrayList<WizardCards> cardsPlayed = new ArrayList<>();
     private ArrayList<WizardPlayer> listOfPlayers = new ArrayList<WizardPlayer>();
     private ArrayList<Integer> playerBids = new ArrayList<>();
 
@@ -120,7 +120,7 @@ public class WizardState extends GameState {
 
     //deals a card out to a player
     public void dealDeck(int numTricks){
-        Log.i("deck", "i am in deal deck");
+        //Log.i("deck", "i am in deal deck");
         Random random = new Random();
         for (int i = 0; i < listOfPlayers.size(); i++){
             for (int round = 0; round < numTricks; round++) {
@@ -129,12 +129,12 @@ public class WizardState extends GameState {
                 deck.remove(randomCard);
             }
         }
-        Log.i("player 1 hand", "player 1 hand: "+player1.getCurrentHand());
+        //Log.i("player 1 hand", "player 1 hand: "+player1.getCurrentHand());
         int randomCard = random.nextInt(deck.size());
         trumpCard = deck.get(randomCard);
         trumpSuit = deck.get(randomCard).getCardSuit();
         deck.remove(randomCard);
-        Log.i("trumpCard", "trump card: "+ trumpCard);
+        //Log.i("trumpCard", "trump card: "+ trumpCard);
     }
 
     //copy constructor
