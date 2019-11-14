@@ -22,23 +22,6 @@ public class WizardPlayer {
         currentHand.add(cardToAdd);
     }
 
-    public WizardCards playCard(WizardCards cardToPlay){
-        if (currentHand.isEmpty()){
-            return null;
-        }
-        else if (currentHand.contains(cardToPlay)){
-            currentHand.remove(cardToPlay);
-            return cardToPlay;
-        }
-        else {
-            return null;
-        }
-    }
-
-    public void setCurrentBid(int bid){
-        bidNum = bid;
-    }
-
     public void setRunningTotal(int bidNum, int bidWon){
         if(bidNum==bidWon){
             this.runningTotal = 20 + (bidWon * 10);
