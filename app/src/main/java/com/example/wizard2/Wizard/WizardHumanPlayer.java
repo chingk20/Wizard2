@@ -613,15 +613,10 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
         myActivity.setTitle("Tic-Tac-Toe: " + allPlayerNames[0] + " vs. " + allPlayerNames[1]);
     }
 
-    /*
-    bid number dropdown and imageview on click listeners go here
-     */
-
-
     //spinner listener for the bid dropdown menu
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         Logger.log("BidNum","bid placed "+ myPlayer.getBidNum());
-        if(state.getPlayerTurn()==0) {
+        if(state.getPlayerTurn()==0 && state.getGameStage()==0) {
             bidNum = pos;
             super.game.sendAction(myBid);
         }

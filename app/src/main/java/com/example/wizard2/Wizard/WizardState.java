@@ -17,7 +17,6 @@ public class WizardState extends GameState {
 
     WizardCards trumpCard;
 
-
     private ArrayList<WizardCards> deck = new ArrayList<>();
     private ArrayList<WizardCards> cardsPlayed = new ArrayList<>();
     private ArrayList<WizardPlayer> listOfPlayers = new ArrayList<WizardPlayer>();
@@ -36,8 +35,10 @@ public class WizardState extends GameState {
         listOfPlayers.add(player1);
         listOfPlayers.add(player2);
 
-        this.playerTurn = 0; //player 0 will go first
-        this.gameStage = 0;      //starts at game state 0: bidding phase
+        currentPlayer = player0;
+
+        this.playerTurn = 0;    //player 0 will go first
+        this.gameStage = 0;     //starts at game state 0: bidding phase
         this.roundNum = 1;
 
         this.makeCards();
@@ -126,7 +127,6 @@ public class WizardState extends GameState {
                 int randomCard = random.nextInt(deck.size());
                 listOfPlayers.get(i).addCardtoHand(deck.get(randomCard));
                 deck.remove(randomCard);
-                Log.i("deck", "deck:"+deck);
             }
         }
         Log.i("player 1 hand", "player 1 hand: "+player1.getCurrentHand());
@@ -134,7 +134,6 @@ public class WizardState extends GameState {
         trumpCard = deck.get(randomCard);
         trumpSuit = deck.get(randomCard).getCardSuit();
         deck.remove(randomCard);
-
         Log.i("trumpCard", "trump card: "+ trumpCard);
     }
 

@@ -93,9 +93,16 @@ public class WizardLocalGame extends LocalGame {
     @Override
     protected boolean makeMove(GameAction action) {
         if (action instanceof WizardBidAction) {
-            if (((WizardBidAction) action).getBidNum() <= state.getRoundNum()) {
+            //checks if bid is valid and it is bidding stage
+            if (((WizardBidAction) action).getBidNum() <= state.getRoundNum() && state.getGameStage()==0) {
                 // gets the ArrayList of integers that contains each player's bids from WizardGameState
                 state.getPlayerBids().add(state.getPlayerTurn(), ((WizardBidAction) action).getBidNum());
+                //check if it is end of round i.e. everyone has gone
+                if(state.playerTurn==3)
+                {
+                    state.setGameStage(1);
+                    state.setPlayerTurn(0);
+                }
                 return true;
             } else {
                 return false;
@@ -104,11 +111,23 @@ public class WizardLocalGame extends LocalGame {
             WizardPlayer myPlayer = state.getPlayerInfo(state.getPlayerTurn());
             WizardCards cardToPlay = ((WizardPlayAction) action).getCardToPlay();
 
-            if (myPlayer.getCurrentHand().contains(cardToPlay)) {
+            //checks if card is in hand and it is playing card stage
+            if (myPlayer.getCurrentHand().contains(cardToPlay) && state.getGameStage()==1) {
                 myPlayer.getCurrentHand().remove(cardToPlay);
                 state.getCardsPlayed().add(cardToPlay);
-                //check for next round, redeal if needed
-                //if everyones had is empty then increment round num and redeal
+                //checks is it is end of round
+                //if everyone's hand is empty then increment round num and redeal
+                if(state.playerTurn==3)
+                {
+                    if(myPlayer.getCurrentHand()==null)
+                    {
+                        state.setRoundNum(state.roundNum++);
+                        state.dealDeck(state.roundNum);
+                    }
+                    state.setGameStage(0);
+                    state.setPlayerTurn(0);
+                }
+
                 return true;
             } else {
                 return false;
