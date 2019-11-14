@@ -4,7 +4,7 @@ import com.example.wizard2.GameFramework.GamePlayer;
 import com.example.wizard2.GameFramework.actionMessage.GameAction;
 
 public class WizardPlayAction extends GameAction {
-    protected WizardCards cardToPlay;
+    public WizardCards cardToPlay;
 
     public WizardPlayAction(GamePlayer player, WizardCards myCard){
         super(player);
