@@ -300,6 +300,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
                             break;
                     }
                 }
+                break;
             }
         }
     }
@@ -395,11 +396,13 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
     public boolean onTouch(View v, MotionEvent motionEvent) {
         int i = 0;
         for (ImageView guiCard : guiCards){
-            if (v == guiCard){
+            if ((ImageView) v == guiCard){
                 cardToPlay = myPlayer.getCurrentHand().get(i);
                 super.game.sendAction(myPlay);
                 return true;
             }
+            i++;
+
         }
         return false;
     }
