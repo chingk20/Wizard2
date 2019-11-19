@@ -3,11 +3,14 @@ package com.example.wizard2.Wizard;
 import android.util.Log;
 
 import com.example.wizard2.GameFramework.infoMessage.GameState;
+import com.example.wizard2.GameFramework.utilities.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Random;
+
+import static android.os.SystemClock.sleep;
 
 public class WizardState extends GameState {
     public int playerTurn; //which players turn it is
@@ -32,7 +35,6 @@ public class WizardState extends GameState {
     WizardPlayer player3 = new WizardPlayer(3, "Player 3");
 
     public WizardState(){
-        //Log.i("deck", "i am in wizard state");
         listOfPlayers.add(player3);
         listOfPlayers.add(player0);
         listOfPlayers.add(player1);
@@ -62,7 +64,7 @@ public class WizardState extends GameState {
 
         this.playerTurn = 1;    //player 0 will go first
         this.gameStage = 0;     //starts at game state 0: bidding phase
-        this.roundNum = 2;
+        this.roundNum = 6;
 
         this.makeCards();
         this.dealDeck(roundNum);
@@ -137,9 +139,7 @@ public class WizardState extends GameState {
                 spadeJoker, spadeTwo, spadeThree, spadeFour, spadeFive, spadeSix, spadeSeven, spadeEight, spadeNine, spadeTen, spadeJack, spadeQueen, spadeKing, spadeAce, spadeWizard,
                 diamondJoker, diamondTwo, diamondThree, diamondFour, diamondFive, diamondSix, diamondSeven, diamondEight, diamondNine, diamondTen, diamondJack, diamondQueen, diamondKing, diamondAce, diamondWizard,
                 clubJoker, clubTwo, clubThree, clubFour, clubFive, clubSix, clubSeven, clubEight, clubNine, clubTen, clubJack, clubQueen, clubKing, clubAce, clubWizard);
-
     }
-
 
     //deals a card out to a player
     public void dealDeck(int numTricks){
@@ -153,12 +153,10 @@ public class WizardState extends GameState {
                 //Log.i("Wizard State", "player size: "+ listOfPlayers.size());
             }
         }
-        //Log.i("player 1 hand", "player 1 hand: "+player1.getCurrentHand());
         int randomCard = random.nextInt(deck.size());
         trumpCard = deck.get(randomCard);
         trumpSuit = deck.get(randomCard).getCardSuit();
         deck.remove(randomCard);
-        //Log.i("trumpCard", "trump card: "+ trumpCard);
     }
 
     //copy constructor
@@ -193,6 +191,7 @@ public class WizardState extends GameState {
         }
     }
 
+    //calculate who won the round by looking at the value
     public void calculateWinner(){
         int base=0;
         int winner=-1;
@@ -200,9 +199,19 @@ public class WizardState extends GameState {
         {
             if(cardsPlayedValue.get(i) > base){
                 winner=i;
+                base=cardsPlayedValue.get(i);
             }
         }
+        Logger.log("Wizard State", "winner:" + winner);
         setPlayerBidsWon(getPlayerBidsWon().get(winner)+1, winner);
+    }
+
+    public void resetImage()
+    {
+        for(int i=0; i<cardsPlayed.size(); i++){
+            cardsPlayed.set(i, null);
+        }
+
     }
 
     public void setCardsPlayed(WizardCards cardsPlayed, int playerID) {

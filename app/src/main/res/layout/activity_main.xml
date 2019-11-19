@@ -60,7 +60,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:text="PLAYER 3\n  Bid:4  Won:1\nTotal Score: 10"
                     android:textStyle="bold" />
 
                 <TextView
@@ -69,7 +68,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:text="Round 9"
                     android:textSize="30sp"
                     android:textStyle="bold" />
 
@@ -89,7 +87,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="center"
-                android:text="PLAYER 2\nBid:2\nWon:1\nTotal Score: 30"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -165,7 +162,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="3"
                 android:gravity="center"
-                android:text="PLAYER 4\nBid:2\nWon:3\nTotal Score: -20"
                 android:textStyle="bold" />
 
         </LinearLayout>
@@ -324,7 +320,6 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="PLAYER 1\nBid:2   Won:4\nTotal Score: 50"
                         android:textStyle="bold" />
 
                     <LinearLayout
@@ -344,8 +339,7 @@
                             android:id="@+id/bidDropdown"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="#FFFFFF" />
+                            android:layout_weight="1" />
 
                     </LinearLayout>
 

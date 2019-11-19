@@ -22,8 +22,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.OnItemSelectedListener, View.OnTouchListener {
+import static android.os.SystemClock.sleep;
 
+public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.OnItemSelectedListener, View.OnTouchListener {
 
     boolean alreadyChosen = false;
 
@@ -31,7 +32,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
     private int bidNum = 0;
 
     WizardPlayAction myPlay;
-    WizardBidAction myBid = new WizardBidAction(this, bidNum);
+    WizardBidAction myBid;
 
     //WizardPlayer myPlayer;
     private WizardState state;
@@ -117,10 +118,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 
         if (info instanceof WizardState) {
             state = (WizardState) info;
-//            this.player1Score.setText("Player 1 Total Score: " + (((WizardPlayer) info).getPlayerScore()));
-//            this.player2Score.setText("Player 2 Total Score: " + (((WizardPlayer) info).getPlayerScore()));
-//            this.player3Score.setText("Player 3 Total Score: " + (((WizardPlayer) info).getPlayerScore()));
-//            this.player4Score.setText("Player 4 Total Score: " + (((WizardPlayer) info).getPlayerScore()));
 
             //sets image to trump card
             WizardCards trumpCard = ((WizardState) info).getTrumpCard();
@@ -324,8 +321,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 
             //sets image to cards in hand
             int i = 0;
-            Log.i("creating cards", ""+state.getPlayerInfo(0).getCurrentHand().size());
-            if(!alreadyChosen) {
+            Log.i("creating cards", "" + state.getPlayerInfo(0).getCurrentHand().size());
+            if (!alreadyChosen) {
                 for (; i < state.getPlayerInfo(0).getCurrentHand().size(); i++) {
                     WizardCards card = ((WizardState) info).getPlayerInfo(0).getCurrentHand().get(i);
                     switch (card.getCardSuit()) {
@@ -532,7 +529,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
             }
 
             WizardCards cp1 = state.cardsPlayed.get(1);
-            if(cp1 != null) {
+            if (cp1 != null) {
+                card2Played.setVisibility(View.VISIBLE);
                 Logger.log("Wizard Human Player", "Cards Played" + state.cardsPlayed);
                 Logger.log("Wizard Human Player", "cp1 suit: " + cp1.getCardSuit() + " value: " + cp1.getCardNumber());
                 switch (cp1.getCardSuit()) {
@@ -735,9 +733,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
                 }
             }
             WizardCards cp2 = state.cardsPlayed.get(2);
-            if(cp2 != null) {
-                Logger.log("Wizard Human Player", "Cards Played" + state.cardsPlayed);
-                Logger.log("Wizard Human Player", "cp1 suit: " + cp1.getCardSuit() + " value: " + cp1.getCardNumber());
+            if (cp2 != null) {
+                card3Played.setVisibility(View.VISIBLE);
                 switch (cp2.getCardSuit()) {
                     case "diamond":
                         switch (cp2.getCardValue()) {
@@ -938,9 +935,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
                 }
             }
             WizardCards cp3 = state.cardsPlayed.get(3);
-            if(cp3 != null) {
-                Logger.log("Wizard Human Player", "Cards Played" + state.cardsPlayed);
-                Logger.log("Wizard Human Player", "cp1 suit: " + cp1.getCardSuit() + " value: " + cp1.getCardNumber());
+            if (cp3 != null) {
+                card4Played.setVisibility(View.VISIBLE);
                 switch (cp3.getCardSuit()) {
                     case "diamond":
                         switch (cp3.getCardValue()) {
@@ -1140,21 +1136,31 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
                         break;
                 }
             }
+            WizardCards cp0 = state.cardsPlayed.get(0);
+            if(cp0==null && cp1==null && cp2==null &&cp3==null) {
+                //sleep(3000);
+                card1Played.setVisibility(View.INVISIBLE);
+                card2Played.setVisibility(View.INVISIBLE);
+                card3Played.setVisibility(View.INVISIBLE);
+                card4Played.setVisibility(View.INVISIBLE);
+                boolean alreadyChosen = false;
+            }
 
             //sets text on gui
-            roundText.setText("Round " + state.getRoundNum());
-
-            player1Score.setText("PLAYER 1\n Bid: " + state.getPlayerInfo(0).getBidNum() + "\nBids Won: "
-                    + state.getPlayerInfo(0).getBidNum() + "\nTotal Score: " + state.getPlayerInfo(0).getPlayerScore());
+            roundText.setText("Round " + state.getRoundNum() +"\n Player Turn: " + (state.getPlayerTurn()+1));
+            //updates gui for players scores and bids
+            player1Score.setText("PLAYER 1\n Bid: " + state.getPlayerBids().get(0) + "\nBids Won: "
+                    + state.getPlayerBidsWon().get(0) + "\nTotal Score: " + state.getPlayerInfo(0).getPlayerScore());
             player2Score.setText("PLAYER 2\n Bid: " + state.getPlayerBids().get(1) + "\nBids Won: "
                     + state.getPlayerBidsWon().get(1) + "\nTotal Score: " + state.getPlayerInfo(1).getPlayerScore());
             player3Score.setText("PLAYER 3\n Bid: " + state.getPlayerBids().get(2) + "\nBids Won: "
                     + state.getPlayerBidsWon().get(2) + "\nTotal Score: " + state.getPlayerInfo(2).getPlayerScore());
             player4Score.setText("PLAYER 4\n Bid: " + state.getPlayerBids().get(3) + "\nBids Won: "
                     + state.getPlayerBidsWon().get(3)+ "\nTotal Score: " + state.getPlayerInfo(3).getPlayerScore());
-            if(cardToPlay != null){
-                player1Score.append("\n Card Played: " + cardToPlay.getCardSuit() + " " + cardToPlay.getCardNumber());
-            }
+
+//            if(cardToPlay != null){
+////                player1Score.append("\n Card Played: " + cardToPlay.getCardSuit() + " " + cardToPlay.getCardNumber());
+////            }
 
             //need for spinner
             for (i = 0; i < state.getRoundNum()+1; i++) {
@@ -1176,8 +1182,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 
         // Load the layout resource for the new configuration
         activity.setContentView(R.layout.activity_main);
-
-        //SurfaceView mySurfaceView = (SurfaceView) myActivity.findViewById((R.id.surfaceView));
 
         card1 = (ImageView) myActivity.findViewById(R.id.imageView1);
         card1.setOnTouchListener(this);
@@ -1239,39 +1243,41 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
      * knows what their game-position and opponents' names are.
      */
     protected void initAfterReady() {
-        myActivity.setTitle("Tic-Tac-Toe: " + allPlayerNames[0] + " vs. " + allPlayerNames[1]);
+        //myActivity.setTitle("Tic-Tac-Toe: " + allPlayerNames[0] + " vs. " + allPlayerNames[1]);
     }
 
     //spinner listener for the bid dropdown menu
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-        //if(state.getPlayerTurn()==0 /*&& state.getGameStage()==0*/) {
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+        Logger.log("BidNum", "bid placed " + bidNum);
+        //if(state.getPlayerTurn()==0 && state.getGameStage()==0) {
+        //if(parent.getId()== R.id.bidDropdown && state.getGameStage()==0 && state.getPlayerTurn()==0){
         if(view.getId() == R.id.bidDropdown && state.getGameStage()==0 && state.getPlayerTurn()==0) {
-            bidNum = (Integer) parent.getItemAtPosition(pos);
-            //bidNum = (Integer)bidSpinner.getSelectedItem();
+            bidNum = (int) parent.getItemAtPosition(pos);
+            //bidNum = (int) bidSpinner.getSelectedItem();
+//            try {
+//                bidNum = Integer.parseInt(bidSpinner.getItemAtPosition(pos).toString());
+//            } catch(NumberFormatException nfe) {
+//                System.out.println("Could not parse " + nfe);
+//            }
             Logger.log("BidNum", "bid placed " + bidNum);
+            myBid = new WizardBidAction(this, bidNum);
             super.game.sendAction(myBid);
         }
-        //}
-
-//        if (view.getId() == R.id.bidDropdown) {
-//            bidNum = (Integer) parent.getItemAtPosition(pos);
-//            super.game.sendAction(myBid);
-//        }
 
         //WizardHumanPlayer is like the controller, so when user interacts with dropdown and chooses a bid
         //we handle that bid here, set it equal to bidNum, and send bidNum through sendAction to the game class
         //WizardLocalGame extends LocalGame which extends Game, so it receives the action from Game
 
         //myBid is a WizardBidAction object which sends the player and the bid number to WizardBidAction
-
     }
 
     //unused method required with spinner
+    @Override
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
     }
-
 
     @Override
     public boolean onTouch(View v, MotionEvent motionEvent) {
@@ -1279,10 +1285,10 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
         for (ImageView guiCard : guiCards){
             if (v == guiCard && i<state.getPlayerInfo(0).getCurrentHand().size()
                     && state.getGameStage()==1 && state.getPlayerTurn()==0){
-                //&& !alreadyChosen
                 alreadyChosen = true;
                 cardToPlay = state.getPlayerInfo(0).getCurrentHand().get(i);
                 Logger.log("onTouch","card picked "+ cardToPlay.getCardSuit() + cardToPlay.getCardNumber());
+                card1Played.setVisibility(View.VISIBLE);
                 switch (cardToPlay.getCardSuit()) {
                     case "diamond":
                         switch (cardToPlay.getCardValue()) {

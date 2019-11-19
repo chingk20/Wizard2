@@ -9,6 +9,8 @@ import com.example.wizard2.GameFramework.utilities.Logger;
 
 import java.util.ArrayList;
 
+import static android.os.SystemClock.sleep;
+
 public class WizardLocalGame extends LocalGame {
     //Tag for logging
     private static final String TAG = "WizardLocalGame";
@@ -139,6 +141,8 @@ public class WizardLocalGame extends LocalGame {
                         state.setGameStage(0);
                         state.setPlayerTurn(0);
                         state.calculateWinner();
+                        WizardPlayer player0 = state.getPlayerInfo(0);
+                        //state.resetImage();
                         state.setRoundNum(state.roundNum++);
                         state.dealDeck(state.roundNum);
                     }
@@ -148,6 +152,7 @@ public class WizardLocalGame extends LocalGame {
                     state.calculateWinner();
                     Logger.log("Local Game", "Bids Won:" + state.getPlayerBidsWon());
                     //Logger.log("Local Game", "Player Turn:" + state.getPlayerTurn());
+                    //state.resetImage();
                     return true;
                 }
                 state.setPlayerTurn(state.playerTurn+1);
