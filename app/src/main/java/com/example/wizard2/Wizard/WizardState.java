@@ -19,10 +19,13 @@ public class WizardState extends GameState {
 
     private ArrayList<WizardCards> deck = new ArrayList<>();
     public ArrayList<WizardCards> cardsPlayed = new ArrayList<>();
+    public ArrayList<Integer> cardsPlayedValue = new ArrayList<>();
     private ArrayList<WizardPlayer> listOfPlayers = new ArrayList<WizardPlayer>();
     private ArrayList<Integer> playerBids = new ArrayList<>();
+    private ArrayList<Integer> playerBidsWon = new ArrayList<>();
 
     WizardPlayer currentPlayer;
+
     WizardPlayer player0 = new WizardPlayer(0, "Player 0");
     WizardPlayer player1 = new WizardPlayer(1, "Player 1");
     WizardPlayer player2 = new WizardPlayer(2, "Player 2");
@@ -42,9 +45,24 @@ public class WizardState extends GameState {
         playerBids.add(0);
         playerBids.add(0);
 
+        playerBidsWon.add(0);
+        playerBidsWon.add(0);
+        playerBidsWon.add(0);
+        playerBidsWon.add(0);
+
+        cardsPlayed.add(null);
+        cardsPlayed.add(null);
+        cardsPlayed.add(null);
+        cardsPlayed.add(null);
+
+        cardsPlayedValue.add(0);
+        cardsPlayedValue.add(0);
+        cardsPlayedValue.add(0);
+        cardsPlayedValue.add(0);
+
         this.playerTurn = 1;    //player 0 will go first
         this.gameStage = 0;     //starts at game state 0: bidding phase
-        this.roundNum = 5;
+        this.roundNum = 2;
 
         this.makeCards();
         this.dealDeck(roundNum);
@@ -132,6 +150,7 @@ public class WizardState extends GameState {
                 int randomCard = random.nextInt(deck.size());
                 listOfPlayers.get(i).addCardtoHand(deck.get(randomCard));
                 deck.remove(randomCard);
+                //Log.i("Wizard State", "player size: "+ listOfPlayers.size());
             }
         }
         //Log.i("player 1 hand", "player 1 hand: "+player1.getCurrentHand());
@@ -148,6 +167,23 @@ public class WizardState extends GameState {
         gameStage = myState.gameStage;
         trumpCard = myState.trumpCard;
         roundNum = myState.roundNum;
+        currentPlayer = myState.currentPlayer;
+
+        for (WizardCards card : myState.cardsPlayed){
+            cardsPlayed.add(card);
+        }
+
+        for (Integer bid : myState.playerBids){
+            playerBids.add(bid);
+        }
+
+        for (Integer bid : myState.playerBidsWon){
+            playerBidsWon.add(bid);
+        }
+
+        for (Integer value : myState.cardsPlayedValue){
+            playerBids.add(value);
+        }
 
         for (WizardCards card : myState.deck){
             deck.add(card);
@@ -157,15 +193,37 @@ public class WizardState extends GameState {
         }
     }
 
-    public int getPlayerTurn() {return playerTurn; }
+    public void calculateWinner(){
+        int base=0;
+        int winner=-1;
+        for(int i=0; i<cardsPlayed.size(); i++)
+        {
+            if(cardsPlayedValue.get(i) > base){
+                winner=i;
+            }
+        }
+        setPlayerBidsWon(getPlayerBidsWon().get(winner)+1, winner);
+    }
 
-    public int getGameStage() { return gameStage; }
+    public void setCardsPlayed(WizardCards cardsPlayed, int playerID) {
+        if(0 <= playerID && playerID <= 3){
+            this.cardsPlayed.set(playerID, cardsPlayed);}
+    }
 
-    public WizardCards getTrumpCard() { return trumpCard; }
+    public void setCardsPlayedValue(int cardsPlayedValue, int playerID) {
+        if(0 <= playerID && playerID <= 3){
+            this.cardsPlayedValue.set(playerID, cardsPlayedValue);}
+    }
 
-    public String getTrumpSuit() {return trumpSuit;}
+    public void setPlayerBids(int newPlayerBids, int playerID) {
+        if(0 <= playerID && playerID <= 3){
+            this.playerBids.set(playerID, newPlayerBids);}
+    }
 
-    public int getRoundNum() { return roundNum; }
+    public void setPlayerBidsWon(int newPlayerBids, int playerID) {
+        if(0 <= playerID && playerID <= 3){
+            this.playerBidsWon.set(playerID, newPlayerBids);}
+    }
 
     public void setPlayerTurn(int playerTurn) { this.playerTurn = playerTurn; }
 
@@ -177,9 +235,17 @@ public class WizardState extends GameState {
 
     public void setRoundNum(int roundNum) { this.roundNum = roundNum; }
 
-    //public void setCardNumber(int cardNumber) {this.cardNumber = cardNumber; }
+    public void setCurrentPlayer(WizardPlayer currentPlayer) {this.currentPlayer = currentPlayer;}
 
-    //public void setCardSuit(String cardSuit) {this.cardSuit = cardSuit; }
+    public int getPlayerTurn() {return playerTurn; }
+
+    public int getGameStage() { return gameStage; }
+
+    public WizardCards getTrumpCard() { return trumpCard; }
+
+    public String getTrumpSuit() {return trumpSuit;}
+
+    public int getRoundNum() { return roundNum; }
 
     //Get information from a certain player, must provide the desired player number
     public WizardPlayer getPlayerInfo(int playerID){
@@ -188,9 +254,25 @@ public class WizardState extends GameState {
 
     public ArrayList<Integer> getPlayerBids(){return playerBids;}
 
+    public ArrayList<Integer> getPlayerBidsWon(){return playerBidsWon;}
+
     public ArrayList<WizardCards> getCardsPlayed() {return cardsPlayed;}
 
-    public void setPlayerBids(int newPlayerBids, int playerID) {
-        if(0 <= playerID && playerID <= 3){
-        this.playerBids.set(playerID, newPlayerBids);} }
+    public ArrayList<Integer> getCardsPlayedValue() {return cardsPlayedValue;}
+
+    public int getCurrentPlayerInt(WizardPlayer currentPlayer) {
+        if (currentPlayer == player0) {
+            return 0;
+        } else if (currentPlayer == player1) {
+            return 1;
+        } else if (currentPlayer == player2) {
+            return 2;
+        } else if (currentPlayer == player3) {
+            return 3;
+        }
+        return -1;
+    }
+
 }
+
+

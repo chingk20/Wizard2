@@ -8,6 +8,7 @@ public class WizardPlayer {
     private int runningTotal;
     private String playerName;
     private int bidNum;
+    private int bidNumWon;
     public ArrayList<WizardCards> currentHand = new ArrayList<WizardCards>();
 
     public WizardPlayer(int playerID, String playerName){
@@ -16,6 +17,7 @@ public class WizardPlayer {
         this.playerScore = 0;
         runningTotal = 0;
         bidNum = 0;
+        bidNumWon = 0;
     }
 
     public void addCardtoHand(WizardCards cardToAdd){
@@ -31,15 +33,19 @@ public class WizardPlayer {
         }
     }
 
+    public void setBidNum(int bidNum) {this.bidNum=bidNum;}
+
+    public void setBidNumWon(int bidNumWon) {this.bidNumWon=bidNumWon;}
+
     public void setPlayerScore(int runningTotal) { this.playerScore = playerScore + getRunningTotal(); }
 
-
     public int getBidNum() { return bidNum; }
+
+    public int getBidNumWon() {return bidNumWon;}
 
     public int getRunningTotal() { return runningTotal; }
 
     public int getPlayerScore() { return playerScore; }
-
 
     public ArrayList<WizardCards> getCurrentHand() {return currentHand;}
 }
