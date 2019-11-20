@@ -64,7 +64,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
     private ImageView card6 = null;
     private ImageView card7 = null;
     private ImageView card8 = null;
-    private ImageView card9 = null;     //humans player card 1
+    private ImageView card9 = null;
     private ImageView card10 = null;
     private ImageView card11 = null;
     private ImageView card12 = null;
@@ -1168,8 +1168,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 ////            }
 
             roundNum = state.getRoundNum();
-
-
         }
     }
 
@@ -1230,6 +1228,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
         roundText = (TextView) myActivity.findViewById(R.id.roundTextView);
 
         bidSpinner = (Spinner) myActivity.findViewById(R.id.bidDropdown);
+        bidSpinner.setOnItemSelectedListener(this);
         List<Integer> spinVal = new ArrayList<Integer>();
 
         //need for spinner
@@ -1239,7 +1238,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
             }
         }
 
-
         ArrayAdapter<Integer> dataAdapter = new ArrayAdapter<Integer>(myActivity,
                 android.R.layout.simple_spinner_item, spinVal);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -1247,7 +1245,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 
         //this.addListenerOnButton();
         bidSubmitButton = (Button) myActivity.findViewById(R.id.bidSubmit);
-
         bidSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1255,8 +1252,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
             }
         });
 
-
-     //   bidSpinner.setOnItemSelectedListener(this);
 
         Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8,
                 card9, card10, card11, card12, card13, card14, card15);
@@ -1525,4 +1520,19 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
         }
         return false;
     }
+
+    //@Override
+//    public void onClick(View view) {
+//        switch(view.getId()){
+//            case R.id.helpButton:
+////                myActivity.setContentView(R.layout.game_help_screen);
+//                break;
+//            case R.id.quitButton:
+//                //myActivity.setContentView(R.layout.game_config_main);
+//                break;
+////            case R.id.backToGame:
+////                myActivity.setContentView(R.layout.activity_main);
+////                break;
+//        }
+    //}
 }

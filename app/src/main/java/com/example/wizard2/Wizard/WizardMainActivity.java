@@ -44,9 +44,7 @@ public class WizardMainActivity extends GameMainActivity {
         defaultConfig.setRemoteData("Remote Human Player", "", 0);
 
         return defaultConfig;
-
     }
-
 
     /**
      * createLocalGame
