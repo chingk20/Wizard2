@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Wizard2</string>
-    <string name="hello_world">Hello world!</string>
+    <string-array name="bidEntries">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>

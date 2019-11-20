@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,7 +36,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
     WizardBidAction myBid;
 
     //WizardPlayer myPlayer;
-    private WizardState state;
+    private WizardState state = new WizardState();
 
     private ArrayList<ImageView> guiCards = new ArrayList<ImageView>();
 
@@ -44,7 +45,10 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
     // the current activity
     private GameMainActivity myActivity;
 
-    private List<String> spinVal = new ArrayList<String>();
+
+    private int roundNum;
+
+//    private List<String> spinVal = new ArrayList<String>();
 
     // the card picture
     private TextView player1Score = null;
@@ -73,6 +77,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
     private ImageView card4Played = null;
     private ImageView cardTrump = null;
     private Spinner bidSpinner = null;
+    private Button bidSubmitButton = null;
 
     /**
      * constructor
@@ -1162,12 +1167,9 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 ////                player1Score.append("\n Card Played: " + cardToPlay.getCardSuit() + " " + cardToPlay.getCardNumber());
 ////            }
 
-            //need for spinner
-            for (i = 0; i < state.getRoundNum()+1; i++) {
-                if(!spinVal.contains(""+i)) {
-                    spinVal.add("" + i);
-                }
-            }
+            roundNum = state.getRoundNum();
+
+
         }
     }
 
@@ -1228,15 +1230,39 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
         roundText = (TextView) myActivity.findViewById(R.id.roundTextView);
 
         bidSpinner = (Spinner) myActivity.findViewById(R.id.bidDropdown);
-        bidSpinner.setOnItemSelectedListener(this);
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(myActivity,
+        List<Integer> spinVal = new ArrayList<Integer>();
+
+        //need for spinner
+        for (int i = 0; i < state.getRoundNum(); i++) {
+            if(!spinVal.contains(i)) {
+                spinVal.add(i);
+            }
+        }
+
+
+        ArrayAdapter<Integer> dataAdapter = new ArrayAdapter<Integer>(myActivity,
                 android.R.layout.simple_spinner_item, spinVal);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         bidSpinner.setAdapter(dataAdapter);
 
+        //this.addListenerOnButton();
+        bidSubmitButton = (Button) myActivity.findViewById(R.id.bidSubmit);
+
+        bidSubmitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Logger.log("bid val", String.valueOf(bidSpinner.getSelectedItem()));
+            }
+        });
+
+
+     //   bidSpinner.setOnItemSelectedListener(this);
+
         Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8,
                 card9, card10, card11, card12, card13, card14, card15);
     }
+
+
 
     /**
      * perform any initialization that needs to be done after the player
@@ -1250,7 +1276,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        Logger.log("BidNum", "bid placed " + bidNum);
+        Logger.log("BidNum", "bid placed " + parent.getItemAtPosition(pos));
         //if(state.getPlayerTurn()==0 && state.getGameStage()==0) {
         //if(parent.getId()== R.id.bidDropdown && state.getGameStage()==0 && state.getPlayerTurn()==0){
         if(view.getId() == R.id.bidDropdown && state.getGameStage()==0 && state.getPlayerTurn()==0) {
@@ -1261,7 +1287,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 //            } catch(NumberFormatException nfe) {
 //                System.out.println("Could not parse " + nfe);
 //            }
-            Logger.log("BidNum", "bid placed " + bidNum);
+
             myBid = new WizardBidAction(this, bidNum);
             super.game.sendAction(myBid);
         }
