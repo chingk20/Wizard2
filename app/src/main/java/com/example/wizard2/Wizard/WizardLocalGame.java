@@ -5,11 +5,8 @@ import android.util.Log;
 import com.example.wizard2.GameFramework.GamePlayer;
 import com.example.wizard2.GameFramework.LocalGame;
 import com.example.wizard2.GameFramework.actionMessage.GameAction;
-import com.example.wizard2.GameFramework.utilities.Logger;
 
 import java.util.ArrayList;
-
-import static android.os.SystemClock.sleep;
 
 public class WizardLocalGame extends LocalGame {
     //Tag for logging
@@ -97,66 +94,49 @@ public class WizardLocalGame extends LocalGame {
      */
     @Override
     protected boolean makeMove(GameAction action) {
+        Log.i("make move: " , "im in make move");
         if (action instanceof WizardBidAction) {
             //checks if bid is valid and it is bidding stage
-                if (((WizardBidAction) action).getBidNum() <= state.getRoundNum() && state.getGameStage() == 0) {
-                    // gets the ArrayList of integers that contains each player's bids from WizardState
-                    state.setPlayerBids(((WizardBidAction) action).getBidNum(), state.getPlayerTurn());
-                    //Logger.log("LocalGame", "Sending bidding move bid:" + ((WizardBidAction) action).getBidNum());
-                    Logger.log("Local Game", "Players Bids: " + state.getPlayerBids());
-                    //Logger.log("Local Game", "Player Turn: " + state.getPlayerTurn());
-                    //check if it is end of round i.e. everyone has bid
-                    if (state.getPlayerTurn() == 3) {
-                        state.setGameStage(1);
-                        state.setPlayerTurn(0);
-                        //Logger.log("Local Game", "Player Turn: " + state.getPlayerTurn() + " Game Stage: " + state.getGameStage());
-                        return true;
-                    }
-                        state.setPlayerTurn(state.playerTurn+1);
-                        //Logger.log("Local Game", "Player Turn: " + state.getPlayerTurn() + " Game Stage: " + state.getGameStage());
-                        return true;
-                } else {
-                    return false;
+            if (((WizardBidAction) action).getBidNum() <= state.getRoundNum() && state.getGameStage()==0) {
+                // gets the ArrayList of integers that contains each player's bids from WizardGameState
+                state.getPlayerBids().add(state.getPlayerTurn(), ((WizardBidAction) action).getBidNum());
+                //check if it is end of round i.e. everyone has gone
+                if(state.playerTurn==3)
+                {
+                    state.setGameStage(1);
+                    state.setPlayerTurn(0);
                 }
+                return true;
+            } else {
+                return false;
+            }
         } else if (action instanceof WizardPlayAction) {
             WizardPlayer myPlayer = state.getPlayerInfo(state.getPlayerTurn());
             WizardCards cardToPlay = ((WizardPlayAction) action).getCardToPlay();
-            //checks if card is in hand and it is playing card stage and its players turn
+
+            Log.i("local game", "player hand: " + myPlayer.getCurrentHand() + " cardToPlay: " + ((WizardPlayAction) action).getCardToPlay());
+
+            //checks if card is in hand and it is playing card stage
             if (myPlayer.getCurrentHand().contains(cardToPlay) && state.getGameStage()==1) {
-                Logger.log("Local Game", "Player Turn:" + state.getPlayerTurn());
-                state.setCardsPlayed(cardToPlay, state.getPlayerTurn());
-                state.setCardsPlayedValue(cardToPlay.getCardValue(), state.getPlayerTurn());
                 myPlayer.getCurrentHand().remove(cardToPlay);
-                Logger.log("Local Game", "Cards Played: " + state.getCardsPlayedValue());
+                state.getCardsPlayed().add(cardToPlay);
+
                 //checks is it is end of round
                 //if everyone's hand is empty then increment round num and redeal
-                if(state.getPlayerTurn()==3)
+                if(state.playerTurn==3)
                 {
-                    if(myPlayer.getCurrentHand().size()==0)
+                    if(myPlayer.getCurrentHand()==null)
                     {
-                        //resets all bids to zero after round
-                        for(int i=0; i<4; i++) {
-                            state.setPlayerBids(i, 0);
-                        }
-                        state.setGameStage(0);
-                        state.setPlayerTurn(0);
-                        state.calculateWinner();
-                        WizardPlayer player0 = state.getPlayerInfo(0);
-                        //state.resetImage();
                         state.setRoundNum(state.roundNum++);
                         state.dealDeck(state.roundNum);
                     }
                     state.setGameStage(0);
                     state.setPlayerTurn(0);
-                    //calculate who won sub round
-                    state.calculateWinner();
-                    Logger.log("Local Game", "Bids Won:" + state.getPlayerBidsWon());
-                    //Logger.log("Local Game", "Player Turn:" + state.getPlayerTurn());
-                    //state.resetImage();
-                    return true;
                 }
-                state.setPlayerTurn(state.playerTurn+1);
-                Logger.log("Local Game", "Player Turn:" + state.getPlayerTurn());
+                else{
+                    state.setPlayerTurn(state.playerTurn+1);
+                }
+
                 return true;
             } else {
                 return false;
