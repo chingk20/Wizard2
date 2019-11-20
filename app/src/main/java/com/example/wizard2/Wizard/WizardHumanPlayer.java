@@ -44,8 +44,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
     private static final String TAG = "WizardHumanPlayer";
     // the current activity
     private GameMainActivity myActivity;
-
-
     private int roundNum;
 
 //    private List<String> spinVal = new ArrayList<String>();

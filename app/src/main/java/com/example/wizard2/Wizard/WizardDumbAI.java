@@ -32,8 +32,6 @@ public class WizardDumbAI extends GameComputerPlayer {
     @Override
     protected void receiveInfo(GameInfo info) {
 
-        state = (WizardState) info;
-
         // if it was a "not your turn" message, just ignore it
         if (info instanceof NotYourTurnInfo) return;
         Logger.log("WizardComputer", "Not your turn!");
