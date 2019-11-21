@@ -25,7 +25,7 @@ import java.util.List;
 
 import static android.os.SystemClock.sleep;
 
-public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.OnItemSelectedListener, View.OnTouchListener {
+public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchListener, View.OnClickListener {
 
     boolean alreadyChosen = false;
 
@@ -1226,7 +1226,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
         roundText = (TextView) myActivity.findViewById(R.id.roundTextView);
 
         bidSpinner = (Spinner) myActivity.findViewById(R.id.bidDropdown);
-        bidSpinner.setOnItemSelectedListener(this);
+       // bidSpinner.setOnItemSelectedListener(this);
         List<Integer> spinVal = new ArrayList<Integer>();
 
         //need for spinner
@@ -1243,12 +1243,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 
         //this.addListenerOnButton();
         bidSubmitButton = (Button) myActivity.findViewById(R.id.bidSubmit);
-        bidSubmitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Logger.log("bid val", String.valueOf(bidSpinner.getSelectedItem()));
-            }
-        });
+        bidSubmitButton.setOnClickListener(this);
 
 
         Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8,
@@ -1267,36 +1262,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 
     //spinner listener for the bid dropdown menu
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        Logger.log("BidNum", "bid placed " + parent.getItemAtPosition(pos));
-        //if(state.getPlayerTurn()==0 && state.getGameStage()==0) {
-        //if(parent.getId()== R.id.bidDropdown && state.getGameStage()==0 && state.getPlayerTurn()==0){
-        if(view.getId() == R.id.bidDropdown && state.getGameStage()==0 && state.getPlayerTurn()==0) {
-            bidNum = (int) parent.getItemAtPosition(pos);
-            //bidNum = (int) bidSpinner.getSelectedItem();
-//            try {
-//                bidNum = Integer.parseInt(bidSpinner.getItemAtPosition(pos).toString());
-//            } catch(NumberFormatException nfe) {
-//                System.out.println("Could not parse " + nfe);
-//            }
 
-            myBid = new WizardBidAction(this, bidNum);
-            super.game.sendAction(myBid);
-        }
 
-        //WizardHumanPlayer is like the controller, so when user interacts with dropdown and chooses a bid
-        //we handle that bid here, set it equal to bidNum, and send bidNum through sendAction to the game class
-        //WizardLocalGame extends LocalGame which extends Game, so it receives the action from Game
-
-        //myBid is a WizardBidAction object which sends the player and the bid number to WizardBidAction
-    }
-
-    //unused method required with spinner
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
-    }
 
     @Override
     public boolean onTouch(View v, MotionEvent motionEvent) {
@@ -1519,8 +1486,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
         return false;
     }
 
-    //@Override
-//    public void onClick(View view) {
+    @Override
+    public void onClick(View view) {
 //        switch(view.getId()){
 //            case R.id.helpButton:
 ////                myActivity.setContentView(R.layout.game_help_screen);
@@ -1532,5 +1499,9 @@ public class WizardHumanPlayer extends GameHumanPlayer implements AdapterView.On
 ////                myActivity.setContentView(R.layout.activity_main);
 ////                break;
 //        }
-    //}
+        bidNum = (Integer)bidSpinner.getSelectedItem();
+        Logger.log("bid val", ""+bidNum);
+        myBid = new WizardBidAction(this, bidNum);
+        super.game.sendAction(myBid);
+    }
 }

@@ -213,6 +213,7 @@ public class WizardState extends GameState {
         player1.setPlayerScore(player1.getRunningTotal());
         player2.setPlayerScore(player2.getRunningTotal());
         player3.setPlayerScore(player3.getRunningTotal());
+
     }
 
     public void setCardsPlayed(WizardCards cardsPlayed, int playerID) {
