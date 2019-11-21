@@ -125,9 +125,8 @@ public class WizardLocalGame extends LocalGame {
             if (myPlayer.getCurrentHand().contains(cardToPlay) && state.getGameStage()==1) {
                 Logger.log("Local Game", "Player Turn:" + state.getPlayerTurn());
                 state.setCardsPlayed(cardToPlay, state.getPlayerTurn());
-                state.setCardsPlayedValue(cardToPlay.getCardValue(), state.getPlayerTurn());
                 myPlayer.getCurrentHand().remove(cardToPlay);
-                Logger.log("Local Game", "Cards Played: " + state.getCardsPlayedValue());
+
                 //checks is it is end of round
                 //if everyone's hand is empty then increment round num and redeal
                 if(state.getPlayerTurn()==3)
@@ -141,7 +140,7 @@ public class WizardLocalGame extends LocalGame {
                         state.setGameStage(0);
                         state.setPlayerTurn(0);
                         state.calculateWinner();
-                        WizardPlayer player0 = state.getPlayerInfo(0);
+                        state.calculateScores();
                         //state.resetImage();
                         state.setRoundNum(state.roundNum++);
                         state.dealDeck(state.roundNum);

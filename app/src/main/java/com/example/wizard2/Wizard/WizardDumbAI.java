@@ -41,7 +41,7 @@ public class WizardDumbAI extends GameComputerPlayer {
             //Logger.log("WizardComputer", "Player ID" + playerID);
             if(((WizardState) info).getGameStage()==0) {
                 //Logger.log("WizardComputer", "Sending bidding move");
-                bidNum = (int) ((((WizardState) info).getRoundNum() + 1) * Math.random());
+                bidNum = (int) ((((WizardState) info).getRoundNum()+1) * Math.random());
                 myBid = new WizardBidAction(this, bidNum);
                 Logger.log("WizardComputer", "Computer Bid:" + bidNum);
                 Logger.log("WizardComputer", "Sending bidding move");
