@@ -47,8 +47,8 @@ public class WizardDumbAI extends GameComputerPlayer {
                 myBid = new WizardBidAction(this, bidNum);
                 //Logger.log("WizardComputer", "Computer Bid:" + bidNum);
                 //Logger.log("WizardComputer", "Sending bidding move");
-                super.game.sendAction(myBid);
-                sleep(2);
+                game.sendAction(myBid);
+                sleep(1);
             }
             //need to update I think it goes through three times
             else if(((WizardState) info).getGameStage()==1 && ((WizardState) info).getPlayerTurn() >=1 &&
@@ -62,13 +62,13 @@ public class WizardDumbAI extends GameComputerPlayer {
                 cardToPlay = player.getCurrentHand().get(randomCard);
                 myPlay = new WizardPlayAction(this, cardToPlay, randomCard);
                 Logger.log("WizardComputer", "Sending playing move");
-                super.game.sendAction(myPlay);
-                sleep(2);
+                game.sendAction(myPlay);
+                sleep(1);
             }
         }
 
         // delay for a second to make opponent think we're thinking
-        sleep(2);
+        sleep(1);
 
         // Submit our move to the game object. We haven't even checked it it's
         // our turn, or that that position is unoccupied. If it was not our turn,

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.SurfaceView;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.wizard2.GameFramework.GameMainActivity;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 
 public class WizardMainActivity extends GameMainActivity {
     private static final int PORT_NUMBER = 2278;
+
+
 
     @Override
     public GameConfig createDefaultConfig() {
@@ -59,4 +62,7 @@ public class WizardMainActivity extends GameMainActivity {
     public LocalGame createLocalGame() {
         return new WizardLocalGame();
     }
+
+
+
 }

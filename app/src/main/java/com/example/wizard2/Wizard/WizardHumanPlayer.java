@@ -1264,6 +1264,11 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     && state.getGameStage()==1 && state.getPlayerTurn()==0){
                 alreadyChosen = true;
                 cardToPlay = state.getPlayerInfo(0).getCurrentHand().get(i);
+                if (cardToPlay == null)
+                {
+                    //Nux said to add temp to fix bug
+                    return true;
+                }
                 //Logger.log("onTouch","card picked "+ cardToPlay.getCardSuit() + cardToPlay.getCardNumber());
                 card1Played.setVisibility(View.VISIBLE);
                 switch (cardToPlay.getCardSuit()) {

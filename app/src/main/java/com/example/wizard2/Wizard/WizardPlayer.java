@@ -21,7 +21,7 @@ public class WizardPlayer {
     }
 
     public void addCardtoHand(WizardCards cardToAdd){
-        currentHand.add(cardToAdd);
+        currentHand.add(0, cardToAdd);
     }
 
     public void setRunningTotal(int bidNum, int bidWon){

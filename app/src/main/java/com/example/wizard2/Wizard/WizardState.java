@@ -17,6 +17,7 @@ public class WizardState extends GameState {
     private int gameStage;  //which state of the game the player is in
     private String trumpSuit;  //suit of trump card
     public int roundNum;
+    public boolean trickOver = false;
 
     //public boolean alreadyChosen;
 
@@ -62,6 +63,7 @@ public class WizardState extends GameState {
         this.playerTurn = 0;    //player 0 will go first
         this.gameStage = 0;     //starts at game state 0: bidding phase
         this.roundNum = 4;
+
 
         this.makeCards();
         this.dealDeck(roundNum);
@@ -143,6 +145,7 @@ public class WizardState extends GameState {
         //Log.i("deck", "i am in deal deck");
         Random random = new Random();
         for (int i = 0; i < listOfPlayers.size(); i++){
+
             for (int round = 0; round < numTricks; round++) {
                 int randomCard = random.nextInt(deck.size());
                 listOfPlayers.get(i).addCardtoHand(deck.get(randomCard));
@@ -301,6 +304,9 @@ public class WizardState extends GameState {
         }
         return -1;
     }
+
+
+
 
 }
 
