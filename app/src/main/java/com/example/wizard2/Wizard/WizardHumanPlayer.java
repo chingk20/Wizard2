@@ -31,30 +31,29 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
     private WizardCards cardToPlay;
     private int bidNum = 0;
+    private int roundNum;
 
+    //ACTIONS
     WizardPlayAction myPlay;
     WizardBidAction myBid;
 
-    //WizardPlayer myPlayer;
     private WizardState state = new WizardState();
 
     private ArrayList<ImageView> guiCards = new ArrayList<ImageView>();
 
     //Tag for logging
     private static final String TAG = "WizardHumanPlayer";
+
     // the current activity
     private GameMainActivity myActivity;
-    private int roundNum;
 
-//    private List<String> spinVal = new ArrayList<String>();
-
-    // the card picture
-    private TextView player1Score = null;
+    //GUI
+    private TextView player1Score = null;   //players info (bid, bids won, scores)
     private TextView player2Score = null;
     private TextView player3Score = null;
     private TextView player4Score = null;
     private TextView roundText = null;
-    private ImageView card1 = null;     //humans player card 1
+    private ImageView card1 = null;         //humans player card 1
     private ImageView card2 = null;
     private ImageView card3 = null;
     private ImageView card4 = null;
@@ -73,13 +72,12 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     private ImageView card2Played = null;
     private ImageView card3Played = null;
     private ImageView card4Played = null;
-    private ImageView cardTrump = null;
+    private ImageView cardTrump = null;     //trump card
     private Spinner bidSpinner = null;
     private Button bidSubmitButton = null;
 
     /**
      * constructor
-     *
      * @param name the player's name
      */
     public WizardHumanPlayer(String name) {
@@ -89,7 +87,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
     /**
      * returns the GUI's top view
-     *
      * @return the GUI's top view
      */
     @Override
@@ -99,7 +96,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
     /**
      * Callback method, called when player gets a message
-     *
      * @param info the message
      */
     @Override
@@ -122,7 +118,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         if (info instanceof WizardState) {
             state = (WizardState) info;
 
-            //sets image to trump card
+            //sets trump card image
             WizardCards trumpCard = ((WizardState) info).getTrumpCard();
             switch (trumpCard.getCardSuit()) {
                 case "diamond":
@@ -322,7 +318,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     }
             }
 
-            //sets image to cards in hand
+            //sets image to cards in human hand
             int i = 0;
             Log.i("creating cards", "" + state.getPlayerInfo(0).getCurrentHand().size());
             if (!alreadyChosen) {
@@ -532,6 +528,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 }
             }
 
+            //sets image of played card by each player in middle
             WizardCards cp1 = state.cardsPlayed.get(1);
             if (cp1 != null) {
                 card2Played.setVisibility(View.VISIBLE);
@@ -1150,8 +1147,9 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 boolean alreadyChosen = false;
             }
 
-            //sets text on gui
+            //shows round num and player turn on GUI
             roundText.setText("Round " + state.getRoundNum() +"\n Player Turn: " + (state.getPlayerTurn()+1));
+
             //updates gui for players scores and bids
             player1Score.setText("PLAYER 1\n Bid: " + state.getPlayerBids().get(0) + "\nBids Won: "
                     + state.getPlayerBidsWon().get(0) + "\nTotal Score: " + state.getPlayerInfo(0).getPlayerScore());
@@ -1178,6 +1176,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         // Load the layout resource for the new configuration
         activity.setContentView(R.layout.activity_main);
 
+        //finds and sets listener on image views
         card1 = (ImageView) myActivity.findViewById(R.id.imageView1);
         card1.setOnTouchListener(this);
         card2 = (ImageView) myActivity.findViewById(R.id.imageView2);
@@ -1223,11 +1222,10 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         roundText = (TextView) myActivity.findViewById(R.id.roundTextView);
 
         bidSpinner = (Spinner) myActivity.findViewById(R.id.bidDropdown);
-       // bidSpinner.setOnItemSelectedListener(this);
         List<Integer> spinVal = new ArrayList<Integer>();
 
         //need for spinner
-        for (int i = 0; i < state.getRoundNum()+1; i++) {
+        for (int i = 0; i < 16; i++) {
             if(!spinVal.contains(i)) {
                 spinVal.add(i);
             }
@@ -1238,15 +1236,12 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         bidSpinner.setAdapter(dataAdapter);
 
-        //this.addListenerOnButton();
         bidSubmitButton = (Button) myActivity.findViewById(R.id.bidSubmit);
         bidSubmitButton.setOnClickListener(this);
 
         Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8,
                 card9, card10, card11, card12, card13, card14, card15);
     }
-
-
 
     /**
      * perform any initialization that needs to be done after the player
@@ -1260,6 +1255,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     public boolean onTouch(View v, MotionEvent motionEvent) {
         int i = 0;
         for (ImageView guiCard : guiCards){
+
+            //checks if it is players turn and playing stage
             if (v == guiCard && i<state.getPlayerInfo(0).getCurrentHand().size()
                     && state.getGameStage()==1 && state.getPlayerTurn()==0){
                 alreadyChosen = true;
@@ -1269,7 +1266,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     //Nux said to add temp to fix bug
                     return true;
                 }
-                //Logger.log("onTouch","card picked "+ cardToPlay.getCardSuit() + cardToPlay.getCardNumber());
+
+                //sets image to card played
                 card1Played.setVisibility(View.VISIBLE);
                 switch (cardToPlay.getCardSuit()) {
                     case "diamond":
@@ -1470,8 +1468,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                         break;
                 }
                 guiCards.get(i).setVisibility(View.INVISIBLE);
-                Logger.log("onTouch","size of hand "+state.getPlayerInfo(0).getCurrentHand().size());
-                //myPlay = new WizardPlayAction(this, cardToPlay);
+
+                //sends card picked to play action
                 myPlay = new WizardPlayAction(this, cardToPlay, i);
                 super.game.sendAction(myPlay);
                 return true;
@@ -1496,9 +1494,13 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 ////                myActivity.setContentView(R.layout.activity_main);
 ////                break;
 //        }
+
         bidNum = (Integer)bidSpinner.getSelectedItem();
-        Logger.log("bid val", ""+bidNum);
-        myBid = new WizardBidAction(this, bidNum);
-        super.game.sendAction(myBid);
+
+        //checks if bid chosen is valid
+        if(bidNum <= state.getRoundNum()) {
+            myBid = new WizardBidAction(this, bidNum);
+            super.game.sendAction(myBid);
+        }
     }
 }

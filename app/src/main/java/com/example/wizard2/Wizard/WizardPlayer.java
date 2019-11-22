@@ -2,6 +2,10 @@ package com.example.wizard2.Wizard;
 
 import java.util.ArrayList;
 
+/*  WizardPlayer:
+    Creates a player to play the game. Keeps track of their ID, score, name, and bid number
+ */
+
 public class WizardPlayer {
     private int playerID;
     private int playerScore;
@@ -17,6 +21,8 @@ public class WizardPlayer {
         this.playerScore = 0;
         runningTotal = 0;
         bidNum = 0;
+
+        //might not need
         bidNumWon = 0;
     }
 
@@ -24,6 +30,7 @@ public class WizardPlayer {
         currentHand.add(0, cardToAdd);
     }
 
+    //calculates score for round
     public void setRunningTotal(int bidNum, int bidWon){
         if(bidNum==bidWon){
             this.runningTotal = 20 + (bidWon * 10);

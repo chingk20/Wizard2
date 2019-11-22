@@ -38,37 +38,46 @@ public class WizardDumbAI extends GameComputerPlayer {
         }
 
         if (info instanceof WizardState){
+
             int playerID = ((WizardState) info).getPlayerTurn();
             WizardPlayer player = ((WizardState) info).getPlayerInfo(playerID);
+
+            //checks if it is players turn
             if (this.playerNum != playerID) return;
+
+            //BIDDING ACTION: checks if it is bidding stage
             if(((WizardState) info).getGameStage()==0) {
-                //Logger.log("WizardComputer", "Sending bidding move");
+                //gets random bid num and send bid num to be bid action
                 bidNum = (int) ((((WizardState) info).getRoundNum()+1) * Math.random());
                 myBid = new WizardBidAction(this, bidNum);
-                //Logger.log("WizardComputer", "Computer Bid:" + bidNum);
+                sleep(1);
                 //Logger.log("WizardComputer", "Sending bidding move");
                 game.sendAction(myBid);
-                sleep(1);
+
             }
-            //need to update I think it goes through three times
+
+            //PLAYING ACTION: checks if it is playing stage
             else if(((WizardState) info).getGameStage()==1 && ((WizardState) info).getPlayerTurn() >=1 &&
                     ((WizardState) info).getPlayerTurn() <=3) {
+                //finds random spot in players hand
                 randomCard = (int) (player.getCurrentHand().size() * Math.random());
-                //Logger.log("WizardComputer", "Random Computer Card:" + randomCard);
-                //need to check if card is in hand
+
+                //checks if card is in hand i.e. not null
                 while(player.getCurrentHand().get(randomCard)==null) {
                     randomCard = (int) (player.getCurrentHand().size() * Math.random());
                 }
+
+                //gets the card in players hand and sends card to play action
                 cardToPlay = player.getCurrentHand().get(randomCard);
                 myPlay = new WizardPlayAction(this, cardToPlay, randomCard);
-                Logger.log("WizardComputer", "Sending playing move");
-                game.sendAction(myPlay);
+                //Logger.log("WizardComputer", "Sending playing move");
                 sleep(1);
+                game.sendAction(myPlay);
             }
         }
 
         // delay for a second to make opponent think we're thinking
-        sleep(1);
+//        sleep(1);
 
         // Submit our move to the game object. We haven't even checked it it's
         // our turn, or that that position is unoccupied. If it was not our turn,

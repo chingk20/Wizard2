@@ -2,6 +2,12 @@ package com.example.wizard2.Wizard;
 
 import android.util.Log;
 
+/*  WizardCards:
+    Creates all the cards needed to play Wizard. Cards created equal
+    52 standard cards in a deck: Ace through King, four suits, plus
+    4 jesters and 4 wizards.
+ */
+
 public class WizardCards{
     private String cardSuit;
     private int cardNumber;
@@ -12,8 +18,8 @@ public class WizardCards{
         this.cardSuit = mySuit;
         this.cardNumber = myNumber;
 
+        //sets value for each card
         if(mySuit == trumpCard){
-            //Log.i("Wizard Cards", "trump card" + mySuit + trumpCard);
             this.cardValue = this.cardNumber * 10;
         }
         else{
