@@ -325,7 +325,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             //sets image to cards in hand
             int i = 0;
             Log.i("creating cards", "" + state.getPlayerInfo(0).getCurrentHand().size());
-            Log.i("creating cards", "already chosen" + alreadyChosen);
             if (!alreadyChosen) {
                 for (; i < state.getPlayerInfo(0).getCurrentHand().size(); i++) {
                     WizardCards card = ((WizardState) info).getPlayerInfo(0).getCurrentHand().get(i);
@@ -1163,10 +1162,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             player4Score.setText("PLAYER 4\n Bid: " + state.getPlayerBids().get(3) + "\nBids Won: "
                     + state.getPlayerBidsWon().get(3)+ "\nTotal Score: " + state.getPlayerInfo(3).getPlayerScore());
 
-//            if(cardToPlay != null){
-////                player1Score.append("\n Card Played: " + cardToPlay.getCardSuit() + " " + cardToPlay.getCardNumber());
-////            }
-
             roundNum = state.getRoundNum();
         }
     }
@@ -1247,7 +1242,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         bidSubmitButton = (Button) myActivity.findViewById(R.id.bidSubmit);
         bidSubmitButton.setOnClickListener(this);
 
-
         Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8,
                 card9, card10, card11, card12, card13, card14, card15);
     }
@@ -1261,11 +1255,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     protected void initAfterReady() {
         //myActivity.setTitle("Tic-Tac-Toe: " + allPlayerNames[0] + " vs. " + allPlayerNames[1]);
     }
-
-    //spinner listener for the bid dropdown menu
-
-
-
 
     @Override
     public boolean onTouch(View v, MotionEvent motionEvent) {

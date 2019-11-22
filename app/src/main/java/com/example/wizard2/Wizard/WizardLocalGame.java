@@ -16,6 +16,7 @@ public class WizardLocalGame extends LocalGame {
     private static final String TAG = "WizardLocalGame";
     // the game's state
     protected WizardState state;
+    //protected WizardHumanPlayer human;
 
     /**
      * Constructor for the WizardLocalGame.
@@ -131,7 +132,6 @@ public class WizardLocalGame extends LocalGame {
                 //myPlayer.getCurrentHand().remove(cardToPlay);
                 myPlayer.getCurrentHand().set(placeInHand,null);    //sets place as null
                 //checks is it is end of round
-                //if everyone's hand is empty then increment round num and redeal
                 if(state.getPlayerTurn()==3) {
                     //if(myPlayer.getCurrentHand().size()==0){
 
@@ -156,6 +156,7 @@ public class WizardLocalGame extends LocalGame {
                     state.setRoundNum(state.getRoundNum() +1);
                     Logger.log("Local Game", "Round num:" + state.getRoundNum());
                     state.dealDeck(state.roundNum);
+                    //human.alreadyChosen=false;
                     //state.resetImage();
 
                     return true;

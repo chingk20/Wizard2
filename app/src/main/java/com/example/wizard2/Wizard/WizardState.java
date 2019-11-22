@@ -61,7 +61,7 @@ public class WizardState extends GameState {
 
         this.playerTurn = 0;    //player 0 will go first
         this.gameStage = 0;     //starts at game state 0: bidding phase
-        this.roundNum = 6;
+        this.roundNum = 4;
 
         this.makeCards();
         this.dealDeck(roundNum);
@@ -151,6 +151,11 @@ public class WizardState extends GameState {
             }
         }
         int randomCard = random.nextInt(deck.size());
+        //ensures that trump is not wizard or jester
+        while(randomCard == 15 || randomCard ==0)
+        {
+            randomCard = random.nextInt(deck.size());
+        }
         trumpCard = deck.get(randomCard);
         trumpSuit = deck.get(randomCard).getCardSuit();
         trumpCard.setTrumpCard(trumpSuit);

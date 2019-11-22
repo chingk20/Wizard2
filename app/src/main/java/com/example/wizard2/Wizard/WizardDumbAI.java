@@ -32,40 +32,38 @@ public class WizardDumbAI extends GameComputerPlayer {
     protected void receiveInfo(GameInfo info) {
 
         // if it was a "not your turn" message, just ignore it
-        if (info instanceof NotYourTurnInfo) return;
-        Logger.log("WizardComputer", "Not your turn!");
+        if (info instanceof NotYourTurnInfo) {
+            Logger.log("WizardComputer", "Not your turn!");
+            return;
+        }
 
         if (info instanceof WizardState){
             int playerID = ((WizardState) info).getPlayerTurn();
             WizardPlayer player = ((WizardState) info).getPlayerInfo(playerID);
-            //Logger.log("WizardComputer", "Player ID" + playerID);
+            if (this.playerNum != playerID) return;
             if(((WizardState) info).getGameStage()==0) {
                 //Logger.log("WizardComputer", "Sending bidding move");
                 bidNum = (int) ((((WizardState) info).getRoundNum()+1) * Math.random());
                 myBid = new WizardBidAction(this, bidNum);
-                Logger.log("WizardComputer", "Computer Bid:" + bidNum);
-                Logger.log("WizardComputer", "Sending bidding move");
+                //Logger.log("WizardComputer", "Computer Bid:" + bidNum);
+                //Logger.log("WizardComputer", "Sending bidding move");
                 super.game.sendAction(myBid);
-                sleep(1);
+                sleep(2);
             }
             //need to update I think it goes through three times
             else if(((WizardState) info).getGameStage()==1 && ((WizardState) info).getPlayerTurn() >=1 &&
                     ((WizardState) info).getPlayerTurn() <=3) {
                 randomCard = (int) (player.getCurrentHand().size() * Math.random());
-                Logger.log("WizardComputer", "Random Computer Card:" + randomCard);
+                //Logger.log("WizardComputer", "Random Computer Card:" + randomCard);
                 //need to check if card is in hand
                 while(player.getCurrentHand().get(randomCard)==null) {
                     randomCard = (int) (player.getCurrentHand().size() * Math.random());
                 }
-                int size = player.getCurrentHand().size();
-                //Logger.log("WizardComputer", "Player Turn:" + playerID + " Current Hand Size:" + size);
-                Logger.log("WizardComputer", "Player Turn:" + player);
                 cardToPlay = player.getCurrentHand().get(randomCard);
-                //Logger.log("WizardComputer", "Computer Card Played:" + cardToPlay);
-                //myPlay = new WizardPlayAction(this, cardToPlay);
                 myPlay = new WizardPlayAction(this, cardToPlay, randomCard);
                 Logger.log("WizardComputer", "Sending playing move");
                 super.game.sendAction(myPlay);
+                sleep(2);
             }
         }
 
@@ -77,8 +75,6 @@ public class WizardDumbAI extends GameComputerPlayer {
         // we'll get a message back that we'll ignore. If it was an illegal move,
         // we'll end up here again (and possibly again, and again). At some point,
         // we'll end up randomly pick a move that is legal.
-
-
 
     }
 }
