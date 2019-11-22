@@ -1,5 +1,7 @@
 package com.example.wizard2.Wizard;
 
+import android.util.Log;
+
 public class WizardCards{
     private String cardSuit;
     private int cardNumber;
@@ -11,6 +13,7 @@ public class WizardCards{
         this.cardNumber = myNumber;
 
         if(mySuit == trumpCard){
+            //Log.i("Wizard Cards", "trump card" + mySuit + trumpCard);
             this.cardValue = this.cardNumber * 10;
         }
         else{
@@ -19,8 +22,7 @@ public class WizardCards{
     }
 
     public int getCardValue(){
-        return this.cardValue;
-    }
+        return this.cardValue; }
 
     public String getCardSuit(){
         return this.cardSuit;

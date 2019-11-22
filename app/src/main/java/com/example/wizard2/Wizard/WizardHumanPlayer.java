@@ -325,9 +325,11 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             //sets image to cards in hand
             int i = 0;
             Log.i("creating cards", "" + state.getPlayerInfo(0).getCurrentHand().size());
+            Log.i("creating cards", "already chosen" + alreadyChosen);
             if (!alreadyChosen) {
                 for (; i < state.getPlayerInfo(0).getCurrentHand().size(); i++) {
                     WizardCards card = ((WizardState) info).getPlayerInfo(0).getCurrentHand().get(i);
+                    guiCards.get(i).setVisibility(View.VISIBLE);
                     switch (card.getCardSuit()) {
                         case "diamond":
                             switch (card.getCardValue()) {
@@ -1230,7 +1232,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         List<Integer> spinVal = new ArrayList<Integer>();
 
         //need for spinner
-        for (int i = 0; i < state.getRoundNum(); i++) {
+        for (int i = 0; i < state.getRoundNum()+1; i++) {
             if(!spinVal.contains(i)) {
                 spinVal.add(i);
             }
@@ -1273,7 +1275,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     && state.getGameStage()==1 && state.getPlayerTurn()==0){
                 alreadyChosen = true;
                 cardToPlay = state.getPlayerInfo(0).getCurrentHand().get(i);
-                Logger.log("onTouch","card picked "+ cardToPlay.getCardSuit() + cardToPlay.getCardNumber());
+                //Logger.log("onTouch","card picked "+ cardToPlay.getCardSuit() + cardToPlay.getCardNumber());
                 card1Played.setVisibility(View.VISIBLE);
                 switch (cardToPlay.getCardSuit()) {
                     case "diamond":
@@ -1475,7 +1477,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 }
                 guiCards.get(i).setVisibility(View.INVISIBLE);
                 Logger.log("onTouch","size of hand "+state.getPlayerInfo(0).getCurrentHand().size());
-                myPlay = new WizardPlayAction(this, cardToPlay);
+                //myPlay = new WizardPlayAction(this, cardToPlay);
+                myPlay = new WizardPlayAction(this, cardToPlay, i);
                 super.game.sendAction(myPlay);
                 return true;
             }

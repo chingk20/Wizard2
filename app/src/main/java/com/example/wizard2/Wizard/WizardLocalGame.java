@@ -97,11 +97,14 @@ public class WizardLocalGame extends LocalGame {
      */
     @Override
     protected boolean makeMove(GameAction action) {
+        WizardPlayer myPlayer = state.getPlayerInfo(state.getPlayerTurn());
         if (action instanceof WizardBidAction) {
+            int myBidNum = ((WizardBidAction) action).getBidNum();
             //checks if bid is valid and it is bidding stage
-                if (((WizardBidAction) action).getBidNum() <= state.getRoundNum() && state.getGameStage() == 0) {
+                if (myBidNum <= state.getRoundNum() && state.getGameStage() == 0) {
                     // gets the ArrayList of integers that contains each player's bids from WizardState
-                    state.setPlayerBids(((WizardBidAction) action).getBidNum(), state.getPlayerTurn());
+                    state.setPlayerBids(myBidNum, state.getPlayerTurn());
+                    myPlayer.setBidNum(myBidNum);
                     //Logger.log("LocalGame", "Sending bidding move bid:" + ((WizardBidAction) action).getBidNum());
                     Logger.log("Local Game", "Players Bids: " + state.getPlayerBids());
                     //Logger.log("Local Game", "Player Turn: " + state.getPlayerTurn());
@@ -119,42 +122,46 @@ public class WizardLocalGame extends LocalGame {
                     return false;
                 }
         } else if (action instanceof WizardPlayAction) {
-            WizardPlayer myPlayer = state.getPlayerInfo(state.getPlayerTurn());
             WizardCards cardToPlay = ((WizardPlayAction) action).getCardToPlay();
+            int placeInHand = ((WizardPlayAction) action).getPlaceInHand();
             //checks if card is in hand and it is playing card stage and its players turn
             if (myPlayer.getCurrentHand().contains(cardToPlay) && state.getGameStage()==1) {
                 Logger.log("Local Game", "Player Turn:" + state.getPlayerTurn());
                 state.setCardsPlayed(cardToPlay, state.getPlayerTurn());
-                myPlayer.getCurrentHand().remove(cardToPlay);
-
+                //myPlayer.getCurrentHand().remove(cardToPlay);
+                myPlayer.getCurrentHand().set(placeInHand,null);    //sets place as null
                 //checks is it is end of round
                 //if everyone's hand is empty then increment round num and redeal
-                if(state.getPlayerTurn()==3)
-                {
-                    if(myPlayer.getCurrentHand().size()==0)
-                    {
-                        //resets all bids to zero after round
-                        for(int i=0; i<4; i++) {
-                            state.setPlayerBids(i, 0);
-                        }
-                        state.setGameStage(0);
-                        state.setPlayerTurn(0);
-                        state.calculateWinner();
-                        state.calculateScores();
-                        //state.resetImage();
-                        state.setRoundNum(state.roundNum++);
-                        state.dealDeck(state.roundNum);
-                        Logger.log("Local Game", "Deal Deck");
-                    }
-                    state.setGameStage(0);
+                if(state.getPlayerTurn()==3) {
+                    //if(myPlayer.getCurrentHand().size()==0){
+
                     state.setPlayerTurn(0);
                     //calculate who won sub round
                     state.calculateWinner();
-                    Logger.log("Local Game", "Bids Won:" + state.getPlayerBidsWon());
-                    //Logger.log("Local Game", "Player Turn:" + state.getPlayerTurn());
+
+                    //checks if the round is over by checking if players hand is empty
+                    for(int i=0; i<state.getRoundNum();i++){
+                        //if it is not end of round then keep going
+                        if(myPlayer.getCurrentHand().get(i)!=null){
+                            return true;
+                        }
+                    }
+                    Logger.log("Local Game", "hand empty");
+                    for (int j = 0; j < 4; j++) {
+                        state.setPlayerBids(0, j);
+                        state.setPlayerBidsWon(0,j);
+                    }
+                    state.setGameStage(0);
+                    state.calculateScores();
+                    state.setRoundNum(state.getRoundNum() +1);
+                    Logger.log("Local Game", "Round num:" + state.getRoundNum());
+                    state.dealDeck(state.roundNum);
                     //state.resetImage();
+
                     return true;
                 }
+
+                //need to clear cards already played
                 state.setPlayerTurn(state.playerTurn+1);
                 Logger.log("Local Game", "Player Turn:" + state.getPlayerTurn());
                 return true;

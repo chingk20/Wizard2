@@ -18,6 +18,8 @@ public class WizardState extends GameState {
     private String trumpSuit;  //suit of trump card
     public int roundNum;
 
+    //public boolean alreadyChosen;
+
     WizardCards trumpCard;
 
     private ArrayList<WizardCards> deck = new ArrayList<>();
@@ -40,6 +42,7 @@ public class WizardState extends GameState {
         listOfPlayers.add(player2);
 
         currentPlayer = player0;
+        //alreadyChosen = false;
 
         playerBids.add(0);
         playerBids.add(0);
@@ -56,9 +59,9 @@ public class WizardState extends GameState {
         cardsPlayed.add(null);
         cardsPlayed.add(null);
 
-        this.playerTurn = 1;    //player 0 will go first
+        this.playerTurn = 0;    //player 0 will go first
         this.gameStage = 0;     //starts at game state 0: bidding phase
-        this.roundNum = 2;
+        this.roundNum = 6;
 
         this.makeCards();
         this.dealDeck(roundNum);
@@ -150,7 +153,9 @@ public class WizardState extends GameState {
         int randomCard = random.nextInt(deck.size());
         trumpCard = deck.get(randomCard);
         trumpSuit = deck.get(randomCard).getCardSuit();
+        trumpCard.setTrumpCard(trumpSuit);
         deck.remove(randomCard);
+        Log.i("Wizard State", "trump suit: "+ trumpCard.getCardSuit());
     }
 
     //copy constructor
@@ -160,6 +165,8 @@ public class WizardState extends GameState {
         trumpCard = myState.trumpCard;
         roundNum = myState.roundNum;
         currentPlayer = myState.currentPlayer;
+
+        //alreadyChosen = myState.alreadyChosen;
 
         for (WizardCards card : myState.cardsPlayed){
             cardsPlayed.add(card);
@@ -183,17 +190,30 @@ public class WizardState extends GameState {
 
     //calculate who won the round by looking at the value
     public void calculateWinner(){
+        int value=0;
         int base=0;
         int winner=-1;
-        for(int i=0; i<cardsPlayed.size(); i++)
+        for(int i=0; i<4; i++)
         {
-            if(cardsPlayed.get(i).getCardValue() > base){
+            //HARD CODED VALUES FOR NOW
+            WizardCards card = getCardsPlayed().get(i);
+            if(card.getCardNumber()==15){
+                value = 1000000;
+            } else if(card.getCardSuit()==trumpSuit){
+                value = card.getCardValue()*10;
+            }
+            else{
+                value = card.getCardValue();
+            }
+            if(value > base){
+                //if(getCardsPlayed().get(i).getCardValue() > base){
                 winner=i;
-                base=cardsPlayed.get(i).getCardValue();
+                base=value;
             }
         }
         Logger.log("Wizard State", "winner:" + winner);
         setPlayerBidsWon(getPlayerBidsWon().get(winner)+1, winner);
+        Logger.log("Wizard State", "bids won:" + playerBidsWon);
     }
 
     public void resetImage()
@@ -205,10 +225,10 @@ public class WizardState extends GameState {
     }
 
     public void calculateScores(){
-        player0.setRunningTotal(getPlayerBids().get(0), getPlayerBidsWon().get(0));
-        player1.setRunningTotal(getPlayerBids().get(1), getPlayerBidsWon().get(1));
-        player2.setRunningTotal(getPlayerBids().get(2), getPlayerBidsWon().get(2));
-        player3.setRunningTotal(getPlayerBids().get(3), getPlayerBidsWon().get(3));
+        player0.setRunningTotal(player0.getBidNum(), playerBidsWon.get(0));
+        player1.setRunningTotal(player1.getBidNum(), playerBidsWon.get(1));
+        player2.setRunningTotal(player2.getBidNum(), playerBidsWon.get(2));
+        player3.setRunningTotal(player3.getBidNum(), playerBidsWon.get(3));
         player0.setPlayerScore(player0.getRunningTotal());
         player1.setPlayerScore(player1.getRunningTotal());
         player2.setPlayerScore(player2.getRunningTotal());
