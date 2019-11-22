@@ -27,8 +27,6 @@ import static android.os.SystemClock.sleep;
 
 public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchListener, View.OnClickListener {
 
-   // public boolean alreadyChosen = false;
-
     private WizardCards cardToPlay;
     private int bidNum = 0;
     private int roundNum;
@@ -82,7 +80,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
      */
     public WizardHumanPlayer(String name) {
         super(name);
-       // myPlayer = new WizardPlayer(0, name);
     }
 
     /**
@@ -306,21 +303,17 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
             //sets image to cards in human hand
             int i = 0;
-            Log.i("creating cards", "" + state.getPlayerInfo(0).getCurrentHand().size());
             if(state.playerTurn == this.playerNum){
-                for (; i < state.roundNum/*state.getPlayerInfo(0).getCurrentHand().size()*/; i++) {
+                for (; i < state.roundNum; i++) {
                     WizardCards card = ((WizardState) info).getPlayerInfo(0).getCurrentHand().get(i);
-                    Logger.log("card: ", "" + card);
-                    Logger.log("hand: ", "" + ((WizardState) info).getPlayerInfo(0).getCurrentHand());
                     guiCards.get(i).setVisibility(View.VISIBLE);
+
+                    //checks if the card is null or not
                     if (card == null) {
                         guiCards.get(i).setVisibility(View.INVISIBLE);
-//                        if(i < state.getPlayerInfo(0).getCurrentHand().size() - 1) {
-//                            i++;
-//                            card = ((WizardState) info).getPlayerInfo(0).getCurrentHand().get(i);
-//                        }
-
                     }
+
+                    //if not null then set image
                     if (card != null) {
                         switch (card.getCardSuit()) {
                             case "diamond":
@@ -521,6 +514,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                         }
                     }
                 }
+                //set the rest of the image views to invisible if hand is smaller than 15
                 for (; i < 15; i++) {
                     guiCards.get(i).setVisibility(View.INVISIBLE);
                 }
@@ -530,8 +524,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             WizardCards cp1 = state.cardsPlayed.get(1);
             if (cp1 != null) {
                 card2Played.setVisibility(View.VISIBLE);
-                Logger.log("Wizard Human Player", "Cards Played" + state.cardsPlayed);
-                Logger.log("Wizard Human Player", "cp1 suit: " + cp1.getCardSuit() + " value: " + cp1.getCardNumber());
                 switch (cp1.getCardSuit()) {
                     case "diamond":
                         switch (cp1.getCardValue()) {
@@ -1136,14 +1128,13 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 }
             }
             WizardCards cp0 = state.cardsPlayed.get(0);
-           // Logger.log("cards played : " , "0: " + cp0 + " ,1:" + cp1 + ", 2:" + cp2 + ", 3:")
+
+            //clears all the cards played
             if(cp0==null && cp1==null && cp2==null &&cp3==null) {
-                //sleep(3000);
                 card1Played.setVisibility(View.INVISIBLE);
                 card2Played.setVisibility(View.INVISIBLE);
                 card3Played.setVisibility(View.INVISIBLE);
                 card4Played.setVisibility(View.INVISIBLE);
-                //boolean alreadyChosen = false;
             }
 
             //shows round num and player turn on GUI
@@ -1250,6 +1241,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         //myActivity.setTitle("Tic-Tac-Toe: " + allPlayerNames[0] + " vs. " + allPlayerNames[1]);
     }
 
+    //When player touches card it will send the card to WizardPlayAction if it is a valid move
     @Override
     public boolean onTouch(View v, MotionEvent motionEvent) {
         int i = 0;

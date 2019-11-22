@@ -18,9 +18,7 @@ public class WizardLocalGame extends LocalGame  {
 
     protected WizardState state;        // the game's state
     private boolean waiting = false;
-
     public boolean roundOver;
-
 
     /**
      * Constructor for the WizardLocalGame.
@@ -28,6 +26,7 @@ public class WizardLocalGame extends LocalGame  {
     public WizardLocalGame() {
         //perform superclass initialization
         super();
+
         // create a new, unfilled-in WizardState object
         state = new WizardState();
     }
@@ -158,7 +157,7 @@ public class WizardLocalGame extends LocalGame  {
                 if (state.getPlayerTurn() == 3) {
 
                     //need for clearing cards played
-                    getTimer().setInterval(3000);
+                    getTimer().setInterval(2000);
                     getTimer().start();
                     waiting = true;
 
