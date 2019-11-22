@@ -3,6 +3,10 @@ package com.example.wizard2.Wizard;
 import com.example.wizard2.GameFramework.GamePlayer;
 import com.example.wizard2.GameFramework.actionMessage.GameAction;
 
+/*  WizardPlayAction:
+    Takes in player, the card they want to play, and the place in their hand the card is
+ */
+
 public class WizardPlayAction extends GameAction {
     public WizardCards cardToPlay;
     public int placeInHand;

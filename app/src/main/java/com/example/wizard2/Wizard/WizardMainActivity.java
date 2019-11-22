@@ -20,8 +20,6 @@ import java.util.ArrayList;
 public class WizardMainActivity extends GameMainActivity {
     private static final int PORT_NUMBER = 2278;
 
-
-
     @Override
     public GameConfig createDefaultConfig() {
         // Define the allowed player types
@@ -38,6 +36,8 @@ public class WizardMainActivity extends GameMainActivity {
                 return new WizardDumbAI(name);
             }
         });
+
+        //will always have 4 players
         GameConfig defaultConfig = new GameConfig(playerTypes,
                 4, 4, "Wizard", PORT_NUMBER);
         defaultConfig.addPlayer("Human", 0); // player 1: a human player
