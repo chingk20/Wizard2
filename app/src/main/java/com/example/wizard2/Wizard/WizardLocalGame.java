@@ -18,7 +18,9 @@ public class WizardLocalGame extends LocalGame  {
     // the game's state
     protected WizardState state;
     private boolean waiting = false;
-    //protected WizardHumanPlayer human;
+
+    public boolean roundOver;
+
 
     /**
      * Constructor for the WizardLocalGame.
@@ -26,7 +28,6 @@ public class WizardLocalGame extends LocalGame  {
     public WizardLocalGame() {
         //perform superclass initialization
         super();
-
         // create a new, unfilled-in WizardState object
         state = new WizardState();
     }
@@ -165,11 +166,10 @@ public class WizardLocalGame extends LocalGame  {
         state.calculateWinner();
 
         //checks if the round is over by checking if players hand is empty
-        boolean roundOver = true;
+        roundOver = true;
         for (int i = 0; i < state.getRoundNum(); i++) {
             //if it is not end of round then keep going
             if (myPlayer.getCurrentHand().get(i) != null) {
-
                 roundOver = false;
                 break;
             }
@@ -188,8 +188,6 @@ public class WizardLocalGame extends LocalGame  {
             Logger.log("Local Game", "Round num:" + state.getRoundNum());
             state.dealDeck(state.roundNum);
         }
-        waiting = false;
-        sendAllUpdatedState();
 
     }
 
@@ -197,6 +195,7 @@ public class WizardLocalGame extends LocalGame  {
     protected void timerTicked() {
         resetTrick();
         getTimer().stop();
+        waiting = false;
         sendAllUpdatedState();
     }
 }

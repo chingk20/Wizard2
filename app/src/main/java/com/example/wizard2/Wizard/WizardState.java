@@ -19,7 +19,9 @@ public class WizardState extends GameState {
     public int roundNum;
     public boolean trickOver = false;
 
-    //public boolean alreadyChosen;
+    public boolean roundOver = false;
+
+
 
     WizardCards trumpCard;
 
@@ -62,7 +64,7 @@ public class WizardState extends GameState {
 
         this.playerTurn = 0;    //player 0 will go first
         this.gameStage = 0;     //starts at game state 0: bidding phase
-        this.roundNum = 4;
+        this.roundNum = 10;
 
 
         this.makeCards();
@@ -140,6 +142,7 @@ public class WizardState extends GameState {
                 clubJoker, clubTwo, clubThree, clubFour, clubFive, clubSix, clubSeven, clubEight, clubNine, clubTen, clubJack, clubQueen, clubKing, clubAce, clubWizard);
     }
 
+
     //deals a card out to a player
     public void dealDeck(int numTricks){
         //Log.i("deck", "i am in deal deck");
@@ -147,6 +150,9 @@ public class WizardState extends GameState {
         for (int i = 0; i < listOfPlayers.size(); i++){
 
             for (int round = 0; round < numTricks; round++) {
+                if(deck.size() < 2) {
+                    i=37;
+                }
                 int randomCard = random.nextInt(deck.size());
                 listOfPlayers.get(i).addCardtoHand(deck.get(randomCard));
                 deck.remove(randomCard);
@@ -224,9 +230,11 @@ public class WizardState extends GameState {
         Logger.log("Wizard State", "bids won:" + playerBidsWon);
     }
 
-    public void resetImage()
-    {
+    public void resetImage() {
         for(int i=0; i<cardsPlayed.size(); i++){
+            if(cardsPlayed.get(i)!= null) {
+                deck.add(cardsPlayed.get(i));
+            }
             cardsPlayed.set(i, null);
         }
 
@@ -305,8 +313,9 @@ public class WizardState extends GameState {
         return -1;
     }
 
-
-
+public void setRoundOver(boolean isOver){
+        roundOver = isOver;
+}
 
 }
 
