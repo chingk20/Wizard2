@@ -22,7 +22,7 @@ public class WizardState extends GameState {
 
     WizardCards trumpCard;              //Trump card
 
-    private ArrayList<WizardCards> deck = new ArrayList<>();                        //holds all the cards
+    public ArrayList<WizardCards> deck = new ArrayList<>();                        //holds all the cards
     public ArrayList<WizardCards> cardsPlayed = new ArrayList<>();                  //holds cards played by players
     private ArrayList<WizardPlayer> listOfPlayers = new ArrayList<WizardPlayer>();  //holds players
     private ArrayList<Integer> playerBids = new ArrayList<>();                      //holds bids made by each player

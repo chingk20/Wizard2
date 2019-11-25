@@ -8,12 +8,22 @@ public class WizardStateTest {
 
     @Test
     public void makeCards() {
-
+        //Keisha wrote this test
+        WizardState testState = new WizardState();
+        testState.deck.clear();
+        testState.makeCards();
+        assertEquals(60, testState.deck.size());
     }
 
     @Test
     public void dealDeck() {
-
+        //Keisha wrote this test
+        WizardState testState = new WizardState();
+        testState.dealDeck(3);
+        assertEquals(4, testState.player0.currentHand.size());
+        assertEquals(4, testState.player1.currentHand.size());
+        assertEquals(4, testState.player2.currentHand.size());
+        assertEquals(4, testState.player3.currentHand.size());
     }
 
 
@@ -104,7 +114,15 @@ public class WizardStateTest {
 
     @Test
     public void getTrumpCard() {
-
+        //Keisha wrote this test
+        WizardState testState = new WizardState();
+        WizardCards myCard = new WizardCards("club", 4);
+        testState.setTrumpCard(myCard);
+        assertEquals(myCard,testState.getTrumpCard());
+        WizardCards myCard1 = new WizardCards("heart", 7);
+        assertFalse(myCard1==testState.getTrumpCard());
+        testState.setTrumpCard(myCard1);
+        assertEquals(myCard1,testState.getTrumpCard());
     }
 
     @Test
@@ -124,8 +142,6 @@ public class WizardStateTest {
         assertFalse(testState.getPlayerTurn() == 2);
         testState.playerTurn ++;
         assertTrue(testState.getPlayerTurn() == 2);
-
-
     }
 
     @Test
