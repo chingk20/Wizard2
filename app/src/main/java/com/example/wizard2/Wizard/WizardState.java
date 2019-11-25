@@ -277,8 +277,6 @@ public class WizardState extends GameState {
 
     public void setRoundNum(int roundNum) { this.roundNum = roundNum; }
 
-    public void setCurrentPlayer(WizardPlayer currentPlayer) {this.currentPlayer = currentPlayer;}
-
     public int getPlayerTurn() {return playerTurn; }
 
     public int getGameStage() { return gameStage; }

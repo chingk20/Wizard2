@@ -19,11 +19,20 @@ public class WizardStateTest {
     public void dealDeck() {
         //Keisha wrote this test
         WizardState testState = new WizardState();
+        assertEquals(1, testState.player0.currentHand.size());
+        assertEquals(1, testState.player1.currentHand.size());
+        assertEquals(1, testState.player2.currentHand.size());
+        assertEquals(1, testState.player3.currentHand.size());
         testState.dealDeck(3);
         assertEquals(4, testState.player0.currentHand.size());
         assertEquals(4, testState.player1.currentHand.size());
         assertEquals(4, testState.player2.currentHand.size());
         assertEquals(4, testState.player3.currentHand.size());
+        testState.dealDeck(7);
+        assertEquals(11, testState.player0.currentHand.size());
+        assertEquals(11, testState.player1.currentHand.size());
+        assertEquals(11, testState.player2.currentHand.size());
+        assertEquals(11, testState.player3.currentHand.size());
     }
 
     @Test
@@ -180,20 +189,136 @@ public class WizardStateTest {
     @Test
     public void getPlayerInfo() {
 
+
     }
 
     @Test
     public void getPlayerBids() {
-
+        //Keisha wrote this test
+        WizardState testState = new WizardState();
+        testState.setPlayerBids(4,0);
+        testState.setPlayerBids(8,1);
+        testState.setPlayerBids(1,2);
+        testState.setPlayerBids(2,3);
+        assertEquals(4,(int)testState.getPlayerBids().get(0));
+        assertEquals(8,(int)testState.getPlayerBids().get(1));
+        assertEquals(1,(int)testState.getPlayerBids().get(2));
+        assertEquals(2,(int)testState.getPlayerBids().get(3));
+        assertFalse(7==(int)testState.getPlayerBids().get(0));
+        assertFalse(3==(int)testState.getPlayerBids().get(1));
+        assertFalse(4==(int)testState.getPlayerBids().get(2));
+        assertFalse(9==(int)testState.getPlayerBids().get(3));
     }
 
     @Test
     public void getCardsPlayed() {
+        //Keisha wrote this test
+        WizardState testState = new WizardState();
+        WizardCards testCard1 = new WizardCards("spade", 12);
+        WizardCards testCard2 = new WizardCards("club", 5);
+        WizardCards testCard3 = new WizardCards("diamond", 8);
+        WizardCards testCard4 = new WizardCards("spade", 0);
+        testState.setCardsPlayed(testCard1, 0);
+        assertEquals(testCard1,testState.getCardsPlayed().get(0));
+        testState.setCardsPlayed(testCard2, 1);
+        assertEquals(testCard2,testState.getCardsPlayed().get(1));
+        testState.setCardsPlayed(testCard3, 2);
+        assertEquals(testCard3,testState.getCardsPlayed().get(2));
+        testState.setCardsPlayed(testCard4, 3);
+        assertEquals(testCard4,testState.getCardsPlayed().get(3));
+    }
 
+    @Test
+    public void setCardsPlayed() {
+        //Keisha wrote this test
+        WizardState testState = new WizardState();
+        WizardCards testCard1 = new WizardCards("heart", 4);
+        WizardCards testCard2 = new WizardCards("club", 8);
+        WizardCards testCard3 = new WizardCards("diamond", 15);
+        WizardCards testCard4 = new WizardCards("spade", 9);
+        testState.setCardsPlayed(testCard1, 0);
+        assertEquals(testCard1,testState.getCardsPlayed().get(0));
+        testState.setCardsPlayed(testCard2, 1);
+        assertEquals(testCard2,testState.getCardsPlayed().get(1));
+        testState.setCardsPlayed(testCard3, 2);
+        assertEquals(testCard3,testState.getCardsPlayed().get(2));
+        testState.setCardsPlayed(testCard4, 3);
+        assertEquals(testCard4,testState.getCardsPlayed().get(3));
     }
 
     @Test
     public void setPlayerBids() {
+        //Keisha wrote this test
+        WizardState testState = new WizardState();
+        testState.setPlayerBids(2,0);
+        testState.setPlayerBids(4,1);
+        testState.setPlayerBids(7,2);
+        testState.setPlayerBids(0,3);
+        assertEquals(2,(int)testState.getPlayerBids().get(0));
+        assertEquals(4,(int)testState.getPlayerBids().get(1));
+        assertEquals(7,(int)testState.getPlayerBids().get(2));
+        assertEquals(0,(int)testState.getPlayerBids().get(3));
+        assertFalse(3==(int)testState.getPlayerBids().get(0));
+        assertFalse(8==(int)testState.getPlayerBids().get(1));
+        assertFalse(4==(int)testState.getPlayerBids().get(2));
+        assertFalse(2==(int)testState.getPlayerBids().get(3));
+    }
 
+    @Test
+    public void setPlayerBidsWon(){
+        //Keisha wrote this test
+        WizardState testState = new WizardState();
+        testState.setPlayerBidsWon(2,0);
+        testState.setPlayerBidsWon(4,1);
+        testState.setPlayerBidsWon(7,2);
+        testState.setPlayerBidsWon(0,3);
+        assertEquals(2,(int)testState.getPlayerBidsWon().get(0));
+        assertEquals(4,(int)testState.getPlayerBidsWon().get(1));
+        assertEquals(7,(int)testState.getPlayerBidsWon().get(2));
+        assertEquals(0,(int)testState.getPlayerBidsWon().get(3));
+        assertFalse(3==(int)testState.getPlayerBidsWon().get(0));
+        assertFalse(8==(int)testState.getPlayerBidsWon().get(1));
+        assertFalse(4==(int)testState.getPlayerBidsWon().get(2));
+        assertFalse(2==(int)testState.getPlayerBidsWon().get(3));
+    }
+
+    @Test
+    public void getPlayerBidsWon(){
+        //Keisha wrote this test
+        WizardState testState = new WizardState();
+        testState.setPlayerBidsWon(1,0);
+        testState.setPlayerBidsWon(6,1);
+        testState.setPlayerBidsWon(9,2);
+        testState.setPlayerBidsWon(14,3);
+        assertEquals(1,(int)testState.getPlayerBidsWon().get(0));
+        assertEquals(6,(int)testState.getPlayerBidsWon().get(1));
+        assertEquals(9,(int)testState.getPlayerBidsWon().get(2));
+        assertEquals(14,(int)testState.getPlayerBidsWon().get(3));
+        assertFalse(3==(int)testState.getPlayerBidsWon().get(0));
+        assertFalse(8==(int)testState.getPlayerBidsWon().get(1));
+        assertFalse(4==(int)testState.getPlayerBidsWon().get(2));
+        assertFalse(2==(int)testState.getPlayerBidsWon().get(3));
+    }
+
+    @Test
+    public void setTrumpSuit(){
+        //Keisha wrote this test
+        WizardState testState = new WizardState();
+        WizardCards testCard1 = new WizardCards("spade", 12);
+        testState.setTrumpSuit("heart");
+        assertEquals("heart", testState.getTrumpSuit());
+        testState.setTrumpSuit(testCard1.getCardSuit());
+        assertEquals("spade", testState.getTrumpSuit());
+    }
+
+    @Test
+    public void getTrumpSuit(){
+        //Keisha wrote this test
+        WizardState testState = new WizardState();
+        WizardCards testCard1 = new WizardCards("club", 12);
+        testState.setTrumpSuit("diamond");
+        assertEquals("diamond", testState.getTrumpSuit());
+        testState.setTrumpSuit(testCard1.getCardSuit());
+        assertEquals("club", testState.getTrumpSuit());
     }
 }
