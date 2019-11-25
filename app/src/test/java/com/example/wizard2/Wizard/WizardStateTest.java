@@ -26,7 +26,6 @@ public class WizardStateTest {
         assertEquals(4, testState.player3.currentHand.size());
     }
 
-
     @Test
     public void calculateWinner(){
         //Keisha wrote this test
@@ -146,7 +145,12 @@ public class WizardStateTest {
 
     @Test
     public void setGameStage() {
-
+        //Keisha wrote this test
+        WizardState testState = new WizardState();
+        testState.setGameStage(3);
+        assertEquals(3, testState.getGameStage());
+        testState.setGameStage(7);
+        assertEquals(7, testState.getGameStage());
     }
 
     @Test
