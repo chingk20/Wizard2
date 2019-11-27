@@ -50,7 +50,11 @@ public class WizardPlayer {
 
     public int getBidNumWon() {return bidNumWon;}
 
-    public int getRunningTotal() { return runningTotal; }
+    public int getRunningTotal()
+    {
+        setRunningTotal(getBidNum(), getBidNumWon());
+        return runningTotal;
+    }
 
     public int getPlayerScore() { return playerScore; }
 
