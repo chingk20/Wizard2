@@ -320,7 +320,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                             case "diamond":
                                 switch (card.getCardValue()) {
                                     case 0:
-                                        guiCards.get(i).setImageResource(R.drawable.jester_all);
+                                        guiCards.get(i).setImageResource(R.drawable.jester);
                                         break;
                                     case 2:
                                         guiCards.get(i).setImageResource(R.drawable.two_diamond);
@@ -369,7 +369,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                             case "heart":
                                 switch (card.getCardValue()) {
                                     case 0:
-                                        guiCards.get(i).setImageResource(R.drawable.jester_all);
+                                        guiCards.get(i).setImageResource(R.drawable.jester);
                                         break;
                                     case 2:
                                         guiCards.get(i).setImageResource(R.drawable.two_heart);
@@ -418,7 +418,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                             case "spade":
                                 switch (card.getCardValue()) {
                                     case 0:
-                                        guiCards.get(i).setImageResource(R.drawable.jester_all);
+                                        guiCards.get(i).setImageResource(R.drawable.jester);
                                         break;
                                     case 2:
                                         guiCards.get(i).setImageResource(R.drawable.two_spade);
@@ -467,7 +467,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                             case "club":
                                 switch (card.getCardValue()) {
                                     case 0:
-                                        guiCards.get(i).setImageResource(R.drawable.jester_all);
+                                        guiCards.get(i).setImageResource(R.drawable.jester);
                                         break;
                                     case 2:
                                         guiCards.get(i).setImageResource(R.drawable.two_club);
@@ -529,7 +529,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     case "diamond":
                         switch (cp1.getCardValue()) {
                             case 0:
-                                card2Played.setImageResource(R.drawable.jester_all);
+                                card2Played.setImageResource(R.drawable.jester);
                                 break;
                             case 2:
                                 card2Played.setImageResource(R.drawable.two_diamond);
@@ -578,7 +578,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     case "heart":
                         switch (cp1.getCardValue()) {
                             case 0:
-                                card2Played.setImageResource(R.drawable.jester_all);
+                                card2Played.setImageResource(R.drawable.jester);
                                 break;
                             case 2:
                                 card2Played.setImageResource(R.drawable.two_heart);
@@ -627,7 +627,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     case "spade":
                         switch (cp1.getCardValue()) {
                             case 0:
-                                card2Played.setImageResource(R.drawable.jester_all);
+                                card2Played.setImageResource(R.drawable.jester);
                                 break;
                             case 2:
                                 card2Played.setImageResource(R.drawable.two_spade);
@@ -676,7 +676,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     case "club":
                         switch (cp1.getCardValue()) {
                             case 0:
-                                card2Played.setImageResource(R.drawable.jester_all);
+                                card2Played.setImageResource(R.drawable.jester);
                                 break;
                             case 2:
                                 card2Played.setImageResource(R.drawable.two_club);
@@ -731,7 +731,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     case "diamond":
                         switch (cp2.getCardValue()) {
                             case 0:
-                                card3Played.setImageResource(R.drawable.jester_all);
+                                card3Played.setImageResource(R.drawable.jester);
                                 break;
                             case 2:
                                 card3Played.setImageResource(R.drawable.two_diamond);
@@ -780,7 +780,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     case "heart":
                         switch (cp2.getCardValue()) {
                             case 0:
-                                card3Played.setImageResource(R.drawable.jester_all);
+                                card3Played.setImageResource(R.drawable.jester);
                                 break;
                             case 2:
                                 card3Played.setImageResource(R.drawable.two_heart);
@@ -829,7 +829,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     case "spade":
                         switch (cp2.getCardValue()) {
                             case 0:
-                                card3Played.setImageResource(R.drawable.jester_all);
+                                card3Played.setImageResource(R.drawable.jester);
                                 break;
                             case 2:
                                 card3Played.setImageResource(R.drawable.two_spade);
@@ -878,7 +878,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     case "club":
                         switch (cp2.getCardValue()) {
                             case 0:
-                                card3Played.setImageResource(R.drawable.jester_all);
+                                card3Played.setImageResource(R.drawable.jester);
                                 break;
                             case 2:
                                 card3Played.setImageResource(R.drawable.two_club);
@@ -933,7 +933,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     case "diamond":
                         switch (cp3.getCardValue()) {
                             case 0:
-                                card4Played.setImageResource(R.drawable.jester_all);
+                                card4Played.setImageResource(R.drawable.jester);
                                 break;
                             case 2:
                                 card4Played.setImageResource(R.drawable.two_diamond);
@@ -982,7 +982,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     case "heart":
                         switch (cp3.getCardValue()) {
                             case 0:
-                                card4Played.setImageResource(R.drawable.jester_all);
+                                card4Played.setImageResource(R.drawable.jester);
                                 break;
                             case 2:
                                 card4Played.setImageResource(R.drawable.two_heart);
@@ -1031,7 +1031,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     case "spade":
                         switch (cp3.getCardValue()) {
                             case 0:
-                                card4Played.setImageResource(R.drawable.jester_all);
+                                card4Played.setImageResource(R.drawable.jester);
                                 break;
                             case 2:
                                 card4Played.setImageResource(R.drawable.two_spade);
@@ -1080,7 +1080,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     case "club":
                         switch (cp3.getCardValue()) {
                             case 0:
-                                card4Played.setImageResource(R.drawable.jester_all);
+                                card4Played.setImageResource(R.drawable.jester);
                                 break;
                             case 2:
                                 card4Played.setImageResource(R.drawable.two_club);
@@ -1265,7 +1265,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     case "diamond":
                         switch (cardToPlay.getCardValue()) {
                             case 0:
-                                card1Played.setImageResource(R.drawable.jester_all);
+                                card1Played.setImageResource(R.drawable.jester);
                                 break;
                             case 2:
                                 card1Played.setImageResource(R.drawable.two_diamond);
@@ -1314,7 +1314,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     case "heart":
                         switch (cardToPlay.getCardValue()) {
                             case 0:
-                                card1Played.setImageResource(R.drawable.jester_all);
+                                card1Played.setImageResource(R.drawable.jester);
                                 break;
                             case 2:
                                 card1Played.setImageResource(R.drawable.two_heart);
@@ -1363,7 +1363,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     case "spade":
                         switch (cardToPlay.getCardValue()) {
                             case 0:
-                                card1Played.setImageResource(R.drawable.jester_all);
+                                card1Played.setImageResource(R.drawable.jester);
                                 break;
                             case 2:
                                 card1Played.setImageResource(R.drawable.two_spade);
@@ -1412,7 +1412,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     case "club":
                         switch (cardToPlay.getCardValue()) {
                             case 0:
-                                card1Played.setImageResource(R.drawable.jester_all);
+                                card1Played.setImageResource(R.drawable.jester);
                                 break;
                             case 2:
                                 card1Played.setImageResource(R.drawable.two_club);
