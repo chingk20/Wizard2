@@ -33,7 +33,7 @@ public class WizardDumbAI extends GameComputerPlayer {
 
         // if it was a "not your turn" message, just ignore it
         if (info instanceof NotYourTurnInfo) {
-            Logger.log("WizardComputer", "Not your turn!");
+            Logger.log("WizardDumbComputer", "Not your turn!");
             return;
         }
 
@@ -47,7 +47,7 @@ public class WizardDumbAI extends GameComputerPlayer {
 
                 bidNum = (int) ((((WizardState) info).getRoundNum()+1) * Math.random());
                 myBid = new WizardBidAction(this, bidNum);
-                Logger.log("WizardComputer", "Sending bidding move");
+                Logger.log("WizardDumbComputer", "Sending bidding move");
                 sleep(1);
                 game.sendAction(myBid);
 
@@ -64,7 +64,7 @@ public class WizardDumbAI extends GameComputerPlayer {
                 }
                 cardToPlay = player.getCurrentHand().get(randomCard);
                 myPlay = new WizardPlayAction(this, cardToPlay, randomCard);
-                Logger.log("WizardComputer", "Sending playing move");
+                Logger.log("WizardDumbComputer", "Sending playing move");
                 sleep(1);
                 game.sendAction(myPlay);
             }

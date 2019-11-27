@@ -1474,17 +1474,14 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
     @Override
     public void onClick(View view) {
-//        switch(view.getId()){
-//            case R.id.helpButton:
-////                myActivity.setContentView(R.layout.game_help_screen);
-//                break;
-//            case R.id.quitButton:
-//                //myActivity.setContentView(R.layout.game_config_main);
-//                break;
-////            case R.id.backToGame:
-////                myActivity.setContentView(R.layout.activity_main);
-////                break;
-//        }
+        switch(view.getId()){
+            case R.id.helpButton:
+//                myActivity.setContentView(R.layout.game_help_screen);
+                break;
+            case R.id.quitButton:
+                myActivity.recreate();
+                break;
+        }
 
         bidNum = (Integer)bidSpinner.getSelectedItem();
 

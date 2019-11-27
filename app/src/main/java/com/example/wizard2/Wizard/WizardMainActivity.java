@@ -36,14 +36,19 @@ public class WizardMainActivity extends GameMainActivity {
                 return new WizardDumbAI(name);
             }
         });
+        playerTypes.add(new GamePlayerType("Smart Computer Player") {
+            public GamePlayer createPlayer(String name) {
+                return new WizardSmartAI(name);
+            }
+        });
 
         //will always have 4 players
         GameConfig defaultConfig = new GameConfig(playerTypes,
                 4, 4, "Wizard", PORT_NUMBER);
         defaultConfig.addPlayer("Human", 0); // player 1: a human player
-        defaultConfig.addPlayer("Computer 1", 1);
-        defaultConfig.addPlayer("Computer 2", 1); // player 2: a computer player
-        defaultConfig.addPlayer("Computer 3", 1); // player 2: a computer player
+        defaultConfig.addPlayer("Computer 1", 2); // player 2: a computer player
+        defaultConfig.addPlayer("Computer 2", 2); // player 2: a computer player
+        defaultConfig.addPlayer("Computer 3", 2); // player 2: a computer player
         defaultConfig.setRemoteData("Remote Human Player", "", 0);
 
         return defaultConfig;
