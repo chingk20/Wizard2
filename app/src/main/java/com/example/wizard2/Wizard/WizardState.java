@@ -13,6 +13,7 @@ import java.util.Random;
 import static android.os.SystemClock.sleep;
 
 public class WizardState extends GameState {
+    private static final long serialVersionUID = 7552321013488624386L;
     public int playerTurn;              //which players turn it is
     private int gameStage;              //which state of the game the player is in
     private String trumpSuit;           //suit of trump card
@@ -243,10 +244,11 @@ public class WizardState extends GameState {
 
     //CALCULATES WHO WON ROUND BY LOOKING AT PLAYERS BID NUM AND BIDS WON
     public void calculateScores(){
-        player0.setRunningTotal(player0.getBidNum(), playerBidsWon.get(0));
-        player1.setRunningTotal(player1.getBidNum(), playerBidsWon.get(1));
-        player2.setRunningTotal(player2.getBidNum(), playerBidsWon.get(2));
-        player3.setRunningTotal(player3.getBidNum(), playerBidsWon.get(3));
+        //playerBidsWon.get(1)
+        player0.setRunningTotal(player0.getBidNum(), player0.getBidNumWon());
+        player1.setRunningTotal(player1.getBidNum(), player1.getBidNumWon());
+        player2.setRunningTotal(player2.getBidNum(), player2.getBidNumWon());
+        player3.setRunningTotal(player3.getBidNum(), player3.getBidNumWon());
         player0.setPlayerScore(player0.getRunningTotal());
         player1.setPlayerScore(player1.getRunningTotal());
         player2.setPlayerScore(player2.getRunningTotal());
@@ -265,7 +267,7 @@ public class WizardState extends GameState {
 
     public void setPlayerBidsWon(int newPlayerBids, int playerID) {
         if(0 <= playerID && playerID <= 3){
-            this.playerBidsWon.set(playerID, newPlayerBids);}
+            this.playerBidsWon.set(playerID, newPlayerBids); }
     }
 
     public void setPlayerTurn(int playerTurn) { this.playerTurn = playerTurn; }

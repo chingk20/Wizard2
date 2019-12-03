@@ -35,7 +35,8 @@ public class WizardPlayer {
         if(bidNum==bidWon){
             this.runningTotal = 20 + (bidWon * 10);
         }
-        else{
+        else if(bidNum!=bidWon)
+        {
             this.runningTotal = java.lang.Math.abs(bidNum - bidWon) * (-10);
         }
     }
