@@ -63,7 +63,7 @@ public class WizardState extends GameState {
 
         this.playerTurn = 0;    //player 0 will go first
         this.gameStage = 0;     //starts at game state 0: bidding phase
-        this.roundNum = 1;      //start at round 1 at beginning
+        this.roundNum = 15;      //start at round 1 at beginning
 
 
         this.makeCards();           //creates cards
@@ -145,14 +145,19 @@ public class WizardState extends GameState {
 
     //DEALS CARDS OUT TO PLAYERS DEPENDING ON ROUND NUMBER
     public void dealDeck(int numTricks){
+        Logger.log("deck size", ""+deck.size());
         Random random = new Random();
         //deals out a card to each players hand and removes it from the deck
         for (int i = 0; i < listOfPlayers.size(); i++){
 
             for (int round = 0; round < numTricks; round++) {
                 //might not need
-                if(deck.size() < 2) {
-                    i=37;
+//                if(deck.size() < 2) {
+//                    i=37;
+//                }
+                if(deck.size()<1){
+                    Logger.log("deck size in deal deck", ""+deck.size());
+                    break;
                 }
                 int randomCard = random.nextInt(deck.size());
                 listOfPlayers.get(i).addCardtoHand(deck.get(randomCard));
@@ -160,7 +165,7 @@ public class WizardState extends GameState {
             }
         }
         //sets trump card, omit if 15th round
-        if(getRoundNum() != 15) {
+        if(getRoundNum() < 15) {
 
             //next random card is trump card
             int randomCard = random.nextInt(deck.size());
@@ -215,7 +220,7 @@ public class WizardState extends GameState {
         {
             //HARD CODED VALUES FOR NOW
             WizardCards card = getCardsPlayed().get(i);
-            if(card.getCardNumber()==15){
+            if(card.getCardNumber() == 15){
                 value = 1000000;
             } else if(card.getCardSuit()==trumpSuit){
                 value = card.getCardValue()*10;
@@ -240,6 +245,7 @@ public class WizardState extends GameState {
             }
             cardsPlayed.set(i, null);
         }
+        deck.add(trumpCard);
     }
 
     //CALCULATES WHO WON ROUND BY LOOKING AT PLAYERS BID NUM AND BIDS WON

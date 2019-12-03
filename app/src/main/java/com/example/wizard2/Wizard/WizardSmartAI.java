@@ -11,9 +11,11 @@ public class WizardSmartAI extends GameComputerPlayer {
     private int indexInHand;
     private WizardCards cardToPlay;
     private WizardCards aCard;
+    private WizardCards tempCard;
     WizardPlayAction myPlay;
     WizardBidAction myBid;
     private int wizardValue = 15;
+    private int tempValue = -1;
 
     public WizardSmartAI(String name){
         super(name);
@@ -62,44 +64,21 @@ public class WizardSmartAI extends GameComputerPlayer {
             }
 
             //PLAYING STAGE: gets a random index in players hand and sends that card to be played
-            else if(((WizardState) info).getGameStage()==1) {
-
-                //Looks through the previous cards played and sees if it can win
-                for(int i=0; i<playerID; i++){
-                    //goes through hand size
-                    for(int j=0; j<handSize; j++) {
-                        //checks that player is not winning more bids than they bid
-                        if(player.getCurrentHand().get(j)!=null ) {
-                            if (player.getBidNum() >= (((WizardState) info).getPlayerBidsWon().get(playerID))) {
-                                Logger.log("WizardSmartComputer", "Cards Played"+ ((WizardState) info).getCardsPlayed());
-                                Logger.log("WizardSmartComputer", "player turn"+ playerID +" card: " +i+" " +((WizardState) info).getCardsPlayed().get(i));
-                                //if someone has already played a trump suit card then look at values to see if computer can win
-                                if (((WizardState) info).getCardsPlayed().get(i).getCardSuit() != null
-                                        && ((WizardState) info).getCardsPlayed().get(i).getCardSuit() == trumpSuit
-                                        && player.getCurrentHand().get(j).getCardSuit() == trumpSuit
-                                        && ((WizardState) info).getCardsPlayed().get(i).getCardNumber() < player.getCurrentHand().get(j).getCardNumber()) {
-                                    cardToPlay = player.getCurrentHand().get(j);
-                                    indexInHand = j;
-                                    //break;
-                                }
-                                //if not then look at value of cards to see if they can win
-                                else if (((WizardState) info).getCardsPlayed().get(i).getCardNumber() < player.getCurrentHand().get(j).getCardNumber()
-                                        && ((WizardState) info).getCardsPlayed().get(i).getCardSuit() != trumpSuit) {
-                                    cardToPlay = player.getCurrentHand().get(j);
-                                    indexInHand = j;
-                                    //break;
-                                }
-                            } else {
-                                if (player.getCurrentHand().get(j).getCardNumber() < wizardValue
-                                        && player.getCurrentHand().get(j)!= null) {
-                                    cardToPlay = player.getCurrentHand().get(j);
-                                    wizardValue = player.getCurrentHand().get(j).getCardNumber();
-                                }
+            else if(((WizardState) info).getGameStage()==1 && player.getCurrentHand() != null) {
+                tempValue=-1;
+                //goes through each card in players hand size
+                for(int j=0; j< player.getCurrentHand().size(); j++) {
+                        tempCard = player.getCurrentHand().get(j);
+                        //checks that card is not null
+                        if(tempCard != null) {
+                            //plays the best card it has
+                            if (tempCard.getCardNumber() > tempValue) {
+                            tempValue = tempCard.getCardNumber();
+                            cardToPlay = tempCard;
+                            indexInHand = j;
                             }
                         }
                     }
-                }
-
                 cardToPlay = player.getCurrentHand().get(indexInHand);
                 myPlay = new WizardPlayAction(this, cardToPlay, indexInHand);
                 Logger.log("WizardComputer", "Sending playing move");

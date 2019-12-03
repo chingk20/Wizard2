@@ -9,6 +9,7 @@ import com.example.wizard2.GameFramework.utilities.Logger;
 import com.example.wizard2.GameFramework.utilities.Tickable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.os.SystemClock.sleep;
 
@@ -19,6 +20,7 @@ public class WizardLocalGame extends LocalGame  {
     protected WizardState state;        // the game's state
     private boolean waiting = false;
     public boolean roundOver;
+
 
     /**
      * Constructor for the WizardLocalGame.
@@ -41,7 +43,7 @@ public class WizardLocalGame extends LocalGame  {
     @Override
     protected String checkIfGameOver() {
         //Game is over after 15 rounds or the start of the 16th round
-        if (state.roundNum == 16) {
+        if(state.getRoundNum() == 16) {
             int player1Score = state.getPlayerInfo(0).getPlayerScore();
             int player2Score = state.getPlayerInfo(1).getPlayerScore();
             int player3Score = state.getPlayerInfo(2).getPlayerScore();
@@ -57,7 +59,8 @@ public class WizardLocalGame extends LocalGame  {
             } else {
                 return ("There is a tie");
             }
-        } else {
+        }
+        else{
             return null;
         }
     }
@@ -181,14 +184,15 @@ public class WizardLocalGame extends LocalGame  {
     public void resetTrick() {
         WizardPlayer myPlayer = state.getPlayerInfo(0);
 
-        //resets player turn back to 0
         state.setPlayerTurn(0);
+
 
         //calculate who won sub round
         state.calculateWinner();
 
         //checks if the round is over by checking if players hand is empty
         roundOver = true;
+
         for (int i = 0; i < state.getRoundNum(); i++) {
 
             //if it is not end of round then keep going
@@ -211,7 +215,9 @@ public class WizardLocalGame extends LocalGame  {
             }
             state.setGameStage(0);
             state.calculateScores();
+
             state.setRoundNum(state.getRoundNum() + 1);
+            this.checkIfGameOver();
             Logger.log("Local Game", "Round num:" + state.getRoundNum());
             state.dealDeck(state.roundNum);
         }
