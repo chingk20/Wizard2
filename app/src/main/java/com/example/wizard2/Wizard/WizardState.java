@@ -214,7 +214,7 @@ public class WizardState extends GameState {
         {
             //HARD CODED VALUES FOR NOW
             WizardCards card = getCardsPlayed().get(i);
-            if(card.getCardNumber()==15){
+            if(card.getCardNumber() == 15){
                 value = 1000000;
             } else if(card.getCardSuit()==trumpSuit){
                 value = card.getCardValue()*10;
