@@ -63,7 +63,7 @@ public class WizardState extends GameState {
 
         this.playerTurn = 0;    //player 0 will go first
         this.gameStage = 0;     //starts at game state 0: bidding phase
-        this.roundNum = 15;      //start at round 1 at beginning
+        this.roundNum = 1;      //start at round 1 at beginning
 
 
         this.makeCards();           //creates cards
