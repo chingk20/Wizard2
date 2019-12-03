@@ -71,8 +71,11 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     private ImageView card3Played = null;
     private ImageView card4Played = null;
     private ImageView cardTrump = null;     //trump card
-    private Spinner bidSpinner = null;
+   // private Spinner bidSpinner = null;
     private Button bidSubmitButton = null;
+    private TextView bidText = null;
+    private Button bidPlus = null;
+    private Button bidMinus = null;
 
     /**
      * constructor
@@ -101,8 +104,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         if (info instanceof WizardState) {
             state = (WizardState) info;
 
-            if (state.roundNum < 15) {
-                //sets trump card image
+            //sets trump card image
+            if(state.getRoundNum() < 15) {
                 WizardCards trumpCard = ((WizardState) info).getTrumpCard();
                 switch (trumpCard.getCardSuit()) {
                     case "diamond":
@@ -303,17 +306,17 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 }
             }
 
-                //sets image to cards in human hand
-                int i = 0;
-                if (state.playerTurn == this.playerNum && state.roundNum<16) {
-                    for (; i < state.roundNum; i++) {
-                        WizardCards card = ((WizardState) info).getPlayerInfo(0).getCurrentHand().get(i);
-                        guiCards.get(i).setVisibility(View.VISIBLE);
+            //sets image to cards in human hand
+            int i = 0;
+            if(state.playerTurn == this.playerNum){
+                for (; i < state.roundNum; i++) {
+                    WizardCards card = ((WizardState) info).getPlayerInfo(0).getCurrentHand().get(i);
+                    guiCards.get(i).setVisibility(View.VISIBLE);
 
-                        //checks if the card is null or not
-                        if (card == null) {
-                            guiCards.get(i).setVisibility(View.INVISIBLE);
-                        }
+                    //checks if the card is null or not
+                    if (card == null) {
+                        guiCards.get(i).setVisibility(View.INVISIBLE);
+                    }
 
                     //if not null then set image
                     if (card != null) {
@@ -1214,20 +1217,30 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         player4Score = (TextView) myActivity.findViewById(R.id.player4TextView);
         roundText = (TextView) myActivity.findViewById(R.id.roundTextView);
 
-        bidSpinner = (Spinner) myActivity.findViewById(R.id.bidDropdown);
-        List<Integer> spinVal = new ArrayList<Integer>();
+//        bidSpinner = (Spinner) myActivity.findViewById(R.id.bidDropdown);
+//        List<Integer> spinVal = new ArrayList<Integer>();
+//
+//        //need for spinner
+//        for (int i = 0; i < 16; i++) {
+//            if(!spinVal.contains(i)) {
+//                spinVal.add(i);
+//            }
+//        }
+//
+//        ArrayAdapter<Integer> dataAdapter = new ArrayAdapter<Integer>(myActivity,
+//                android.R.layout.simple_spinner_item, spinVal);
+//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        bidSpinner.setAdapter(dataAdapter);
 
-        //need for spinner
-        for (int i = 0; i < 16; i++) {
-            if(!spinVal.contains(i)) {
-                spinVal.add(i);
-            }
-        }
+        bidText = (TextView) myActivity.findViewById(R.id.bidText);
 
-        ArrayAdapter<Integer> dataAdapter = new ArrayAdapter<Integer>(myActivity,
-                android.R.layout.simple_spinner_item, spinVal);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        bidSpinner.setAdapter(dataAdapter);
+        bidText.setText(""+ this.bidNum);
+
+
+        bidPlus = (Button) myActivity.findViewById(R.id.bidPlus);
+        bidPlus.setOnClickListener(this);
+        bidMinus = (Button) myActivity.findViewById(R.id.bidMinus);
+        bidMinus.setOnClickListener(this);
 
         bidSubmitButton = (Button) myActivity.findViewById(R.id.bidSubmit);
         bidSubmitButton.setOnClickListener(this);
@@ -1477,21 +1490,46 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
     @Override
     public void onClick(View view) {
-        switch(view.getId()){
-            case R.id.helpButton:
-//                myActivity.setContentView(R.layout.game_help_screen);
-                break;
-            case R.id.quitButton:
-                myActivity.recreate();
-                break;
-        }
+//        switch(view.getId()){
+//            case R.id.helpButton:
+////                myActivity.setContentView(R.layout.game_help_screen);
+//                break;
+//            case R.id.quitButton:
+//                //myActivity.setContentView(R.layout.game_config_main);
+//                break;
+////            case R.id.backToGame:
+////                myActivity.setContentView(R.layout.activity_main);
+////                break;
+//        }
+//
+//        bidNum = (Integer)bidSpinner.getSelectedItem();
+//
+//        //checks if bid chosen is valid
+//        if(bidNum <= state.getRoundNum()) {
+//            myBid = new WizardBidAction(this, bidNum);
+//            super.game.sendAction(myBid);
+//        }
+        if(state.getGameStage() == 0) {
+            switch (view.getId()) {
+                case R.id.bidPlus:
+                    if (bidNum < state.getRoundNum()) {
+                        bidNum++;
+                        bidText.setText(""+bidNum);
+                    }
+                    break;
 
-        bidNum = (Integer)bidSpinner.getSelectedItem();
+                case R.id.bidMinus:
+                    if (bidNum > 0) {
+                        bidNum--;
+                        bidText.setText(""+bidNum);
+                    }
+                    break;
 
-        //checks if bid chosen is valid
-        if(bidNum <= state.getRoundNum()) {
-            myBid = new WizardBidAction(this, bidNum);
-            super.game.sendAction(myBid);
+                case R.id.bidSubmit:
+                    myBid = new WizardBidAction(this, bidNum);
+                    super.game.sendAction(myBid);
+                    break;
+            }
         }
     }
 
