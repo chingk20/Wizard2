@@ -13,6 +13,7 @@ import java.util.Random;
 import static android.os.SystemClock.sleep;
 
 public class WizardState extends GameState {
+    private static final long serialVersionUID = 7552321013488624386L;
     public int playerTurn;              //which players turn it is
     private int gameStage;              //which state of the game the player is in
     private String trumpSuit;           //suit of trump card
@@ -22,11 +23,11 @@ public class WizardState extends GameState {
 
     WizardCards trumpCard;              //Trump card
 
-    public ArrayList<WizardCards> deck = new ArrayList<>();                        //holds all the cards
-    public ArrayList<WizardCards> cardsPlayed = new ArrayList<>();                  //holds cards played by players
-    private ArrayList<WizardPlayer> listOfPlayers = new ArrayList<WizardPlayer>();  //holds players
-    private ArrayList<Integer> playerBids = new ArrayList<>();                      //holds bids made by each player
-    private ArrayList<Integer> playerBidsWon = new ArrayList<>();                   //holds bids won by each player
+    public ArrayList<WizardCards> deck = new ArrayList<>();                 //holds all the cards
+    public ArrayList<WizardCards> cardsPlayed = new ArrayList<>();          //holds cards played by players
+    private ArrayList<WizardPlayer> listOfPlayers = new ArrayList<WizardPlayer>();     //holds players
+    private ArrayList<Integer> playerBids = new ArrayList<>();              //holds bids made by each player
+    private ArrayList<Integer> playerBidsWon = new ArrayList<>();           //holds bids won by each player
 
     WizardPlayer currentPlayer; //not sure if needed
 
@@ -144,14 +145,19 @@ public class WizardState extends GameState {
 
     //DEALS CARDS OUT TO PLAYERS DEPENDING ON ROUND NUMBER
     public void dealDeck(int numTricks){
+        Logger.log("deck size", ""+deck.size());
         Random random = new Random();
         //deals out a card to each players hand and removes it from the deck
         for (int i = 0; i < listOfPlayers.size(); i++){
 
             for (int round = 0; round < numTricks; round++) {
                 //might not need
-                if(deck.size() < 2) {
-                    i=37;
+//                if(deck.size() < 2) {
+//                    i=37;
+//                }
+                if(deck.size()<1){
+                    Logger.log("deck size in deal deck", ""+deck.size());
+                    break;
                 }
                 int randomCard = random.nextInt(deck.size());
                 listOfPlayers.get(i).addCardtoHand(deck.get(randomCard));
@@ -159,7 +165,7 @@ public class WizardState extends GameState {
             }
         }
         //sets trump card, omit if 15th round
-        if(getRoundNum() != 15) {
+        if(getRoundNum() < 15) {
 
             //next random card is trump card
             int randomCard = random.nextInt(deck.size());
@@ -181,6 +187,7 @@ public class WizardState extends GameState {
         playerTurn = myState.playerTurn;
         gameStage = myState.gameStage;
         trumpCard = myState.trumpCard;
+        trumpSuit = myState.trumpSuit;
         roundNum = myState.roundNum;
         currentPlayer = myState.currentPlayer;
 
@@ -213,7 +220,7 @@ public class WizardState extends GameState {
         {
             //HARD CODED VALUES FOR NOW
             WizardCards card = getCardsPlayed().get(i);
-            if(card.getCardNumber()==15){
+            if(card.getCardNumber() == 15){
                 value = 1000000;
             } else if(card.getCardSuit()==trumpSuit){
                 value = card.getCardValue()*10;
@@ -238,14 +245,16 @@ public class WizardState extends GameState {
             }
             cardsPlayed.set(i, null);
         }
+        deck.add(trumpCard);
     }
 
     //CALCULATES WHO WON ROUND BY LOOKING AT PLAYERS BID NUM AND BIDS WON
     public void calculateScores(){
-        player0.setRunningTotal(player0.getBidNum(), playerBidsWon.get(0));
-        player1.setRunningTotal(player1.getBidNum(), playerBidsWon.get(1));
-        player2.setRunningTotal(player2.getBidNum(), playerBidsWon.get(2));
-        player3.setRunningTotal(player3.getBidNum(), playerBidsWon.get(3));
+        //playerBidsWon.get(1)
+        player0.setRunningTotal(player0.getBidNum(), player0.getBidNumWon());
+        player1.setRunningTotal(player1.getBidNum(), player1.getBidNumWon());
+        player2.setRunningTotal(player2.getBidNum(), player2.getBidNumWon());
+        player3.setRunningTotal(player3.getBidNum(), player3.getBidNumWon());
         player0.setPlayerScore(player0.getRunningTotal());
         player1.setPlayerScore(player1.getRunningTotal());
         player2.setPlayerScore(player2.getRunningTotal());
@@ -264,7 +273,7 @@ public class WizardState extends GameState {
 
     public void setPlayerBidsWon(int newPlayerBids, int playerID) {
         if(0 <= playerID && playerID <= 3){
-            this.playerBidsWon.set(playerID, newPlayerBids);}
+            this.playerBidsWon.set(playerID, newPlayerBids); }
     }
 
     public void setPlayerTurn(int playerTurn) { this.playerTurn = playerTurn; }
