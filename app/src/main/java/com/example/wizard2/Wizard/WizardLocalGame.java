@@ -20,6 +20,7 @@ public class WizardLocalGame extends LocalGame  {
     protected WizardState state;        // the game's state
     private boolean waiting = false;
     public boolean roundOver;
+    //public boolean gameOver = false;
 
 
     /**
@@ -43,7 +44,7 @@ public class WizardLocalGame extends LocalGame  {
     @Override
     protected String checkIfGameOver() {
         //Game is over after 15 rounds or the start of the 16th round
-        if(state.getRoundNum() == 16) {
+        if(state.getRoundNum() == 16 && state.getGameStage()==0) {
             int player1Score = state.getPlayerInfo(0).getPlayerScore();
             int player2Score = state.getPlayerInfo(1).getPlayerScore();
             int player3Score = state.getPlayerInfo(2).getPlayerScore();
@@ -160,6 +161,10 @@ public class WizardLocalGame extends LocalGame  {
                 if (state.getPlayerTurn() == 3) {
 
                     state.setPlayerTurn(0);
+//                    if(state.getRoundNum()==15 && myPlayer.getCurrentHand().isEmpty()){
+//                        gameOver=true;
+//                    }
+
                     //need for clearing cards played
                     getTimer().setInterval(2000);
                     getTimer().start();
@@ -189,7 +194,12 @@ public class WizardLocalGame extends LocalGame  {
 
 
         //calculate who won sub round
-        state.calculateWinner();
+        if(state.getRoundNum()==15){
+            state.calculateWinnerRound15();
+        }
+        else {
+            state.calculateWinner();
+        }
 
         //checks if the round is over by checking if players hand is empty
         roundOver = true;
@@ -216,12 +226,14 @@ public class WizardLocalGame extends LocalGame  {
                 //state.getPlayerInfo(j).getCurrentHand().removeAll(state.getPlayerInfo(j).getCurrentHand());
             }
             state.setGameStage(0);
-
+            state.addTrumpCard();
 
             state.setRoundNum(state.getRoundNum() + 1);
             this.checkIfGameOver();
             Logger.log("Local Game", "Round num:" + state.getRoundNum());
-            state.dealDeck(state.roundNum);
+            if(state.getRoundNum()!=15) {
+                state.dealDeck(state.roundNum);
+            }
         }
 
     }

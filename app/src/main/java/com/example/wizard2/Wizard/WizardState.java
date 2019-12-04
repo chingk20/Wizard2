@@ -63,7 +63,7 @@ public class WizardState extends GameState {
 
         this.playerTurn = 0;    //player 0 will go first
         this.gameStage = 0;     //starts at game state 0: bidding phase
-        this.roundNum = 1;      //start at round 1 at beginning
+        this.roundNum = 15;      //start at round 1 at beginning
 
 
         this.makeCards();           //creates cards
@@ -151,10 +151,6 @@ public class WizardState extends GameState {
         for (int i = 0; i < listOfPlayers.size(); i++){
 
             for (int round = 0; round < numTricks; round++) {
-                //might not need
-//                if(deck.size() < 2) {
-//                    i=37;
-//                }
                 if(deck.size()<1){
                     Logger.log("deck size in deal deck", ""+deck.size());
                     break;
@@ -236,6 +232,23 @@ public class WizardState extends GameState {
         setPlayerBidsWon(getPlayerBidsWon().get(winner)+1, winner);
     }
 
+    public void calculateWinnerRound15(){
+        int value=0;
+        int base=-1;
+        int winner=-1;
+        for(int i=0; i<4; i++)
+        {
+            //HARD CODED VALUES FOR NOW
+            WizardCards card = getCardsPlayed().get(i);
+            value = card.getCardValue();
+            if(value > base){
+                winner=i;
+                base=value;
+            }
+        }
+        setPlayerBidsWon(getPlayerBidsWon().get(winner)+1, winner);
+    }
+
     //RESETS CARDS PLAYED BY EACH PLAYER TO NULL
     public void resetImage()
     {
@@ -245,6 +258,10 @@ public class WizardState extends GameState {
             }
             cardsPlayed.set(i, null);
         }
+
+    }
+
+    public void addTrumpCard(){
         deck.add(trumpCard);
     }
 
@@ -258,6 +275,7 @@ public class WizardState extends GameState {
         player1.setPlayerScore(player1.getRunningTotal());
         player2.setPlayerScore(player2.getRunningTotal());
         player3.setPlayerScore(player3.getRunningTotal());
+
     }
 
     public void setCardsPlayed(WizardCards cardsPlayed, int playerID) {

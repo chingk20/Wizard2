@@ -96,7 +96,11 @@ public class WizardSmartAI extends GameComputerPlayer {
                     Logger.log("WizardSmartAI","cards played " + ((WizardState) info).getCardsPlayed());
                     tempCard = ((WizardState) info).getCardsPlayed().get(i);
                     if(tempCard != null) {
-                        if (tempCard.getCardNumber() > cardToPlay.getCardNumber()) {
+                        if (tempCard.getCardNumber() > cardToPlay.getCardNumber() && tempCard.getCardSuit()==trumpSuit) {
+                            canNotWin = true;
+                            break;
+                        }
+                        else if(tempCard.getCardNumber() > cardToPlay.getCardNumber()){
                             canNotWin = true;
                             break;
                         }
