@@ -82,6 +82,9 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     private ImageButton hButton;
     private ImageButton rButton;
     private SurfaceView mySurface;
+    private Button quitButton = null;
+    private Button helpButton = null;
+    private Button backToGameButton = null;
 
     /**
      * constructor
@@ -316,8 +319,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             }
 
             //sets image to cards in human hand
-            int i = 0;
-            if(state.playerTurn == this.playerNum && state.roundNum<16){
+            if(state.playerTurn == this.playerNum){
+                int i = 0;
                 for (; i < state.roundNum; i++) {
                     WizardCards card = ((WizardState) info).getPlayerInfo(0).getCurrentHand().get(i);
                     guiCards.get(i).setVisibility(View.VISIBLE);
@@ -1201,7 +1204,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     @SuppressLint("WrongViewCast")
     public void setAsGui(GameMainActivity activity) {
 
-        // remember our activitiy
+        // remember our activity
         myActivity = activity;
 
         // Load the layout resource for the new configuration
@@ -1535,30 +1538,34 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 mySurface.setBackgroundColor(Color.argb(255, 51, 51, 139));
                 mySurface.invalidate();
                 break;
-//            case R.id.helpButton:
-////                myActivity.setContentView(R.layout.game_help_screen);
-//                break;
-//            case R.id.quitButton:
-//                myActivity.setContentView(R.layout.game_config_main);
-//                break;
-////            case R.id.backToGame:
-////                myActivity.setContentView(R.layout.activity_main);
-////                break;
+            case R.id.helpButton:
+                myActivity.setContentView(R.layout.game_help_screen);
+                backToGameButton = (Button) myActivity.findViewById(R.id.backToGame);
+                backToGameButton.setOnClickListener(this);
+                break;
+            case R.id.quitButton:
+                myActivity.recreate();
+                myActivity.setContentView(R.layout.game_config_main);
+                break;
+            case R.id.backToGame:
+                myActivity.restartGame();
+                this.setAsGui(this.myActivity);
+                this.receiveInfo((GameInfo) this.state);
+                break;
         }
-
         if(state.getGameStage() == 0) {
             switch (view.getId()) {
                 case R.id.bidPlus:
                     if (bidNum < state.getRoundNum()) {
                         bidNum++;
-                        bidText.setText(""+bidNum);
+                        bidText.setText("" + bidNum);
                     }
                     break;
 
                 case R.id.bidMinus:
                     if (bidNum > 0) {
                         bidNum--;
-                        bidText.setText(""+bidNum);
+                        bidText.setText("" + bidNum);
                     }
                     break;
 
