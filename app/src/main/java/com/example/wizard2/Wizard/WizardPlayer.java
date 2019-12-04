@@ -19,11 +19,9 @@ public class WizardPlayer {
         this.playerID = playerID;
         this.playerName = playerName;
         this.playerScore = 0;
-        runningTotal = 0;
-        bidNum = 0;
-
-        //might not need
-        bidNumWon = 0;
+        this.runningTotal = 0;
+        this.bidNum = 0;
+        this.bidNumWon = 0;
     }
 
     public void addCardtoHand(WizardCards cardToAdd){
@@ -45,7 +43,7 @@ public class WizardPlayer {
 
     public void setBidNumWon(int bidNumWon) {this.bidNumWon=bidNumWon;}
 
-    public void setPlayerScore(int runningTotal) { this.playerScore = playerScore + getRunningTotal(); }
+    public void setPlayerScore(int runningTotal) { this.playerScore = playerScore + runningTotal; }
 
     public int getBidNum() { return bidNum; }
 
@@ -53,7 +51,7 @@ public class WizardPlayer {
 
     public int getRunningTotal()
     {
-        setRunningTotal(getBidNum(), getBidNumWon());
+        //setRunningTotal(getBidNum(), getBidNumWon());
         return runningTotal;
     }
 

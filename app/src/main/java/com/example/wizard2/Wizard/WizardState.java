@@ -214,7 +214,7 @@ public class WizardState extends GameState {
     //CALCULATES WHO WON ROUND BY LOOKING AT PLAYED CARDS VALUE OF EACH PLAYER
     public void calculateWinner(){
         int value=0;
-        int base=0;
+        int base=-1;
         int winner=-1;
         for(int i=0; i<4; i++)
         {
@@ -250,11 +250,10 @@ public class WizardState extends GameState {
 
     //CALCULATES WHO WON ROUND BY LOOKING AT PLAYERS BID NUM AND BIDS WON
     public void calculateScores(){
-        //playerBidsWon.get(1)
-        player0.setRunningTotal(player0.getBidNum(), player0.getBidNumWon());
-        player1.setRunningTotal(player1.getBidNum(), player1.getBidNumWon());
-        player2.setRunningTotal(player2.getBidNum(), player2.getBidNumWon());
-        player3.setRunningTotal(player3.getBidNum(), player3.getBidNumWon());
+        player0.setRunningTotal(getPlayerBids().get(0), getPlayerBidsWon().get(0));
+        player1.setRunningTotal(getPlayerBids().get(1), getPlayerBidsWon().get(1));
+        player2.setRunningTotal(getPlayerBids().get(2), getPlayerBidsWon().get(2));
+        player3.setRunningTotal(getPlayerBids().get(3), getPlayerBidsWon().get(3));
         player0.setPlayerScore(player0.getRunningTotal());
         player1.setPlayerScore(player1.getRunningTotal());
         player2.setPlayerScore(player2.getRunningTotal());
@@ -269,11 +268,35 @@ public class WizardState extends GameState {
     public void setPlayerBids(int newPlayerBids, int playerID) {
         if(0 <= playerID && playerID <= 3){
             this.playerBids.set(playerID, newPlayerBids);}
+        if(playerID==0){
+            player0.setBidNum(newPlayerBids);
+        }
+        else if (playerID == 1){
+            player1.setBidNum(newPlayerBids);
+        }
+        else if (playerID == 2){
+            player2.setBidNum(newPlayerBids);
+        }
+        else if (playerID == 3){
+            player3.setBidNum(newPlayerBids);
+        }
     }
 
     public void setPlayerBidsWon(int newPlayerBids, int playerID) {
         if(0 <= playerID && playerID <= 3){
             this.playerBidsWon.set(playerID, newPlayerBids); }
+        if(playerID==0){
+            player0.setBidNumWon(newPlayerBids);
+        }
+        else if (playerID == 1){
+            player1.setBidNumWon(newPlayerBids);
+        }
+        else if (playerID == 2){
+            player2.setBidNumWon(newPlayerBids);
+        }
+        else if (playerID == 3){
+            player3.setBidNumWon(newPlayerBids);
+        }
     }
 
     public void setPlayerTurn(int playerTurn) { this.playerTurn = playerTurn; }

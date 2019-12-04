@@ -159,6 +159,7 @@ public class WizardLocalGame extends LocalGame  {
                 //checks if it is end of round
                 if (state.getPlayerTurn() == 3) {
 
+                    state.setPlayerTurn(0);
                     //need for clearing cards played
                     getTimer().setInterval(2000);
                     getTimer().start();

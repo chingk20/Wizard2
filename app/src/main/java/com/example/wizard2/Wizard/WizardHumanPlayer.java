@@ -1165,28 +1165,28 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                         + state.getPlayerBidsWon().get(3) + "\nTotal Score: " + state.getPlayerInfo(3).getPlayerScore());
 
                 if(state.playerTurn==0){
-                    player1Score.setTextColor(Color.WHITE);
-                    player2Score.setTextColor(Color.BLACK);
-                    player3Score.setTextColor(Color.BLACK);
-                    player4Score.setTextColor(Color.BLACK);
+                    player1Score.setTextColor(Color.CYAN);
+                    player2Score.setTextColor(Color.WHITE);
+                    player3Score.setTextColor(Color.WHITE);
+                    player4Score.setTextColor(Color.WHITE);
                 }
                 else if(state.playerTurn==1){
-                    player2Score.setTextColor(Color.WHITE);
-                    player1Score.setTextColor(Color.BLACK);
-                    player3Score.setTextColor(Color.BLACK);
-                    player4Score.setTextColor(Color.BLACK);
+                    player2Score.setTextColor(Color.CYAN);
+                    player1Score.setTextColor(Color.WHITE);
+                    player3Score.setTextColor(Color.WHITE);
+                    player4Score.setTextColor(Color.WHITE);
                 }
                 else if(state.playerTurn==2){
-                    player3Score.setTextColor(Color.WHITE);
-                    player2Score.setTextColor(Color.BLACK);
-                    player1Score.setTextColor(Color.BLACK);
-                    player4Score.setTextColor(Color.BLACK);
+                    player3Score.setTextColor(Color.CYAN);
+                    player2Score.setTextColor(Color.WHITE);
+                    player1Score.setTextColor(Color.WHITE);
+                    player4Score.setTextColor(Color.WHITE);
                 }
                 else if(state.playerTurn==3){
-                    player4Score.setTextColor(Color.WHITE);
-                    player2Score.setTextColor(Color.BLACK);
-                    player3Score.setTextColor(Color.BLACK);
-                    player1Score.setTextColor(Color.BLACK);
+                    player4Score.setTextColor(Color.CYAN);
+                    player2Score.setTextColor(Color.WHITE);
+                    player3Score.setTextColor(Color.WHITE);
+                    player1Score.setTextColor(Color.WHITE);
                 }
 
 
@@ -1524,7 +1524,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 mySurface.invalidate();
                 break;
             case R.id.huffleButton:
-                mySurface.setBackgroundColor(Color.argb(255, 204, 204, 0));
+                mySurface.setBackgroundColor(Color.argb(255,	184, 182, 8));
                 mySurface.invalidate();
                 break;
             case R.id.slythButton:

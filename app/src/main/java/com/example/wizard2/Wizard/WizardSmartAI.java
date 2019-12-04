@@ -16,6 +16,7 @@ public class WizardSmartAI extends GameComputerPlayer {
     WizardBidAction myBid;
     private int wizardValue = 15;
     private int tempValue = -1;
+    private boolean canNotWin = false;
 
     public WizardSmartAI(String name){
         super(name);
@@ -72,13 +73,56 @@ public class WizardSmartAI extends GameComputerPlayer {
                         //checks that card is not null
                         if(tempCard != null) {
                             //plays the best card it has
-                            if (tempCard.getCardNumber() > tempValue) {
-                            tempValue = tempCard.getCardNumber();
-                            cardToPlay = tempCard;
-                            indexInHand = j;
+                            if(tempCard.getCardValue() == 15){
+                                tempValue = tempCard.getCardNumber();
+                                cardToPlay = tempCard;
+                                indexInHand = j;
+                            }
+                            else if(tempCard.getCardNumber() > tempValue && tempCard.getCardSuit() == trumpSuit){
+                                tempValue = tempCard.getCardNumber();
+                                cardToPlay = tempCard;
+                                indexInHand = j;
+                            }
+                            else if (tempCard.getCardNumber() > tempValue) {
+                                tempValue = tempCard.getCardNumber();
+                                cardToPlay = tempCard;
+                                indexInHand = j;
                             }
                         }
                     }
+                tempValue=-1;
+                //checks cards played to see if it can win
+                for(int i=0; i < playerID; i++){
+                    Logger.log("WizardSmartAI","cards played " + ((WizardState) info).getCardsPlayed());
+                    tempCard = ((WizardState) info).getCardsPlayed().get(i);
+                    if(tempCard != null) {
+                        if (tempCard.getCardNumber() > cardToPlay.getCardNumber()) {
+                            canNotWin = true;
+                            break;
+                        }
+                    }
+                }
+                tempValue = 15;
+                //if can't win then play the lowest card
+                if(canNotWin){
+                    for(int j=0; j< player.getCurrentHand().size(); j++) {
+                        tempCard = player.getCurrentHand().get(j);
+                        //checks that card is not null
+                        if(tempCard != null) {
+                            //plays the worst card it has
+                            if (tempCard.getCardNumber() < tempValue && tempCard.getCardSuit() != trumpSuit) {
+                                tempValue = tempCard.getCardNumber();
+                                cardToPlay = tempCard;
+                                indexInHand = j;
+                            }
+                            else if (tempCard.getCardNumber() < tempValue){
+                                tempValue = tempCard.getCardNumber();
+                                cardToPlay = tempCard;
+                                indexInHand = j;
+                            }
+                        }
+                    }
+                }
                 cardToPlay = player.getCurrentHand().get(indexInHand);
                 myPlay = new WizardPlayAction(this, cardToPlay, indexInHand);
                 Logger.log("WizardComputer", "Sending playing move");
