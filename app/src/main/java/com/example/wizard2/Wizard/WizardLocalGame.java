@@ -208,13 +208,14 @@ public class WizardLocalGame extends LocalGame  {
         //checks if round is over
         if (roundOver) {
             Logger.log("Local Game", "hand empty");
+            state.calculateScores();
             for (int j = 0; j < 4; j++) {
                 state.setPlayerBids(0, j);
                 state.setPlayerBidsWon(0, j);
                 //state.getPlayerInfo(j).getCurrentHand().removeAll(state.getPlayerInfo(j).getCurrentHand());
             }
             state.setGameStage(0);
-            state.calculateScores();
+
 
             state.setRoundNum(state.getRoundNum() + 1);
             this.checkIfGameOver();

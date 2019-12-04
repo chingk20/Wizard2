@@ -1165,25 +1165,25 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                         + state.getPlayerBidsWon().get(3) + "\nTotal Score: " + state.getPlayerInfo(3).getPlayerScore());
 
                 if(state.playerTurn==0){
-                    player1Score.setTextColor(Color.BLUE);
+                    player1Score.setTextColor(Color.WHITE);
                     player2Score.setTextColor(Color.BLACK);
                     player3Score.setTextColor(Color.BLACK);
                     player4Score.setTextColor(Color.BLACK);
                 }
                 else if(state.playerTurn==1){
-                    player2Score.setTextColor(Color.BLUE);
+                    player2Score.setTextColor(Color.WHITE);
                     player1Score.setTextColor(Color.BLACK);
                     player3Score.setTextColor(Color.BLACK);
                     player4Score.setTextColor(Color.BLACK);
                 }
                 else if(state.playerTurn==2){
-                    player3Score.setTextColor(Color.BLUE);
+                    player3Score.setTextColor(Color.WHITE);
                     player2Score.setTextColor(Color.BLACK);
                     player1Score.setTextColor(Color.BLACK);
                     player4Score.setTextColor(Color.BLACK);
                 }
                 else if(state.playerTurn==3){
-                    player4Score.setTextColor(Color.BLUE);
+                    player4Score.setTextColor(Color.WHITE);
                     player2Score.setTextColor(Color.BLACK);
                     player3Score.setTextColor(Color.BLACK);
                     player1Score.setTextColor(Color.BLACK);
@@ -1520,19 +1520,19 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.gryffinButton:
-                mySurface.setBackgroundColor(Color.argb(225, 242, 176, 85));
+                mySurface.setBackgroundColor(Color.argb(225, 128, 0, 0));
                 mySurface.invalidate();
                 break;
             case R.id.huffleButton:
-                mySurface.setBackgroundColor(Color.argb(255, 243, 231, 132));
+                mySurface.setBackgroundColor(Color.argb(255, 204, 204, 0));
                 mySurface.invalidate();
                 break;
             case R.id.slythButton:
-                mySurface.setBackgroundColor(Color.argb(255, 170, 236, 166));
+                mySurface.setBackgroundColor(Color.argb(255, 0, 100, 0));
                 mySurface.invalidate();
                 break;
             case R.id.ravenButton:
-                mySurface.setBackgroundColor(Color.argb(255, 192, 220, 235));
+                mySurface.setBackgroundColor(Color.argb(255, 51, 51, 139));
                 mySurface.invalidate();
                 break;
 //            case R.id.helpButton:

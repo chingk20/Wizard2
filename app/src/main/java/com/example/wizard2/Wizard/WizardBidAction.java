@@ -9,6 +9,8 @@ import com.example.wizard2.GameFramework.actionMessage.GameAction;
 
 public class WizardBidAction extends GameAction {
 
+    private static final long serialVersionUID = -2242980258970485343L;
+
     protected int bidNum;
 
     public WizardBidAction(GamePlayer player, int myBid){

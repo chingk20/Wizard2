@@ -8,6 +8,8 @@ import com.example.wizard2.GameFramework.actionMessage.GameAction;
  */
 
 public class WizardPlayAction extends GameAction {
+
+    private static final long serialVersionUID = -2242980258970485343L;
     public WizardCards cardToPlay;
     public int placeInHand;
 
