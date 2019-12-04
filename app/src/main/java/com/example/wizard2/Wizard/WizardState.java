@@ -63,7 +63,7 @@ public class WizardState extends GameState {
 
         this.playerTurn = 0;    //player 0 will go first
         this.gameStage = 0;     //starts at game state 0: bidding phase
-        this.roundNum = 15;      //start at round 1 at beginning
+        this.roundNum = 1;      //start at round 1 at beginning
 
 
         this.makeCards();           //creates cards
@@ -271,10 +271,15 @@ public class WizardState extends GameState {
         player1.setRunningTotal(getPlayerBids().get(1), getPlayerBidsWon().get(1));
         player2.setRunningTotal(getPlayerBids().get(2), getPlayerBidsWon().get(2));
         player3.setRunningTotal(getPlayerBids().get(3), getPlayerBidsWon().get(3));
-        player0.setPlayerScore(player0.getRunningTotal());
-        player1.setPlayerScore(player1.getRunningTotal());
-        player2.setPlayerScore(player2.getRunningTotal());
-        player3.setPlayerScore(player3.getRunningTotal());
+        player0.setBidNumWon(playerBidsWon.get(0));
+        player1.setBidNumWon(playerBidsWon.get(1));
+        player2.setBidNumWon(playerBidsWon.get(2));
+        player3.setBidNumWon(playerBidsWon.get(3));
+
+        player0.setPlayerScore(player1.getRunningTotal());
+        player1.setPlayerScore(player2.getRunningTotal());
+        player2.setPlayerScore(player3.getRunningTotal());
+        player3.setPlayerScore(player0.getRunningTotal());
 
     }
 

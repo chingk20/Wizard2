@@ -15,10 +15,11 @@ import com.example.wizard2.GameFramework.gameConfiguration.GamePlayerType;
 import com.example.wizard2.GameFramework.infoMessage.GameInfo;
 import com.example.wizard2.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class WizardMainActivity extends GameMainActivity {
-    private static final int PORT_NUMBER = 2278;
+public class WizardMainActivity extends GameMainActivity implements Serializable {
+    private static final int PORT_NUMBER = 5213;
 
     @Override
     public GameConfig createDefaultConfig() {
