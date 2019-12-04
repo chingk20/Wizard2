@@ -73,6 +73,9 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     private ImageView cardTrump = null;     //trump card
     private Spinner bidSpinner = null;
     private Button bidSubmitButton = null;
+    private Button quitButton = null;
+    private Button helpButton = null;
+    private Button backToGameButton = null;
 
     /**
      * constructor
@@ -299,12 +302,12 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 cardTrump.setImageResource(R.drawable.wizard);
                                 break;
                         }
+                        break;
                 }
 
-
             //sets image to cards in human hand
-            int i = 0;
             if(state.playerTurn == this.playerNum){
+                int i = 0;
                 for (; i < state.roundNum; i++) {
                     WizardCards card = ((WizardState) info).getPlayerInfo(0).getCurrentHand().get(i);
                     guiCards.get(i).setVisibility(View.VISIBLE);
@@ -512,6 +515,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                         guiCards.get(i).setImageResource(R.drawable.wizard_sly);
                                         break;
                                 }
+                                break;
                         }
                     }
                 }
@@ -1161,7 +1165,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     @SuppressLint("WrongViewCast")
     public void setAsGui(GameMainActivity activity) {
 
-        // remember our activitiy
+        // remember our activity
         myActivity = activity;
 
         // Load the layout resource for the new configuration
@@ -1229,9 +1233,15 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
         bidSubmitButton = (Button) myActivity.findViewById(R.id.bidSubmit);
         bidSubmitButton.setOnClickListener(this);
+        quitButton = (Button) myActivity.findViewById(R.id.quitButton);
+        quitButton.setOnClickListener(this);
+        helpButton = (Button) myActivity.findViewById(R.id.helpButton);
+        helpButton.setOnClickListener(this);
 
-        Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8,
-                card9, card10, card11, card12, card13, card14, card15);
+        if (guiCards.isEmpty()) {
+            Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8,
+                    card9, card10, card11, card12, card13, card14, card15);
+        }
     }
 
     /**
@@ -1475,24 +1485,29 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
     @Override
     public void onClick(View view) {
-//        switch(view.getId()){
-//            case R.id.helpButton:
-////                myActivity.setContentView(R.layout.game_help_screen);
-//                break;
-//            case R.id.quitButton:
-//                //myActivity.setContentView(R.layout.game_config_main);
-//                break;
-////            case R.id.backToGame:
-////                myActivity.setContentView(R.layout.activity_main);
-////                break;
-//        }
-
         bidNum = (Integer)bidSpinner.getSelectedItem();
+        switch(view.getId()){
+            case R.id.helpButton:
+                myActivity.setContentView(R.layout.game_help_screen);
+                backToGameButton = (Button) myActivity.findViewById(R.id.backToGame);
+                backToGameButton.setOnClickListener(this);
+                break;
+            case R.id.quitButton:
+                myActivity.recreate();
+                myActivity.setContentView(R.layout.game_config_main);
+                break;
+            case R.id.backToGame:
+                myActivity.restartGame();
+                this.setAsGui(this.myActivity);
+                this.receiveInfo((GameInfo) this.state);
+                break;
+            case R.id.bidSubmit:
+                //checks if bid chosen is valid
+                if(bidNum <= state.getRoundNum()) {
+                    myBid = new WizardBidAction(this, bidNum);
+                    super.game.sendAction(myBid);
+                }
 
-        //checks if bid chosen is valid
-        if(bidNum <= state.getRoundNum()) {
-            myBid = new WizardBidAction(this, bidNum);
-            super.game.sendAction(myBid);
         }
     }
 
