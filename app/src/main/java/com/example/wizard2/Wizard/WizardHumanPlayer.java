@@ -1280,8 +1280,10 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         sButton = (ImageButton) myActivity.findViewById(R.id.slythButton);
         sButton.setOnClickListener(this);
 
-        Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8,
-                card9, card10, card11, card12, card13, card14, card15);
+        if (guiCards.isEmpty()) {
+            Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8,
+                    card9, card10, card11, card12, card13, card14, card15);
+        }
     }
 
     /**
@@ -1552,9 +1554,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 myActivity.setContentView(R.layout.game_config_main);
                 break;
             case R.id.backToGame:
-                myActivity.restartGame();
                 this.setAsGui(this.myActivity);
-                this.receiveInfo((GameInfo) this.state);
+                this.sendInfo((GameInfo) this.state);
                 break;
         }
         if(state.getGameStage() == 0) {
