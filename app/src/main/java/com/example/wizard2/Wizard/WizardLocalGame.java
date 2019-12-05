@@ -8,12 +8,13 @@ import com.example.wizard2.GameFramework.actionMessage.GameAction;
 import com.example.wizard2.GameFramework.utilities.Logger;
 import com.example.wizard2.GameFramework.utilities.Tickable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.os.SystemClock.sleep;
 
-public class WizardLocalGame extends LocalGame  {
+public class WizardLocalGame extends LocalGame  implements Serializable {
     //Tag for logging
     private static final String TAG = "WizardLocalGame";
 
