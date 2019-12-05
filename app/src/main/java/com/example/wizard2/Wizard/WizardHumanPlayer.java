@@ -1280,6 +1280,10 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
         bidSubmitButton = (Button) myActivity.findViewById(R.id.bidSubmit);
         bidSubmitButton.setOnClickListener(this);
+        quitButton = (Button) myActivity.findViewById(R.id.quitButton);
+        quitButton.setOnClickListener(this);
+        helpButton = (Button) myActivity.findViewById(R.id.helpButton);
+        helpButton.setOnClickListener(this);
 
         mySurface = (SurfaceView) myActivity.findViewById(R.id.surfaceView);
         gButton = (ImageButton) myActivity.findViewById(R.id.gryffinButton);
@@ -1290,6 +1294,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         rButton.setOnClickListener(this);
         sButton = (ImageButton) myActivity.findViewById(R.id.slythButton);
         sButton.setOnClickListener(this);
+
 
         if (guiCards.isEmpty()) {
             Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8,
