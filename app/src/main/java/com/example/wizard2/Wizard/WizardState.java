@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.wizard2.GameFramework.infoMessage.GameState;
 import com.example.wizard2.GameFramework.utilities.Logger;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
@@ -12,7 +13,7 @@ import java.util.Random;
 
 import static android.os.SystemClock.sleep;
 
-public class WizardState extends GameState {
+public class WizardState extends GameState implements Serializable{
     private static final long serialVersionUID = 7552321013488624386L;
     public int playerTurn;              //which players turn it is
     private int gameStage;              //which state of the game the player is in

@@ -22,11 +22,12 @@ import com.example.wizard2.GameFramework.infoMessage.IllegalMoveInfo;
 import com.example.wizard2.GameFramework.utilities.Logger;
 import com.example.wizard2.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchListener, View.OnClickListener {
+public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchListener, View.OnClickListener, Serializable {
 
     private WizardCards cardToPlay;
     private int bidNum = 0;
@@ -321,9 +322,23 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             //sets image to cards in human hand
             if(state.playerTurn == this.playerNum){
                 int i = 0;
+                WizardCards card = ((WizardState) info).getPlayerInfo(playerNum).getCurrentHand().get(i);
                 for (; i < state.roundNum; i++) {
-                    WizardCards card = ((WizardState) info).getPlayerInfo(0).getCurrentHand().get(i);
-                    guiCards.get(i).setVisibility(View.VISIBLE);
+                    if(playerNum == 0) {
+                       guiCards.get(i).setVisibility(View.VISIBLE);
+                    }
+                    else if(playerNum == 1)
+                    {
+                        guiCards.get(i).setVisibility(View.VISIBLE);
+                    }
+                    else if(playerNum == 2)
+                    {
+                        guiCards.get(i).setVisibility(View.VISIBLE);
+                    }
+                    else if(playerNum == 3)
+                    {
+                        guiCards.get(i).setVisibility(View.VISIBLE);
+                    }
 
                     //checks if the card is null or not
                     if (card == null) {

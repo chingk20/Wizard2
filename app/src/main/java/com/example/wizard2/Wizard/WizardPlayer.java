@@ -1,12 +1,13 @@
 package com.example.wizard2.Wizard;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /*  WizardPlayer:
     Creates a player to play the game. Keeps track of their ID, score, name, and bid number
  */
 
-public class WizardPlayer {
+public class WizardPlayer implements Serializable {
     private int playerID;
     private int playerScore;
     private int runningTotal;

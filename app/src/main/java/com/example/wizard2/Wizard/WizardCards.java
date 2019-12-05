@@ -2,13 +2,15 @@ package com.example.wizard2.Wizard;
 
 import android.util.Log;
 
+import java.io.Serializable;
+
 /*  WizardCards:
     Creates all the cards needed to play Wizard. Cards created equal
     52 standard cards in a deck: Ace through King, four suits, plus
     4 jesters and 4 wizards.
  */
 
-public class WizardCards{
+public class WizardCards implements Serializable {
     private String cardSuit;
     private int cardNumber;
     private int cardValue;

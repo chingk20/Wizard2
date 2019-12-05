@@ -7,7 +7,9 @@ import com.example.wizard2.GameFramework.infoMessage.GameInfo;
 import com.example.wizard2.GameFramework.infoMessage.NotYourTurnInfo;
 import com.example.wizard2.GameFramework.utilities.Logger;
 
-public class WizardDumbAI extends GameComputerPlayer {
+import java.io.Serializable;
+
+public class WizardDumbAI extends GameComputerPlayer implements Serializable {
 
     private int bidNum;
     private int randomCard;
