@@ -85,6 +85,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     private Button quitButton = null;
     private Button helpButton = null;
     private Button backToGameButton = null;
+    private TextView gameStage = null;
 
     /**
      * constructor
@@ -319,7 +320,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             }
 
             //sets image to cards in human hand
-            if(state.playerTurn == this.playerNum){
+            //if(state.playerTurn == this.playerNum && state.getRoundNum()<16){
+            if(state.getGameStage()==0 && state.getRoundNum()<16){
                 int i = 0;
                 for (; i < state.roundNum; i++) {
                     WizardCards card = ((WizardState) info).getPlayerInfo(0).getCurrentHand().get(i);
@@ -1155,7 +1157,13 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 }
 
                 //shows round num and player turn on GUI
-                roundText.setText("Round " + state.getRoundNum() + "\n Player Turn: " + (state.getPlayerTurn() + 1));
+                roundText.setText("Round " + state.getRoundNum());
+                if(state.getGameStage()==0) {
+                    gameStage.setText("Stage: Bidding" + "\nPlayer Turn: " + (state.getPlayerTurn() + 1));
+                }
+                else if (state.getGameStage()==1) {
+                gameStage.setText("Stage: Playing" + "\nPlayer Turn: " + (state.getPlayerTurn() + 1));
+                }
 
                 //updates gui for players scores and bids
                 player1Score.setText("PLAYER 1\n Bid: " + state.getPlayerBids().get(0) + "\nBids Won: "
@@ -1254,6 +1262,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         player3Score = (TextView) myActivity.findViewById(R.id.player3TextView);
         player4Score = (TextView) myActivity.findViewById(R.id.player4TextView);
         roundText = (TextView) myActivity.findViewById(R.id.roundTextView);
+        gameStage = (TextView) myActivity.findViewById(R.id.gameStage);
+
 
         bidText = (TextView) myActivity.findViewById(R.id.bidText);
         bidText.setText(""+ this.bidNum);

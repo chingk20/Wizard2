@@ -19,6 +19,7 @@ public class WizardState extends GameState {
     private String trumpSuit;           //suit of trump card
     public int roundNum;                //round number
     public boolean trickOver = false;   //if subround is over
+    public int winner;
 
 
     WizardCards trumpCard;              //Trump card
@@ -64,7 +65,7 @@ public class WizardState extends GameState {
         this.playerTurn = 0;    //player 0 will go first
         this.gameStage = 0;     //starts at game state 0: bidding phase
         this.roundNum = 1;      //start at round 1 at beginning
-
+        this.winner = -1;
 
         this.makeCards();           //creates cards
         this.dealDeck(roundNum);    //deals the deck to everyone's hands
@@ -186,6 +187,7 @@ public class WizardState extends GameState {
         trumpSuit = myState.trumpSuit;
         roundNum = myState.roundNum;
         currentPlayer = myState.currentPlayer;
+        winner = myState.winner;
 
         for (WizardCards card : myState.cardsPlayed){
             cardsPlayed.add(card);
@@ -211,7 +213,7 @@ public class WizardState extends GameState {
     public void calculateWinner(){
         int value=0;
         int base=-1;
-        int winner=-1;
+        //int winner=-1;
         for(int i=0; i<4; i++)
         {
             //HARD CODED VALUES FOR NOW
@@ -247,6 +249,7 @@ public class WizardState extends GameState {
             }
         }
         setPlayerBidsWon(getPlayerBidsWon().get(winner)+1, winner);
+        setWinner(winner);
     }
 
     //RESETS CARDS PLAYED BY EACH PLAYER TO NULL
@@ -322,6 +325,8 @@ public class WizardState extends GameState {
         }
     }
 
+    public void setWinner(int winner) { this.winner = winner; }
+
     public void setPlayerTurn(int playerTurn) { this.playerTurn = playerTurn; }
 
     public void setGameStage(int gameStage) { this.gameStage = gameStage; }
@@ -339,6 +344,8 @@ public class WizardState extends GameState {
     public WizardCards getTrumpCard() { return trumpCard; }
 
     public String getTrumpSuit() {return trumpSuit;}
+
+    public int getWinner() {return winner;}
 
     public int getRoundNum() { return roundNum; }
 

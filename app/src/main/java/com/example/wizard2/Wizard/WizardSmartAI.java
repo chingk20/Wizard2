@@ -39,12 +39,15 @@ public class WizardSmartAI extends GameComputerPlayer {
 
         if (info instanceof WizardState){
             int playerID = ((WizardState) info).getPlayerTurn();
+
+            //checks that it is players turn
+            if (this.playerNum != playerID) return;
+
             WizardPlayer player = ((WizardState) info).getPlayerInfo(playerID);
             String trumpSuit = (((WizardState) info).getTrumpSuit());
             int handSize = player.getCurrentHand().size();
 
-            //checks that it is players turn
-            if (this.playerNum != playerID) return;
+
 
             //BID STAGE: gets and sends random bid num
             if(((WizardState) info).getGameStage()==0) {
@@ -96,11 +99,11 @@ public class WizardSmartAI extends GameComputerPlayer {
                     Logger.log("WizardSmartAI","cards played " + ((WizardState) info).getCardsPlayed());
                     tempCard = ((WizardState) info).getCardsPlayed().get(i);
                     if(tempCard != null) {
-                        if (tempCard.getCardNumber() > cardToPlay.getCardNumber() && tempCard.getCardSuit()==trumpSuit) {
+                        if (tempCard.getCardNumber() >= cardToPlay.getCardNumber() && tempCard.getCardSuit()==trumpSuit) {
                             canNotWin = true;
                             break;
                         }
-                        else if(tempCard.getCardNumber() > cardToPlay.getCardNumber()){
+                        else if(tempCard.getCardNumber() >= cardToPlay.getCardNumber()){
                             canNotWin = true;
                             break;
                         }
