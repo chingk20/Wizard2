@@ -322,24 +322,9 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             //sets image to cards in human hand
             if(state.playerTurn == this.playerNum){
                 int i = 0;
-                WizardCards card = ((WizardState) info).getPlayerInfo(playerNum).getCurrentHand().get(i);
                 for (; i < state.roundNum; i++) {
-                    if(playerNum == 0) {
-                       guiCards.get(i).setVisibility(View.VISIBLE);
-                    }
-                    else if(playerNum == 1)
-                    {
-                        guiCards.get(i).setVisibility(View.VISIBLE);
-                    }
-                    else if(playerNum == 2)
-                    {
-                        guiCards.get(i).setVisibility(View.VISIBLE);
-                    }
-                    else if(playerNum == 3)
-                    {
-                        guiCards.get(i).setVisibility(View.VISIBLE);
-                    }
-
+                WizardCards card = ((WizardState) info).getPlayerInfo(1).getCurrentHand().get(i);
+                guiCards.get(i).setVisibility(View.VISIBLE);
                     //checks if the card is null or not
                     if (card == null) {
                         guiCards.get(i).setVisibility(View.INVISIBLE);
