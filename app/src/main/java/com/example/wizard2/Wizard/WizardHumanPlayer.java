@@ -22,11 +22,12 @@ import com.example.wizard2.GameFramework.infoMessage.IllegalMoveInfo;
 import com.example.wizard2.GameFramework.utilities.Logger;
 import com.example.wizard2.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchListener, View.OnClickListener {
+public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchListener, View.OnClickListener, Serializable {
 
     private WizardCards cardToPlay;
     private int bidNum = 0;
@@ -321,9 +322,23 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             //sets image to cards in human hand
             if(state.playerTurn == this.playerNum){
                 int i = 0;
+                WizardCards card = ((WizardState) info).getPlayerInfo(playerNum).getCurrentHand().get(i);
                 for (; i < state.roundNum; i++) {
-                    WizardCards card = ((WizardState) info).getPlayerInfo(0).getCurrentHand().get(i);
-                    guiCards.get(i).setVisibility(View.VISIBLE);
+                    if(playerNum == 0) {
+                       guiCards.get(i).setVisibility(View.VISIBLE);
+                    }
+                    else if(playerNum == 1)
+                    {
+                        guiCards.get(i).setVisibility(View.VISIBLE);
+                    }
+                    else if(playerNum == 2)
+                    {
+                        guiCards.get(i).setVisibility(View.VISIBLE);
+                    }
+                    else if(playerNum == 3)
+                    {
+                        guiCards.get(i).setVisibility(View.VISIBLE);
+                    }
 
                     //checks if the card is null or not
                     if (card == null) {
@@ -1168,28 +1183,28 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                         + state.getPlayerBidsWon().get(3) + "\nTotal Score: " + state.getPlayerInfo(3).getPlayerScore());
 
                 if(state.playerTurn==0){
-                    player1Score.setTextColor(Color.WHITE);
-                    player2Score.setTextColor(Color.BLACK);
-                    player3Score.setTextColor(Color.BLACK);
-                    player4Score.setTextColor(Color.BLACK);
+                    player1Score.setTextColor(Color.CYAN);
+                    player2Score.setTextColor(Color.WHITE);
+                    player3Score.setTextColor(Color.WHITE);
+                    player4Score.setTextColor(Color.WHITE);
                 }
                 else if(state.playerTurn==1){
-                    player2Score.setTextColor(Color.WHITE);
-                    player1Score.setTextColor(Color.BLACK);
-                    player3Score.setTextColor(Color.BLACK);
-                    player4Score.setTextColor(Color.BLACK);
+                    player2Score.setTextColor(Color.CYAN);
+                    player1Score.setTextColor(Color.WHITE);
+                    player3Score.setTextColor(Color.WHITE);
+                    player4Score.setTextColor(Color.WHITE);
                 }
                 else if(state.playerTurn==2){
-                    player3Score.setTextColor(Color.WHITE);
-                    player2Score.setTextColor(Color.BLACK);
-                    player1Score.setTextColor(Color.BLACK);
-                    player4Score.setTextColor(Color.BLACK);
+                    player3Score.setTextColor(Color.CYAN);
+                    player2Score.setTextColor(Color.WHITE);
+                    player1Score.setTextColor(Color.WHITE);
+                    player4Score.setTextColor(Color.WHITE);
                 }
                 else if(state.playerTurn==3){
-                    player4Score.setTextColor(Color.WHITE);
-                    player2Score.setTextColor(Color.BLACK);
-                    player3Score.setTextColor(Color.BLACK);
-                    player1Score.setTextColor(Color.BLACK);
+                    player4Score.setTextColor(Color.CYAN);
+                    player2Score.setTextColor(Color.WHITE);
+                    player3Score.setTextColor(Color.WHITE);
+                    player1Score.setTextColor(Color.WHITE);
                 }
 
 
@@ -1265,10 +1280,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
         bidSubmitButton = (Button) myActivity.findViewById(R.id.bidSubmit);
         bidSubmitButton.setOnClickListener(this);
-        quitButton = (Button) myActivity.findViewById(R.id.quitButton);
-        quitButton.setOnClickListener(this);
-        helpButton = (Button) myActivity.findViewById(R.id.helpButton);
-        helpButton.setOnClickListener(this);
 
         mySurface = (SurfaceView) myActivity.findViewById(R.id.surfaceView);
         gButton = (ImageButton) myActivity.findViewById(R.id.gryffinButton);
@@ -1533,7 +1544,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 mySurface.invalidate();
                 break;
             case R.id.huffleButton:
-                mySurface.setBackgroundColor(Color.argb(255, 204, 204, 0));
+                mySurface.setBackgroundColor(Color.argb(255,	184, 182, 8));
                 mySurface.invalidate();
                 break;
             case R.id.slythButton:
