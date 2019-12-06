@@ -11,7 +11,9 @@ import com.example.wizard2.GameFramework.actionMessage.GameAction;
  * @param myBid the (integer) bid the player is making
  */
 
-public class WizardBidAction extends GameAction {
+public class WizardBidAction extends GameAction implements Serializable {
+
+    private static final long serialVersionUID = -2242980258970485343L;
 
     protected int bidNum;
 

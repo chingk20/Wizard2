@@ -22,16 +22,19 @@ import com.example.wizard2.GameFramework.infoMessage.IllegalMoveInfo;
 import com.example.wizard2.GameFramework.utilities.Logger;
 import com.example.wizard2.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
 /**
  * WizardHumanPlayer: This class handles all user interactions with the gui and changes gui's display
  */
-public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchListener, View.OnClickListener {
+
+public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchListener, View.OnClickListener, Serializable {
 
     private WizardCards cardToPlay;
     private int bidNum = 0;
+    private int roundNum;
 
     //ACTIONS
     WizardPlayAction myPlay;
@@ -50,7 +53,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     private TextView player3Score = null;
     private TextView player4Score = null;
     private TextView roundText = null;
-    private ImageView card1 = null;         //humans player cards
+    private ImageView card1 = null;         //humans player card 1
     private ImageView card2 = null;
     private ImageView card3 = null;
     private ImageView card4 = null;
@@ -65,7 +68,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     private ImageView card13 = null;
     private ImageView card14 = null;
     private ImageView card15 = null;
-    private ImageView card1Played = null;   //the card that players played in the middle
+    private ImageView card1Played = null;   //the card that player 1 played
     private ImageView card2Played = null;
     private ImageView card3Played = null;
     private ImageView card4Played = null;
@@ -79,6 +82,10 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     private ImageButton hButton; //hufflepuff button
     private ImageButton rButton; //ravenclaw button
     private SurfaceView mySurface;
+    private Button quitButton = null;
+    private Button helpButton = null;
+    private Button backToGameButton = null;
+    private TextView gameStage = null;
 
     /**
      * constructor
@@ -156,7 +163,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 cardTrump.setImageResource(R.drawable.ace_diamond);
                                 break;
                             case 15:
-                                cardTrump.setImageResource(R.drawable.wizard_griff);
+                                cardTrump.setImageResource(R.drawable.wizard_huff);
                                 break;
                         }
                         break;
@@ -205,7 +212,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 cardTrump.setImageResource(R.drawable.ace_heart);
                                 break;
                             case 15:
-                                cardTrump.setImageResource(R.drawable.wizard_huff);
+                                cardTrump.setImageResource(R.drawable.wizard_sly);
                                 break;
                         }
                         break;
@@ -254,7 +261,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 cardTrump.setImageResource(R.drawable.ace_spade);
                                 break;
                             case 15:
-                                cardTrump.setImageResource(R.drawable.wizard_raven);
+                                cardTrump.setImageResource(R.drawable.wizard_griff);
                                 break;
                         }
                         break;
@@ -303,12 +310,11 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 cardTrump.setImageResource(R.drawable.ace_club);
                                 break;
                             case 15:
-                                cardTrump.setImageResource(R.drawable.wizard_sly);
+                                cardTrump.setImageResource(R.drawable.wizard_raven);
                                 break;
                         }
                 }
             }
-            //on 15th round, there is no trump card
             else if(state.getRoundNum() == 15){
                 cardTrump.setVisibility(View.INVISIBLE);
             }
@@ -317,9 +323,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             int i = 0;
             if(state.playerTurn == this.playerNum && state.roundNum < 16){
                 for (; i < state.roundNum; i++) {
-                    WizardCards card = ((WizardState) info).getPlayerInfo(0).getCurrentHand().get(i);
-                    guiCards.get(i).setVisibility(View.VISIBLE);
-
+                WizardCards card = ((WizardState) info).getPlayerInfo(0).getCurrentHand().get(i);
+                guiCards.get(i).setVisibility(View.VISIBLE);
                     //checks if the card is null or not
                     if (card == null) {
                         guiCards.get(i).setVisibility(View.INVISIBLE);
@@ -373,7 +378,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                         guiCards.get(i).setImageResource(R.drawable.ace_diamond);
                                         break;
                                     case 15:
-                                        guiCards.get(i).setImageResource(R.drawable.wizard_griff);
+                                        guiCards.get(i).setImageResource(R.drawable.wizard_huff);
                                         break;
                                 }
                                 break;
@@ -422,7 +427,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                         guiCards.get(i).setImageResource(R.drawable.ace_heart);
                                         break;
                                     case 15:
-                                        guiCards.get(i).setImageResource(R.drawable.wizard_huff);
+                                        guiCards.get(i).setImageResource(R.drawable.wizard_sly);
                                         break;
                                 }
                                 break;
@@ -471,7 +476,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                         guiCards.get(i).setImageResource(R.drawable.ace_spade);
                                         break;
                                     case 15:
-                                        guiCards.get(i).setImageResource(R.drawable.wizard_raven);
+                                        guiCards.get(i).setImageResource(R.drawable.wizard_griff);
                                         break;
                                 }
                                 break;
@@ -520,7 +525,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                         guiCards.get(i).setImageResource(R.drawable.ace_club);
                                         break;
                                     case 15:
-                                        guiCards.get(i).setImageResource(R.drawable.wizard_sly);
+                                        guiCards.get(i).setImageResource(R.drawable.wizard_raven);
                                         break;
                                 }
                         }
@@ -582,7 +587,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 card2Played.setImageResource(R.drawable.ace_diamond);
                                 break;
                             case 15:
-                                card2Played.setImageResource(R.drawable.wizard_griff);
+                                card2Played.setImageResource(R.drawable.wizard_huff);
                                 break;
                         }
                         break;
@@ -631,7 +636,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 card2Played.setImageResource(R.drawable.ace_heart);
                                 break;
                             case 15:
-                                card2Played.setImageResource(R.drawable.wizard_raven);
+                                card2Played.setImageResource(R.drawable.wizard_sly);
                                 break;
                         }
                         break;
@@ -680,7 +685,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 card2Played.setImageResource(R.drawable.ace_spade);
                                 break;
                             case 15:
-                                card2Played.setImageResource(R.drawable.wizard_huff);
+                                card2Played.setImageResource(R.drawable.wizard_griff);
                                 break;
                         }
                         break;
@@ -729,13 +734,12 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 card2Played.setImageResource(R.drawable.ace_club);
                                 break;
                             case 15:
-                                card2Played.setImageResource(R.drawable.wizard_sly);
+                                card2Played.setImageResource(R.drawable.wizard_raven);
                                 break;
                         }
                         break;
                 }
             }
-            //sets image for computer player 2's played card in the middle
             WizardCards cp2 = state.cardsPlayed.get(2);
             if (cp2 != null) {
                 card3Played.setVisibility(View.VISIBLE);
@@ -785,7 +789,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 card3Played.setImageResource(R.drawable.ace_diamond);
                                 break;
                             case 15:
-                                card3Played.setImageResource(R.drawable.wizard_griff);
+                                card3Played.setImageResource(R.drawable.wizard_huff);
                                 break;
                         }
                         break;
@@ -834,7 +838,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 card3Played.setImageResource(R.drawable.ace_heart);
                                 break;
                             case 15:
-                                card3Played.setImageResource(R.drawable.wizard_huff);
+                                card3Played.setImageResource(R.drawable.wizard_sly);
                                 break;
                         }
                         break;
@@ -883,7 +887,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 card3Played.setImageResource(R.drawable.ace_spade);
                                 break;
                             case 15:
-                                card3Played.setImageResource(R.drawable.wizard_raven);
+                                card3Played.setImageResource(R.drawable.wizard_griff);
                                 break;
                         }
                         break;
@@ -932,13 +936,12 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 card3Played.setImageResource(R.drawable.ace_club);
                                 break;
                             case 15:
-                                card3Played.setImageResource(R.drawable.wizard_sly);
+                                card3Played.setImageResource(R.drawable.wizard_raven);
                                 break;
                         }
                         break;
                 }
             }
-            //sets image for computer player 3's played card in the middle
             WizardCards cp3 = state.cardsPlayed.get(3);
             if (cp3 != null) {
                 card4Played.setVisibility(View.VISIBLE);
@@ -988,7 +991,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 card4Played.setImageResource(R.drawable.ace_diamond);
                                 break;
                             case 15:
-                                card4Played.setImageResource(R.drawable.wizard_griff);
+                                card4Played.setImageResource(R.drawable.wizard_huff);
                                 break;
                         }
                         break;
@@ -1037,7 +1040,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 card4Played.setImageResource(R.drawable.ace_heart);
                                 break;
                             case 15:
-                                card4Played.setImageResource(R.drawable.wizard_huff);
+                                card4Played.setImageResource(R.drawable.wizard_sly);
                                 break;
                         }
                         break;
@@ -1086,7 +1089,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 card4Played.setImageResource(R.drawable.ace_spade);
                                 break;
                             case 15:
-                                card4Played.setImageResource(R.drawable.wizard_raven);
+                                card4Played.setImageResource(R.drawable.wizard_griff);
                                 break;
                         }
                         break;
@@ -1135,14 +1138,14 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 card4Played.setImageResource(R.drawable.ace_club);
                                 break;
                             case 15:
-                                card4Played.setImageResource(R.drawable.wizard_sly);
+                                card4Played.setImageResource(R.drawable.wizard_raven);
                                 break;
                         }
                         break;
                 }
             }
-
             WizardCards cp0 = state.cardsPlayed.get(0);
+
                 //clears all the cards played
                 if (cp0 == null && cp1 == null && cp2 == null && cp3 == null) {
                     card1Played.setVisibility(View.INVISIBLE);
@@ -1152,7 +1155,13 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 }
 
                 //shows round num and player turn on GUI
-                roundText.setText("Round " + state.getRoundNum() + "\n Player Turn: " + (state.getPlayerTurn() + 1));
+                roundText.setText("Round " + state.getRoundNum());
+                if(state.getGameStage()==0) {
+                    gameStage.setText("Stage: Bidding" + "\nPlayer Turn: " + (state.getPlayerTurn() + 1));
+                }
+                else if (state.getGameStage()==1) {
+                gameStage.setText("Stage: Playing" + "\nPlayer Turn: " + (state.getPlayerTurn() + 1));
+                }
 
                 //updates gui for players scores and bids
                 player1Score.setText("PLAYER 1\n Bid: " + state.getPlayerBids().get(0) + "\nBids Won: "
@@ -1166,29 +1175,32 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
                 //highlights player whose turn it is in blue
                 if(state.playerTurn==0){
-                    player1Score.setTextColor(Color.BLUE);
-                    player2Score.setTextColor(Color.BLACK);
-                    player3Score.setTextColor(Color.BLACK);
-                    player4Score.setTextColor(Color.BLACK);
+                    player1Score.setTextColor(Color.CYAN);
+                    player2Score.setTextColor(Color.WHITE);
+                    player3Score.setTextColor(Color.WHITE);
+                    player4Score.setTextColor(Color.WHITE);
                 }
                 else if(state.playerTurn==1){
-                    player2Score.setTextColor(Color.BLUE);
-                    player1Score.setTextColor(Color.BLACK);
-                    player3Score.setTextColor(Color.BLACK);
-                    player4Score.setTextColor(Color.BLACK);
+                    player2Score.setTextColor(Color.CYAN);
+                    player1Score.setTextColor(Color.WHITE);
+                    player3Score.setTextColor(Color.WHITE);
+                    player4Score.setTextColor(Color.WHITE);
                 }
                 else if(state.playerTurn==2){
-                    player3Score.setTextColor(Color.BLUE);
-                    player2Score.setTextColor(Color.BLACK);
-                    player1Score.setTextColor(Color.BLACK);
-                    player4Score.setTextColor(Color.BLACK);
+                    player3Score.setTextColor(Color.CYAN);
+                    player2Score.setTextColor(Color.WHITE);
+                    player1Score.setTextColor(Color.WHITE);
+                    player4Score.setTextColor(Color.WHITE);
                 }
                 else if(state.playerTurn==3){
-                    player4Score.setTextColor(Color.BLUE);
-                    player2Score.setTextColor(Color.BLACK);
-                    player3Score.setTextColor(Color.BLACK);
-                    player1Score.setTextColor(Color.BLACK);
+                    player4Score.setTextColor(Color.CYAN);
+                    player2Score.setTextColor(Color.WHITE);
+                    player3Score.setTextColor(Color.WHITE);
+                    player1Score.setTextColor(Color.WHITE);
                 }
+
+
+                roundNum = state.getRoundNum();
 
         }
     }
@@ -1199,14 +1211,13 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     @SuppressLint("WrongViewCast")
     public void setAsGui(GameMainActivity activity) {
 
-        // remember our activitiy
+        // remember our activity
         myActivity = activity;
 
         // Load the layout resource for the new configuration
         activity.setContentView(R.layout.activity_main);
 
         //finds and sets listener on image views
-        //card1-card15 are the user's cards
         card1 = (ImageView) myActivity.findViewById(R.id.imageView1);
         card1.setOnTouchListener(this);
         card2 = (ImageView) myActivity.findViewById(R.id.imageView2);
@@ -1254,6 +1265,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
         //TextView displaying the current round number
         roundText = (TextView) myActivity.findViewById(R.id.roundTextView);
+        gameStage = (TextView) myActivity.findViewById(R.id.gameStage);
+
 
         //TextView that displays the human player's current bid before submitting
         bidText = (TextView) myActivity.findViewById(R.id.bidText);
@@ -1268,6 +1281,10 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         //bidSubmitButton submits user's chosen bid and sends a bidAction
         bidSubmitButton = (Button) myActivity.findViewById(R.id.bidSubmit);
         bidSubmitButton.setOnClickListener(this);
+        quitButton = (Button) myActivity.findViewById(R.id.quitButton);
+        quitButton.setOnClickListener(this);
+        helpButton = (Button) myActivity.findViewById(R.id.helpButton);
+        helpButton.setOnClickListener(this);
 
         mySurface = (SurfaceView) myActivity.findViewById(R.id.surfaceView);
         gButton = (ImageButton) myActivity.findViewById(R.id.gryffinButton);
@@ -1282,6 +1299,11 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         //adds all 15 of user's cards to an array of ImageViews called guiCards
         Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8,
                 card9, card10, card11, card12, card13, card14, card15);
+
+        if (guiCards.isEmpty()) {
+            Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8,
+                    card9, card10, card11, card12, card13, card14, card15);
+        }
     }
 
     /**
@@ -1299,7 +1321,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     @Override
     public boolean onTouch(View v, MotionEvent motionEvent) {
         int i = 0;
-        //checks which
         for (ImageView guiCard : guiCards){
             //iterates through each imageView in guiCards to see which card user touched
             //checks if it is players turn and playing stage
@@ -1361,7 +1382,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 card1Played.setImageResource(R.drawable.ace_diamond);
                                 break;
                             case 15:
-                                card1Played.setImageResource(R.drawable.wizard_griff);
+                                card1Played.setImageResource(R.drawable.wizard_huff);
                                 break;
                         }
                         break;
@@ -1410,7 +1431,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 card1Played.setImageResource(R.drawable.ace_heart);
                                 break;
                             case 15:
-                                card1Played.setImageResource(R.drawable.wizard_huff);
+                                card1Played.setImageResource(R.drawable.wizard_sly);
                                 break;
                         }
                         break;
@@ -1459,7 +1480,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 card1Played.setImageResource(R.drawable.ace_spade);
                                 break;
                             case 15:
-                                card1Played.setImageResource(R.drawable.wizard_raven);
+                                card1Played.setImageResource(R.drawable.wizard_griff);
                                 break;
                         }
                         break;
@@ -1508,7 +1529,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                                 card1Played.setImageResource(R.drawable.ace_club);
                                 break;
                             case 15:
-                                card1Played.setImageResource(R.drawable.wizard_sly);
+                                card1Played.setImageResource(R.drawable.wizard_raven);
                                 break;
                         }
                         break;
@@ -1542,30 +1563,34 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.gryffinButton:
-                mySurface.setBackgroundColor(Color.argb(225, 242, 176, 85));
+                mySurface.setBackgroundColor(Color.argb(225, 128, 0, 0));
                 mySurface.invalidate();
                 break;
             case R.id.huffleButton:
-                mySurface.setBackgroundColor(Color.argb(255, 243, 231, 132));
+                mySurface.setBackgroundColor(Color.argb(255,	184, 182, 8));
                 mySurface.invalidate();
                 break;
             case R.id.slythButton:
-                mySurface.setBackgroundColor(Color.argb(255, 170, 236, 166));
+                mySurface.setBackgroundColor(Color.argb(255, 0, 100, 0));
                 mySurface.invalidate();
                 break;
             case R.id.ravenButton:
-                mySurface.setBackgroundColor(Color.argb(255, 192, 220, 235));
+                mySurface.setBackgroundColor(Color.argb(255, 51, 51, 139));
                 mySurface.invalidate();
                 break;
-//            case R.id.helpButton:
-////                myActivity.setContentView(R.layout.game_help_screen);
-//                break;
-//            case R.id.quitButton:
-//                myActivity.setContentView(R.layout.game_config_main);
-//                break;
-////            case R.id.backToGame:
-////                myActivity.setContentView(R.layout.activity_main);
-////                break;
+            case R.id.helpButton:
+                myActivity.setContentView(R.layout.game_help_screen);
+                backToGameButton = (Button) myActivity.findViewById(R.id.backToGame);
+                backToGameButton.setOnClickListener(this);
+                break;
+            case R.id.quitButton:
+                myActivity.recreate();
+                myActivity.setContentView(R.layout.game_config_main);
+                break;
+            case R.id.backToGame:
+                this.setAsGui(this.myActivity);
+                this.sendInfo((GameInfo) this.state);
+                break;
         }
 
         //only allows bid buttons to be pressed if game is in bidding stage (gameStage 0)
@@ -1574,14 +1599,14 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 case R.id.bidPlus:
                     if (bidNum < state.getRoundNum()) {
                         bidNum++;
-                        bidText.setText(""+bidNum);
+                        bidText.setText("" + bidNum);
                     }
                     break;
 
                 case R.id.bidMinus:
                     if (bidNum > 0) {
                         bidNum--;
-                        bidText.setText(""+bidNum);
+                        bidText.setText("" + bidNum);
                     }
                     break;
 

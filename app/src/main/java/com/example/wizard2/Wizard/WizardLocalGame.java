@@ -8,20 +8,20 @@ import com.example.wizard2.GameFramework.actionMessage.GameAction;
 import com.example.wizard2.GameFramework.utilities.Logger;
 import com.example.wizard2.GameFramework.utilities.Tickable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.os.SystemClock.sleep;
 
-public class WizardLocalGame extends LocalGame  {
+public class WizardLocalGame extends LocalGame  implements Serializable {
     //Tag for logging
     private static final String TAG = "WizardLocalGame";
 
     protected WizardState state;        // the game's state
     private boolean waiting = false;
     public boolean roundOver;
-
-   // public int startingTurn = 0;
+    private int roundCount = 3;
 
 
     /**
@@ -144,18 +144,25 @@ public class WizardLocalGame extends LocalGame  {
                 myPlayer.setBidNum(myBidNum);
 
                 //check if it is end of round i.e. everyone has bid
-//                if (state.getPlayerTurn() == startingTurn -1 || (startingTurn == 0 && state.getPlayerTurn()==3)) {
-                if(state.getPlayerTurn()==3){
-
+                //if (state.getPlayerTurn() == 3) {
+                if (roundCount == 0) {
                     //sets game stage to 1: playing stage and resets player turn to 0
+                    roundCount=3;
+                    if(state.getPlayerTurn()!=3) {
+                        state.setPlayerTurn(state.getPlayerTurn() + 1);
+                    }
+                    else{
+                        state.setPlayerTurn(0);
+                    }
                     state.setGameStage(1);
-                    state.setPlayerTurn(0);
+                    //state.setPlayerTurn(0);
                     return true;
                 }
-
+                roundCount--;
                 //updates to next players turn
-                if(state.getPlayerTurn()<3) {
-                    state.setPlayerTurn(state.playerTurn + 1);
+                //state.setPlayerTurn(state.playerTurn + 1);
+                if(state.getPlayerTurn()!=3) {
+                    state.setPlayerTurn(state.getPlayerTurn() + 1);
                 }
                 else{
                     state.setPlayerTurn(0);
@@ -184,14 +191,17 @@ public class WizardLocalGame extends LocalGame  {
                 myPlayer.getCurrentHand().set(placeInHand, null);
 
                 //checks if it is end of round
-                if (state.getPlayerTurn() == 3) {
-//                if(state.getPlayerTurn() == (startingTurn - 1) || (startingTurn == 0 && state.getPlayerTurn()==3)){
+                //if (state.getPlayerTurn() == 3) {
+                if (roundCount == 0) {
+                    //state.setPlayerTurn(0);
+
+                    roundCount=3;
+                    state.setPlayerTurn(0);
 
                     //need for clearing cards played
                     getTimer().setInterval(2000);
                     getTimer().start();
                     waiting = true;
-
 
                     //human.alreadyChosen=false;
                     //state.resetImage();
@@ -200,12 +210,14 @@ public class WizardLocalGame extends LocalGame  {
                 }
 
                 //updates to next players turn
-                if(state.getPlayerTurn()<3) {
-                    state.setPlayerTurn(state.playerTurn + 1);
+                roundCount--;
+                if(state.getPlayerTurn()!=3) {
+                    state.setPlayerTurn(state.getPlayerTurn() + 1);
                 }
-                else if(state.roundNum < 16){
+                else{
                     state.setPlayerTurn(0);
                 }
+                //state.setPlayerTurn(state.playerTurn + 1);
 
                 return true;
             } else {
@@ -219,21 +231,18 @@ public class WizardLocalGame extends LocalGame  {
     public void resetTrick() {
         WizardPlayer myPlayer = state.getPlayerInfo(0);
 
-//        if(startingTurn < 3) {
-//            startingTurn++;
-//        }
-//        else{
-//            startingTurn = 0;
-//        }
-//
-//        state.setPlayerTurn(startingTurn);
-
         state.setPlayerTurn(0);
 
 
-
         //calculate who won sub round
-        state.calculateWinner();
+        if(state.getRoundNum()==15){
+            state.calculateWinnerRound15();
+        }
+        else {
+            state.calculateWinner();
+        }
+
+        state.setPlayerTurn(state.getWinner());
 
         //checks if the round is over by checking if players hand is empty
         roundOver = true;
@@ -253,12 +262,12 @@ public class WizardLocalGame extends LocalGame  {
         //checks if round is over
         if (roundOver) {
             Logger.log("Local Game", "hand empty");
+            state.calculateScores();
             for (int j = 0; j < 4; j++) {
                 state.setPlayerBids(0, j);
                 state.setPlayerBidsWon(0, j);
                 //state.getPlayerInfo(j).getCurrentHand().removeAll(state.getPlayerInfo(j).getCurrentHand());
             }
-
             state.setGameStage(0);
 
             state.calculateScores();
@@ -266,9 +275,7 @@ public class WizardLocalGame extends LocalGame  {
                 state.setRoundNum(state.getRoundNum() + 1);
             }
             Logger.log("Local Game", "Round num:" + state.getRoundNum());
-
             state.dealDeck(state.roundNum);
-
         }
 
     }

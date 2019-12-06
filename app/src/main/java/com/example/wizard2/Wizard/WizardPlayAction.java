@@ -2,7 +2,7 @@ package com.example.wizard2.Wizard;
 
 import com.example.wizard2.GameFramework.GamePlayer;
 import com.example.wizard2.GameFramework.actionMessage.GameAction;
-
+import java.io.Serializable;
 /**
  * WizardPlayAction: This class represents a card playing action. It doesn't do the playing action,
  * it just represents a play action object
@@ -12,7 +12,9 @@ import com.example.wizard2.GameFramework.actionMessage.GameAction;
  * @param myPlace the index of myCard in the player's hand
  */
 
-public class WizardPlayAction extends GameAction {
+public class WizardPlayAction extends GameAction implements Serializable {
+
+    private static final long serialVersionUID = -2242980258970485343L;
     public WizardCards cardToPlay;
     public int placeInHand;
 

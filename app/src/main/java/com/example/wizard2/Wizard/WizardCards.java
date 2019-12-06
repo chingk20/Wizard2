@@ -11,7 +11,7 @@ import android.util.Log;
  *                 Ace is 14, Wizard is 15)
  */
 
-public class WizardCards{
+public class WizardCards implements Serializable {
     private String cardSuit;
     private int cardNumber;
     private int cardValue;
@@ -33,7 +33,8 @@ public class WizardCards{
         }
     }
 
-    public int getCardValue(){ return this.cardValue; }
+    public int getCardValue(){
+        return this.cardValue; }
 
     public String getCardSuit(){
         return this.cardSuit;
@@ -43,5 +44,5 @@ public class WizardCards{
         return this.cardNumber;
     }
 
-    public void setTrumpCard(String newTrump) {trumpCard = newTrump;}
+    public void setTrumpCard( String newTrump ) {trumpCard = newTrump;}
 }
