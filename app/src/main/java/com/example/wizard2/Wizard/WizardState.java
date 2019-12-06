@@ -65,8 +65,8 @@ public class WizardState extends GameState implements Serializable{
 
         this.playerTurn = 0;    //player 0 will go first
         this.gameStage = 0;     //starts at game state 0: bidding phase
-        this.roundNum = 14;      //start at round 1 at beginning
-
+        this.roundNum = 15;      //start at round 1 at beginning
+        this.winner = -1;
 
         this.makeCards();           //creates cards
         this.dealDeck(roundNum);    //deals the deck to everyone's hands
