@@ -1352,7 +1352,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                         break;
                 }
             }
-            WizardCards cp0 = state.cardsPlayed.get(0);
 
             //clears all the cards played
             if (cp0 == null && cp1 == null && cp2 == null && cp3 == null) {
@@ -1498,10 +1497,9 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         sButton.setOnClickListener(this);
 
         //adds all card image views to guiCards array
-        if (guiCards.isEmpty()) {
-            Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8,
-                    card9, card10, card11, card12, card13, card14, card15);
-        }
+        guiCards.clear();
+        Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8,
+                card9, card10, card11, card12, card13, card14, card15);
     }
 
     /**
