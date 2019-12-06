@@ -201,7 +201,6 @@ public class WizardLocalGame extends LocalGame  implements Serializable {
 
         state.setPlayerTurn(0);
 
-
         //calculate who won sub round
         if(state.getRoundNum()==15){
             state.calculateWinnerRound15();
