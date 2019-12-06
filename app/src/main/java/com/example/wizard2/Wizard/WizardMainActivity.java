@@ -1,10 +1,13 @@
 package com.example.wizard2.Wizard;
 
+import android.media.MediaPlayer;
+
 import com.example.wizard2.GameFramework.GameMainActivity;
 import com.example.wizard2.GameFramework.GamePlayer;
 import com.example.wizard2.GameFramework.LocalGame;
 import com.example.wizard2.GameFramework.gameConfiguration.GameConfig;
 import com.example.wizard2.GameFramework.gameConfiguration.GamePlayerType;
+import com.example.wizard2.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,6 +25,11 @@ public class WizardMainActivity extends GameMainActivity implements Serializable
 
     @Override
     public GameConfig createDefaultConfig() {
+        MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.harry);
+
+        mediaPlayer.start();
+        mediaPlayer.setLooping(true);
+
         // Define the allowed player types
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
 

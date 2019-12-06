@@ -1,5 +1,7 @@
 package com.example.wizard2.Wizard;
 
+import android.media.MediaPlayer;
+
 import com.example.wizard2.GameFramework.infoMessage.GameState;
 import com.example.wizard2.GameFramework.utilities.Logger;
 
@@ -40,6 +42,7 @@ public class WizardState extends GameState implements Serializable{
      * Constructor for the WizardState.
      */
     public WizardState(){
+
         listOfPlayers.add(player0);
         listOfPlayers.add(player1);
         listOfPlayers.add(player2);

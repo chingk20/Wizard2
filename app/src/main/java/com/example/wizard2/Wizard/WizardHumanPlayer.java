@@ -2,6 +2,7 @@ package com.example.wizard2.Wizard;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
@@ -1421,6 +1422,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
         // Load the layout resource for the new configuration
         activity.setContentView(R.layout.activity_main);
+
 
         //finds and sets listener on image views
         card1 = (ImageView) myActivity.findViewById(R.id.imageView1);

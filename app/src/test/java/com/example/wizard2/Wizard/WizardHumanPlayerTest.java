@@ -20,6 +20,7 @@ public class WizardHumanPlayerTest {
 
     @Test
     public void onTouch() {
+
     }
 
     @Test
