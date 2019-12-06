@@ -20,6 +20,9 @@ public class WizardSmartAI extends GameComputerPlayer implements Serializable {
     private int tempValue = -1;
     private boolean canNotWin = false;
 
+    /**
+     * Constructor for the WizardSmartAI.
+     */
     public WizardSmartAI(String name){
         super(name);
     }
@@ -42,14 +45,18 @@ public class WizardSmartAI extends GameComputerPlayer implements Serializable {
         if (info instanceof WizardState){
             int playerID = ((WizardState) info).getPlayerTurn();
 
-            //checks that it is players turn
+            /**
+             External Citation
+             Date: 19 November 2019
+             Problem: AI was playing when it was not its turn
+             Resource: Dr. Nuxoll
+             Solution: Went into the game framework and checked that playerID was equal to the player turn.
+             */
             if (this.playerNum != playerID) return;
 
             WizardPlayer player = ((WizardState) info).getPlayerInfo(playerID);
             String trumpSuit = (((WizardState) info).getTrumpSuit());
             int handSize = player.getCurrentHand().size();
-
-
 
             //BID STAGE: looks through hand, if wizard or trump suit present then increment bid
             if(((WizardState) info).getGameStage()==0) {
@@ -76,7 +83,7 @@ public class WizardSmartAI extends GameComputerPlayer implements Serializable {
                         tempCard = player.getCurrentHand().get(j);
                         //checks that card is not null
                         if(tempCard != null) {
-                            //plays the best card it has
+                            //plays the best card it has: wizard, then trump suit, then highest number
                             if(tempCard.getCardValue() == 15){
                                 tempValue = tempCard.getCardNumber();
                                 cardToPlay = tempCard;
@@ -95,7 +102,7 @@ public class WizardSmartAI extends GameComputerPlayer implements Serializable {
                         }
                     }
                 tempValue=-1;
-                //checks cards played to see if it can win
+                //checks cards already played to see if it can win with highest card
                 for(int i=0; i < playerID; i++){
                     tempCard = ((WizardState) info).getCardsPlayed().get(i);
                     if(tempCard != null) {
@@ -110,7 +117,7 @@ public class WizardSmartAI extends GameComputerPlayer implements Serializable {
                     }
                 }
                 tempValue = 15;
-                //if can't win then play the lowest card
+                //if can't win then play the lowest card so it doesn't waste high cards
                 if(canNotWin){
                     for(int j=0; j< player.getCurrentHand().size(); j++) {
                         tempCard = player.getCurrentHand().get(j);

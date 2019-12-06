@@ -1,29 +1,21 @@
 package com.example.wizard2.Wizard;
 
-import android.util.Log;
-
 import com.example.wizard2.GameFramework.GamePlayer;
 import com.example.wizard2.GameFramework.LocalGame;
 import com.example.wizard2.GameFramework.actionMessage.GameAction;
 import com.example.wizard2.GameFramework.utilities.Logger;
-import com.example.wizard2.GameFramework.utilities.Tickable;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.os.SystemClock.sleep;
 
 public class WizardLocalGame extends LocalGame  implements Serializable {
     //Tag for logging
     private static final String TAG = "WizardLocalGame";
 
-    protected WizardState state;        // the game's state
+    protected WizardState state;
     private boolean waiting = false;
     public boolean roundOver;
-    private int roundCount = 3;
     public boolean gameOver = false;
-
+    private int roundCount = 3;
 
     /**
      * Constructor for the WizardLocalGame.
@@ -45,7 +37,7 @@ public class WizardLocalGame extends LocalGame  implements Serializable {
      */
     @Override
     protected String checkIfGameOver() {
-        //Game is over after 15 rounds or the start of the 16th round
+        //Game is over after 15th round
         if(gameOver) {
             int player1Score = state.getPlayerInfo(0).getPlayerScore();
             int player2Score = state.getPlayerInfo(1).getPlayerScore();
@@ -67,9 +59,6 @@ public class WizardLocalGame extends LocalGame  implements Serializable {
             return null;
         }
     }
-
-
-
 
     /**
      * Notify the given player that its state has changed. This should involve sending
@@ -140,12 +129,10 @@ public class WizardLocalGame extends LocalGame  implements Serializable {
                         state.setPlayerTurn(0);
                     }
                     state.setGameStage(1);
-                    //state.setPlayerTurn(0);
                     return true;
                 }
                 roundCount--;
                 //updates to next players turn
-                //state.setPlayerTurn(state.playerTurn + 1);
                 if(state.getPlayerTurn()!=3) {
                     state.setPlayerTurn(state.getPlayerTurn() + 1);
                 }
@@ -176,10 +163,7 @@ public class WizardLocalGame extends LocalGame  implements Serializable {
                 myPlayer.getCurrentHand().set(placeInHand, null);
 
                 //checks if it is end of round
-                //if (state.getPlayerTurn() == 3) {
                 if (roundCount == 0) {
-                    //state.setPlayerTurn(0);
-
                     roundCount=3;
                     state.setPlayerTurn(0);
 
@@ -190,7 +174,6 @@ public class WizardLocalGame extends LocalGame  implements Serializable {
 
                     //human.alreadyChosen=false;
                     //state.resetImage();
-
                     return true;
                 }
 
@@ -202,8 +185,6 @@ public class WizardLocalGame extends LocalGame  implements Serializable {
                 else{
                     state.setPlayerTurn(0);
                 }
-                //state.setPlayerTurn(state.playerTurn + 1);
-
                 return true;
             } else {
                 return false;
@@ -212,7 +193,9 @@ public class WizardLocalGame extends LocalGame  implements Serializable {
         return false;
     }
 
-    //resets the cards played by each player in GUI and prepares for next subround
+    /**
+     * Resets the cards played by each player in GUI and prepares for next subround
+     */
     public void resetTrick() {
         WizardPlayer myPlayer = state.getPlayerInfo(0);
 
@@ -251,7 +234,6 @@ public class WizardLocalGame extends LocalGame  implements Serializable {
             for (int j = 0; j < 4; j++) {
                 state.setPlayerBids(0, j);
                 state.setPlayerBidsWon(0, j);
-                //state.getPlayerInfo(j).getCurrentHand().removeAll(state.getPlayerInfo(j).getCurrentHand());
             }
 
             if(state.getRoundNum()==15){
@@ -263,16 +245,17 @@ public class WizardLocalGame extends LocalGame  implements Serializable {
             state.addTrumpCard();
 
             this.checkIfGameOver();
-
+            Logger.log("Local Game", "Round num:" + state.getRoundNum());
             if(state.getRoundNum()!=16) {
                 state.setRoundNum(state.getRoundNum() + 1);
                 state.dealDeck(state.roundNum);
             }
-            Logger.log("Local Game", "Round num:" + state.getRoundNum());
         }
-
     }
 
+    /**
+     * Uses timer to remove cards after specified time
+     */
     @Override
     protected void timerTicked() {
         resetTrick();

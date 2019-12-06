@@ -1,19 +1,10 @@
 package com.example.wizard2.Wizard;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-import android.view.SurfaceView;
-import android.widget.Button;
-import android.widget.ImageView;
-
 import com.example.wizard2.GameFramework.GameMainActivity;
 import com.example.wizard2.GameFramework.GamePlayer;
 import com.example.wizard2.GameFramework.LocalGame;
 import com.example.wizard2.GameFramework.gameConfiguration.GameConfig;
 import com.example.wizard2.GameFramework.gameConfiguration.GamePlayerType;
-import com.example.wizard2.GameFramework.infoMessage.GameInfo;
-import com.example.wizard2.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,12 +12,20 @@ import java.util.ArrayList;
 public class WizardMainActivity extends GameMainActivity implements Serializable {
     private static final int PORT_NUMBER = 5213;
 
+    /**
+     * createDefaultConfig
+     *
+     * Creates player types including: Human, DumbAI and SmartAI
+     *
+     * @return default config, what players will start the game on start screen
+     */
+
     @Override
     public GameConfig createDefaultConfig() {
         // Define the allowed player types
         ArrayList<GamePlayerType> playerTypes = new ArrayList<GamePlayerType>();
 
-        // Pig has two player types:  human and computer
+        // Wizard has three player types:  human, dumbAI, and smartAI
         playerTypes.add(new GamePlayerType("Local Human Player") {
             public GamePlayer createPlayer(String name) {
                 return new WizardHumanPlayer(name);
@@ -47,9 +46,9 @@ public class WizardMainActivity extends GameMainActivity implements Serializable
         GameConfig defaultConfig = new GameConfig(playerTypes,
                 4, 4, "Wizard", PORT_NUMBER);
         defaultConfig.addPlayer("Human", 0); // player 1: a human player
-        defaultConfig.addPlayer("Computer 1", 2); // player 2: a computer player
-        defaultConfig.addPlayer("Computer 2", 2); // player 2: a computer player
-        defaultConfig.addPlayer("Computer 3", 2); // player 2: a computer player
+        defaultConfig.addPlayer("Computer 1", 1); // player 2: a computer player
+        defaultConfig.addPlayer("Computer 2", 1); // player 2: a computer player
+        defaultConfig.addPlayer("Computer 3", 1); // player 2: a computer player
         defaultConfig.setRemoteData("Remote Human Player", "", 0);
 
         return defaultConfig;

@@ -19,6 +19,9 @@ public class WizardBidAction extends GameAction implements Serializable {
 
     protected int bidNum;
 
+    /**
+     * Constructor for the WizardBidAction.
+     */
     public WizardBidAction(GamePlayer player, int myBid){
         super(player);
         this.bidNum = myBid;

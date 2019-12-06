@@ -16,6 +16,15 @@ public class WizardPlayer implements Serializable {
     private int bidNumWon;
     public ArrayList<WizardCards> currentHand = new ArrayList<WizardCards>();
 
+    /**
+     * Constructor for the WizardPlayer.
+     *
+     * @param playerID
+     *      what player number it is (0-3)
+     * @param playerName
+     *      players name
+     *
+     */
     public WizardPlayer(int playerID, String playerName){
         this.playerID = playerID;
         this.playerName = playerName;
@@ -52,7 +61,6 @@ public class WizardPlayer implements Serializable {
 
     public int getRunningTotal()
     {
-        //setRunningTotal(getBidNum(), getBidNumWon());
         return runningTotal;
     }
 

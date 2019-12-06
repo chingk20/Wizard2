@@ -1,17 +1,13 @@
 package com.example.wizard2.Wizard;
 
-import android.util.Log;
-
 import com.example.wizard2.GameFramework.infoMessage.GameState;
 import com.example.wizard2.GameFramework.utilities.Logger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Hashtable;
 import java.util.Random;
 
-import static android.os.SystemClock.sleep;
 
 public class WizardState extends GameState implements Serializable{
     private static final long serialVersionUID = 7552321013488624386L;
@@ -39,7 +35,9 @@ public class WizardState extends GameState implements Serializable{
     WizardPlayer player2 = new WizardPlayer(2, "Player 2");
     WizardPlayer player3 = new WizardPlayer(3, "Player 3");
 
-    //CONSTRUCTOR
+    /**
+     * Constructor for the WizardState.
+     */
     public WizardState(){
         listOfPlayers.add(player3);
         listOfPlayers.add(player0);
@@ -65,14 +63,16 @@ public class WizardState extends GameState implements Serializable{
 
         this.playerTurn = 0;    //player 0 will go first
         this.gameStage = 0;     //starts at game state 0: bidding phase
-        this.roundNum = 15;      //start at round 1 at beginning
+        this.roundNum = 5;      //start at round 1 at beginning
         this.winner = -1;
 
         this.makeCards();           //creates cards
         this.dealDeck(roundNum);    //deals the deck to everyone's hands
     }
 
-    //CREATES CARDS WITH SUIT AND NUMBER
+    /**
+     * Creates the cards in the deck.
+     */
     public void makeCards(){
         WizardCards heartJoker = new WizardCards("heart", 0);
         WizardCards heartTwo = new WizardCards("heart",2);
@@ -145,7 +145,12 @@ public class WizardState extends GameState implements Serializable{
                 clubJoker, clubTwo, clubThree, clubFour, clubFive, clubSix, clubSeven, clubEight, clubNine, clubTen, clubJack, clubQueen, clubKing, clubAce, clubWizard);
     }
 
-    //DEALS CARDS OUT TO PLAYERS DEPENDING ON ROUND NUMBER
+    /**
+     * Deals the deck out to the players
+     *
+     * @param numTricks
+     *      Number of cards each player gets
+     */
     public void dealDeck(int numTricks){
         Logger.log("deck size", ""+deck.size());
         Random random = new Random();
@@ -180,7 +185,9 @@ public class WizardState extends GameState implements Serializable{
         }
     }
 
-    //COPY CONSTRUCTOR
+    /**
+     * Copy Constructor for the WizardCards.
+     */
     public WizardState(WizardState myState){
         playerTurn = myState.playerTurn;
         gameStage = myState.gameStage;
@@ -210,7 +217,9 @@ public class WizardState extends GameState implements Serializable{
         }
     }
 
-    //CALCULATES WHO WON ROUND BY LOOKING AT PLAYED CARDS VALUE OF EACH PLAYER
+    /**
+     * CALCULATES WHO WON ROUND BY LOOKING AT PLAYED CARDS VALUE OF EACH PLAYER
+     */
     public void calculateWinner(){
         int value=0;
         int base=-1;
@@ -235,6 +244,9 @@ public class WizardState extends GameState implements Serializable{
         setPlayerBidsWon(getPlayerBidsWon().get(winner)+1, winner);
     }
 
+    /**
+     * CALCULATES WHO WON ROUND 15 BY LOOKING AT PLAYED CARDS VALUE OF EACH PLAYER
+     */
     public void calculateWinnerRound15(){
         int value=0;
         int base=-1;
@@ -253,7 +265,9 @@ public class WizardState extends GameState implements Serializable{
         setWinner(winner);
     }
 
-    //RESETS CARDS PLAYED BY EACH PLAYER TO NULL
+    /**
+     * RESETS CARDS PLAYED BY EACH PLAYER TO NULL
+     */
     public void resetImage()
     {
         for(int i=0; i<cardsPlayed.size(); i++){
@@ -262,14 +276,18 @@ public class WizardState extends GameState implements Serializable{
             }
             cardsPlayed.set(i, null);
         }
-
     }
 
+    /**
+     * Adds the trump card back into the deck
+     */
     public void addTrumpCard(){
         deck.add(trumpCard);
     }
 
-    //CALCULATES WHO WON ROUND BY LOOKING AT PLAYERS BID NUM AND BIDS WON
+    /**
+     * CALCULATES WHO WON ROUND BY LOOKING AT PLAYERS BID NUM AND BIDS WON
+     */
     public void calculateScores(){
         player0.setRunningTotal(getPlayerBids().get(0), getPlayerBidsWon().get(0));
         player1.setRunningTotal(getPlayerBids().get(1), getPlayerBidsWon().get(1));
@@ -287,11 +305,17 @@ public class WizardState extends GameState implements Serializable{
 
     }
 
+    /**
+     * Puts the cards each player has played into an array for scoring later
+     */
     public void setCardsPlayed(WizardCards cardsPlayed, int playerID) {
         if(0 <= playerID && playerID <= 3){
             this.cardsPlayed.set(playerID, cardsPlayed);}
     }
 
+    /**
+     * sets each players bid number into playerBids array
+     */
     public void setPlayerBids(int newPlayerBids, int playerID) {
         if(0 <= playerID && playerID <= 3){
             this.playerBids.set(playerID, newPlayerBids);}
@@ -309,6 +333,9 @@ public class WizardState extends GameState implements Serializable{
         }
     }
 
+    /**
+     * sets each players bid number won into playerBidsWon array
+     */
     public void setPlayerBidsWon(int newPlayerBids, int playerID) {
         if(0 <= playerID && playerID <= 3){
             this.playerBidsWon.set(playerID, newPlayerBids); }

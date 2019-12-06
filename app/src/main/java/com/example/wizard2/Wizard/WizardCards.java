@@ -18,6 +18,9 @@ public class WizardCards implements Serializable {
     private int cardValue;
     private String trumpCard;
 
+    /**
+     * Constructor for the WizardCards.
+     */
     public WizardCards(String mySuit, int myNumber){
         this.cardSuit = mySuit;
         this.cardNumber = myNumber;
