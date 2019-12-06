@@ -7,9 +7,9 @@ import java.io.Serializable;
  * WizardPlayAction: This class represents a card playing action. It doesn't do the playing action,
  * it just represents a play action object
  *
- * @param player keeps track of the player that is making the action
- * @param myCard the WizardCard the player is playing
- * @param myPlace the index of myCard in the player's hand
+ * player : keeps track of the player that is making the action
+ * myCard : the WizardCard the player is playing
+ * myPlace : the index of myCard in the player's hand
  */
 
 public class WizardPlayAction extends GameAction implements Serializable {

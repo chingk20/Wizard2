@@ -22,6 +22,7 @@ public class WizardLocalGame extends LocalGame  implements Serializable {
     private boolean waiting = false;
     public boolean roundOver;
     private int roundCount = 3;
+    public boolean gameOver = false;
 
 
     /**
@@ -45,8 +46,7 @@ public class WizardLocalGame extends LocalGame  implements Serializable {
     @Override
     protected String checkIfGameOver() {
         //Game is over after 15 rounds or the start of the 16th round
-        if(state.getRoundNum() == 15 &&  gameOver()) {
-            state.calculateScores();
+        if(gameOver) {
             int player1Score = state.getPlayerInfo(0).getPlayerScore();
             int player2Score = state.getPlayerInfo(1).getPlayerScore();
             int player3Score = state.getPlayerInfo(2).getPlayerScore();
@@ -68,23 +68,8 @@ public class WizardLocalGame extends LocalGame  implements Serializable {
         }
     }
 
-    public boolean gameOver(){
-        for(int i=0; i<15; i++){
-            if(state.getPlayerInfo(0).getCurrentHand().get(i) != null){
-                return false;
-            }
-            else if(state.getPlayerInfo(1).getCurrentHand().get(i) != null){
-                return false;
-            }
-            else if(state.getPlayerInfo(2).getCurrentHand().get(i) != null){
-                return false;
-            }
-            else if(state.getPlayerInfo(3).getCurrentHand().get(i) != null){
-                return false;
-            }
-        }
-        return true;
-    }
+
+
 
     /**
      * Notify the given player that its state has changed. This should involve sending
@@ -268,14 +253,22 @@ public class WizardLocalGame extends LocalGame  implements Serializable {
                 state.setPlayerBidsWon(0, j);
                 //state.getPlayerInfo(j).getCurrentHand().removeAll(state.getPlayerInfo(j).getCurrentHand());
             }
-            state.setGameStage(0);
 
-            state.calculateScores();
-            if(state.roundNum <15) {
+            if(state.getRoundNum()==15){
+                gameOver = true;
+                checkIfGameOver();
+            }
+
+            state.setGameStage(0);
+            state.addTrumpCard();
+
+            this.checkIfGameOver();
+
+            if(state.getRoundNum()!=16) {
                 state.setRoundNum(state.getRoundNum() + 1);
+                state.dealDeck(state.roundNum);
             }
             Logger.log("Local Game", "Round num:" + state.getRoundNum());
-            state.dealDeck(state.roundNum);
         }
 
     }

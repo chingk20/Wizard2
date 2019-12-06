@@ -1,13 +1,14 @@
 package com.example.wizard2.Wizard;
 
 import android.util.Log;
+import java.io.Serializable;
 
 
 /**
  * WizardCards: This class represents a single card
  *
- * @param mySuit the (string) suit of the card
- * @param myNumber the (integer) number of the card (Joker is 0, Jack-King is 11-13,
+ * mySuit: the (string) suit of the card
+ * myNumber: the (integer) number of the card (Joker is 0, Jack-King is 11-13,
  *                 Ace is 14, Wizard is 15)
  */
 

@@ -26,11 +26,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * WizardHumanPlayer: This class deals with all human interactions with the gui and
+ * updates gui components
+ *
+ * sets card image views and sends play and bid actions
+ */
 
 public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchListener, View.OnClickListener, Serializable {
 
-    private WizardCards cardToPlay;
-    private int bidNum = 0;
+    private WizardCards cardToPlay; //card the user touches to play
+    private int bidNum = 0; //initializes bid to 0 before changed
     private int roundNum;
 
     //ACTIONS
@@ -39,10 +45,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
     private WizardState state = new WizardState();
 
-    private ArrayList<ImageView> guiCards = new ArrayList<ImageView>();
-
-    //Tag for logging
-    private static final String TAG = "WizardHumanPlayer";
+    private ArrayList<ImageView> guiCards = new ArrayList<ImageView>(); //array of cards (image views)
 
     // the current activity
     private GameMainActivity myActivity;
@@ -52,8 +55,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     private TextView player2Score = null;
     private TextView player3Score = null;
     private TextView player4Score = null;
-    private TextView roundText = null;
-    private ImageView card1 = null;         //humans player card 1
+    private TextView roundText = null;  //current round number
+    private ImageView card1 = null;         //card1-card15 are user's cards in hand
     private ImageView card2 = null;
     private ImageView card3 = null;
     private ImageView card4 = null;
@@ -68,16 +71,16 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     private ImageView card13 = null;
     private ImageView card14 = null;
     private ImageView card15 = null;
-    private ImageView card1Played = null;   //the card that player 1 played
+    private ImageView card1Played = null;   //card1Played-card4Played are cards played in the middle
     private ImageView card2Played = null;
     private ImageView card3Played = null;
     private ImageView card4Played = null;
     private ImageView cardTrump = null;     //trump card
     private Button bidSubmitButton = null;
-    private TextView bidText = null;
-    private Button bidPlus = null;
+    private TextView bidText = null; //displays current bid number
+    private Button bidPlus = null; //bidPlus and bidMinus allow bidNum to be incremented and decremented
     private Button bidMinus = null;
-    private ImageButton gButton;
+    private ImageButton gButton; //buttons to change house
     private ImageButton sButton;
     private ImageButton hButton;
     private ImageButton rButton;
@@ -1264,6 +1267,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         gameStage = (TextView) myActivity.findViewById(R.id.gameStage);
 
 
+
         bidText = (TextView) myActivity.findViewById(R.id.bidText);
         bidText.setText(""+ this.bidNum);
 
@@ -1289,6 +1293,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         sButton = (ImageButton) myActivity.findViewById(R.id.slythButton);
         sButton.setOnClickListener(this);
 
+        //adds all card image views to guiCards array
         if (guiCards.isEmpty()) {
             Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8,
                     card9, card10, card11, card12, card13, card14, card15);
@@ -1303,16 +1308,20 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         //myActivity.setTitle("Tic-Tac-Toe: " + allPlayerNames[0] + " vs. " + allPlayerNames[1]);
     }
 
-    //When player touches card it will send the card to WizardPlayAction if it is a valid move
+    /**
+     * onTouch handles user tapping a card (ImageView)
+     *
+     * user taps an image view, it finds which image view in guiCards was pressed, figures out which
+     * card that is, sets that card's imageview to invisible, and adds the card to the middle
+     */
     @Override
     public boolean onTouch(View v, MotionEvent motionEvent) {
         int i = 0;
+        //iterates through each imageview in guiCards to find which card was tapped
         for (ImageView guiCard : guiCards){
-
             //checks if it is players turn and playing stage
             if (v == guiCard && i<state.getPlayerInfo(0).getCurrentHand().size()
                     && state.getGameStage()==1 && state.getPlayerTurn()==0){
-               // alreadyChosen = true;
                 cardToPlay = state.getPlayerInfo(0).getCurrentHand().get(i);
                 if (cardToPlay == null)
                 {
@@ -1534,6 +1543,12 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         return false;
     }
 
+    /**
+     * onClick handles all button clicks (house buttons, help button, quit button, back to game button on
+     * help screen, and bidPlus, bidMinus, and bidSubmit buttons)
+     *
+     * if bidSubmit button is pressed, it sends a WizardBidAction with the current bidNum
+     */
     @Override
     public void onClick(View view) {
         switch(view.getId()){
@@ -1563,6 +1578,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 myActivity.recreate();
                 myActivity.setContentView(R.layout.game_config_main);
                 break;
+                //backToGame is on help screen
             case R.id.backToGame:
                 this.setAsGui(this.myActivity);
                 this.sendInfo((GameInfo) this.state);
