@@ -2456,11 +2456,10 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 "\n" +
                 "o Play the highest value in the trump suit if there are no Wizards\n" +
                 "\n" +
-                "o or play the highest value in the leading suit, if no trump cards or Wizards\n" +
+                "o or play the highest value, if no trump cards or Wizards\n" +
                 "\n" +
                 "Scoring:\n" +
                 "\n" +
                 "After each round each player’s score will be tallied. If you won the value of tricks that you bid, you get twenty points plus ten points for every trick you won. For example, if you bid two and you won two, you get forty points added to your total score. Even if you bid zero and won zero you still get twenty points. If you didn’t guess correctly and won too many tricks or didn’t win enough, ten points are deducted for how far off you were. For example, if you bid three and you only won one trick, you lose twenty points. Another example is you bid zero and you won one trick you lose ten points.");
     }
-
 }
