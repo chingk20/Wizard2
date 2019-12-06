@@ -1352,7 +1352,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                         break;
                 }
             }
-            WizardCards cp0 = state.cardsPlayed.get(0);
 
             //clears all the cards played
             if (cp0 == null && cp1 == null && cp2 == null && cp3 == null) {
