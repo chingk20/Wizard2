@@ -73,7 +73,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     private ImageView card3Played = null;
     private ImageView card4Played = null;
     private ImageView cardTrump = null;     //trump card
-   // private Spinner bidSpinner = null;
     private Button bidSubmitButton = null;
     private TextView bidText = null;
     private Button bidPlus = null;
@@ -321,218 +320,219 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             }
 
             //sets image to cards in human hand
-            //if(state.playerTurn == this.playerNum && state.getRoundNum()<16){
             if(state.getGameStage()==0 && state.getRoundNum()<16){
                 int i = 0;
                 for (; i < state.roundNum; i++) {
-                WizardCards card = ((WizardState) info).getPlayerInfo(0).getCurrentHand().get(i);
-                guiCards.get(i).setVisibility(View.VISIBLE);
+                    WizardCards card = ((WizardState) info).getPlayerInfo(0).getCurrentHand().get(i);
+                    guiCards.get(i).setVisibility(View.VISIBLE);
+
                     //checks if the card is null or not
                     if (card == null) {
-                        guiCards.get(i).setVisibility(View.INVISIBLE);
+                    guiCards.get(i).setVisibility(View.INVISIBLE);
                     }
 
                     //if not null then set image
                     if (card != null) {
-                        switch (card.getCardSuit()) {
-                            case "diamond":
-                                switch (card.getCardValue()) {
-                                    case 0:
-                                        guiCards.get(i).setImageResource(R.drawable.jester_all);
-                                        break;
-                                    case 2:
-                                        guiCards.get(i).setImageResource(R.drawable.two_diamond);
-                                        break;
-                                    case 3:
-                                        guiCards.get(i).setImageResource(R.drawable.three_diamond);
-                                        break;
-                                    case 4:
-                                        guiCards.get(i).setImageResource(R.drawable.four_diamond);
-                                        break;
-                                    case 5:
-                                        guiCards.get(i).setImageResource(R.drawable.five_diamond);
-                                        break;
-                                    case 6:
-                                        guiCards.get(i).setImageResource(R.drawable.six_diamond);
-                                        break;
-                                    case 7:
-                                        guiCards.get(i).setImageResource(R.drawable.seven_diamond);
-                                        break;
-                                    case 8:
-                                        guiCards.get(i).setImageResource(R.drawable.eight_diamond);
-                                        break;
-                                    case 9:
-                                        guiCards.get(i).setImageResource(R.drawable.nine_diamond);
-                                        break;
-                                    case 10:
-                                        guiCards.get(i).setImageResource(R.drawable.ten_diamond);
-                                        break;
-                                    case 11:
-                                        guiCards.get(i).setImageResource(R.drawable.jack_diamond);
-                                        break;
-                                    case 12:
-                                        guiCards.get(i).setImageResource(R.drawable.queen_diamond);
-                                        break;
-                                    case 13:
-                                        guiCards.get(i).setImageResource(R.drawable.king_diamond);
-                                        break;
-                                    case 14:
-                                        guiCards.get(i).setImageResource(R.drawable.ace_diamond);
-                                        break;
-                                    case 15:
-                                        guiCards.get(i).setImageResource(R.drawable.wizard_huff);
-                                        break;
-                                }
-                                break;
-                            case "heart":
-                                switch (card.getCardValue()) {
-                                    case 0:
-                                        guiCards.get(i).setImageResource(R.drawable.jester_all);
-                                        break;
-                                    case 2:
-                                        guiCards.get(i).setImageResource(R.drawable.two_heart);
-                                        break;
-                                    case 3:
-                                        guiCards.get(i).setImageResource(R.drawable.three_heart);
-                                        break;
-                                    case 4:
-                                        guiCards.get(i).setImageResource(R.drawable.four_heart);
-                                        break;
-                                    case 5:
-                                        guiCards.get(i).setImageResource(R.drawable.five_heart);
-                                        break;
-                                    case 6:
-                                        guiCards.get(i).setImageResource(R.drawable.six_heart);
-                                        break;
-                                    case 7:
-                                        guiCards.get(i).setImageResource(R.drawable.seven_heart);
-                                        break;
-                                    case 8:
-                                        guiCards.get(i).setImageResource(R.drawable.eight_heart);
-                                        break;
-                                    case 9:
-                                        guiCards.get(i).setImageResource(R.drawable.nine_heart);
-                                        break;
-                                    case 10:
-                                        guiCards.get(i).setImageResource(R.drawable.ten_heart);
-                                        break;
-                                    case 11:
-                                        guiCards.get(i).setImageResource(R.drawable.jack_heart);
-                                        break;
-                                    case 12:
-                                        guiCards.get(i).setImageResource(R.drawable.queen_heart);
-                                        break;
-                                    case 13:
-                                        guiCards.get(i).setImageResource(R.drawable.king_heart);
-                                        break;
-                                    case 14:
-                                        guiCards.get(i).setImageResource(R.drawable.ace_heart);
-                                        break;
-                                    case 15:
-                                        guiCards.get(i).setImageResource(R.drawable.wizard_sly);
-                                        break;
-                                }
-                                break;
-                            case "spade":
-                                switch (card.getCardValue()) {
-                                    case 0:
-                                        guiCards.get(i).setImageResource(R.drawable.jester_all);
-                                        break;
-                                    case 2:
-                                        guiCards.get(i).setImageResource(R.drawable.two_spade);
-                                        break;
-                                    case 3:
-                                        guiCards.get(i).setImageResource(R.drawable.three_spade);
-                                        break;
-                                    case 4:
-                                        guiCards.get(i).setImageResource(R.drawable.four_spade);
-                                        break;
-                                    case 5:
-                                        guiCards.get(i).setImageResource(R.drawable.five_spade);
-                                        break;
-                                    case 6:
-                                        guiCards.get(i).setImageResource(R.drawable.six_spade);
-                                        break;
-                                    case 7:
-                                        guiCards.get(i).setImageResource(R.drawable.seven_spade);
-                                        break;
-                                    case 8:
-                                        guiCards.get(i).setImageResource(R.drawable.eight_spade);
-                                        break;
-                                    case 9:
-                                        guiCards.get(i).setImageResource(R.drawable.nine_spade);
-                                        break;
-                                    case 10:
-                                        guiCards.get(i).setImageResource(R.drawable.ten_spade);
-                                        break;
-                                    case 11:
-                                        guiCards.get(i).setImageResource(R.drawable.jack_spade);
-                                        break;
-                                    case 12:
-                                        guiCards.get(i).setImageResource(R.drawable.queen_spade);
-                                        break;
-                                    case 13:
-                                        guiCards.get(i).setImageResource(R.drawable.king_spade);
-                                        break;
-                                    case 14:
-                                        guiCards.get(i).setImageResource(R.drawable.ace_spade);
-                                        break;
-                                    case 15:
-                                        guiCards.get(i).setImageResource(R.drawable.wizard_griff);
-                                        break;
-                                }
-                                break;
-                            case "club":
-                                switch (card.getCardValue()) {
-                                    case 0:
-                                        guiCards.get(i).setImageResource(R.drawable.jester_all);
-                                        break;
-                                    case 2:
-                                        guiCards.get(i).setImageResource(R.drawable.two_club);
-                                        break;
-                                    case 3:
-                                        guiCards.get(i).setImageResource(R.drawable.three_club);
-                                        break;
-                                    case 4:
-                                        guiCards.get(i).setImageResource(R.drawable.four_club);
-                                        break;
-                                    case 5:
-                                        guiCards.get(i).setImageResource(R.drawable.five_club);
-                                        break;
-                                    case 6:
-                                        guiCards.get(i).setImageResource(R.drawable.six_club);
-                                        break;
-                                    case 7:
-                                        guiCards.get(i).setImageResource(R.drawable.seven_club);
-                                        break;
-                                    case 8:
-                                        guiCards.get(i).setImageResource(R.drawable.eight_club);
-                                        break;
-                                    case 9:
-                                        guiCards.get(i).setImageResource(R.drawable.nine_club);
-                                        break;
-                                    case 10:
-                                        guiCards.get(i).setImageResource(R.drawable.ten_club);
-                                        break;
-                                    case 11:
-                                        guiCards.get(i).setImageResource(R.drawable.jack_club);
-                                        break;
-                                    case 12:
-                                        guiCards.get(i).setImageResource(R.drawable.queen_club);
-                                        break;
-                                    case 13:
-                                        guiCards.get(i).setImageResource(R.drawable.king_club);
-                                        break;
-                                    case 14:
-                                        guiCards.get(i).setImageResource(R.drawable.ace_club);
-                                        break;
-                                    case 15:
-                                        guiCards.get(i).setImageResource(R.drawable.wizard_raven);
-                                        break;
-                                }
-                        }
+                    switch (card.getCardSuit()) {
+                        case "diamond":
+                            switch (card.getCardValue()) {
+                                case 0:
+                                    guiCards.get(i).setImageResource(R.drawable.jester_all);
+                                    break;
+                                case 2:
+                                    guiCards.get(i).setImageResource(R.drawable.two_diamond);
+                                    break;
+                                case 3:
+                                    guiCards.get(i).setImageResource(R.drawable.three_diamond);
+                                    break;
+                                case 4:
+                                    guiCards.get(i).setImageResource(R.drawable.four_diamond);
+                                    break;
+                                case 5:
+                                    guiCards.get(i).setImageResource(R.drawable.five_diamond);
+                                    break;
+                                case 6:
+                                    guiCards.get(i).setImageResource(R.drawable.six_diamond);
+                                    break;
+                                case 7:
+                                    guiCards.get(i).setImageResource(R.drawable.seven_diamond);
+                                    break;
+                                case 8:
+                                    guiCards.get(i).setImageResource(R.drawable.eight_diamond);
+                                    break;
+                                case 9:
+                                    guiCards.get(i).setImageResource(R.drawable.nine_diamond);
+                                    break;
+                                case 10:
+                                    guiCards.get(i).setImageResource(R.drawable.ten_diamond);
+                                    break;
+                                case 11:
+                                    guiCards.get(i).setImageResource(R.drawable.jack_diamond);
+                                    break;
+                                case 12:
+                                    guiCards.get(i).setImageResource(R.drawable.queen_diamond);
+                                    break;
+                                case 13:
+                                    guiCards.get(i).setImageResource(R.drawable.king_diamond);
+                                    break;
+                                case 14:
+                                    guiCards.get(i).setImageResource(R.drawable.ace_diamond);
+                                    break;
+                                case 15:
+                                    guiCards.get(i).setImageResource(R.drawable.wizard_huff);
+                                    break;
+                            }
+                            break;
+                        case "heart":
+                            switch (card.getCardValue()) {
+                                case 0:
+                                    guiCards.get(i).setImageResource(R.drawable.jester_all);
+                                    break;
+                                case 2:
+                                    guiCards.get(i).setImageResource(R.drawable.two_heart);
+                                    break;
+                                case 3:
+                                    guiCards.get(i).setImageResource(R.drawable.three_heart);
+                                    break;
+                                case 4:
+                                    guiCards.get(i).setImageResource(R.drawable.four_heart);
+                                    break;
+                                case 5:
+                                    guiCards.get(i).setImageResource(R.drawable.five_heart);
+                                    break;
+                                case 6:
+                                    guiCards.get(i).setImageResource(R.drawable.six_heart);
+                                    break;
+                                case 7:
+                                    guiCards.get(i).setImageResource(R.drawable.seven_heart);
+                                    break;
+                                case 8:
+                                    guiCards.get(i).setImageResource(R.drawable.eight_heart);
+                                    break;
+                                case 9:
+                                    guiCards.get(i).setImageResource(R.drawable.nine_heart);
+                                    break;
+                                case 10:
+                                    guiCards.get(i).setImageResource(R.drawable.ten_heart);
+                                    break;
+                                case 11:
+                                    guiCards.get(i).setImageResource(R.drawable.jack_heart);
+                                    break;
+                                case 12:
+                                    guiCards.get(i).setImageResource(R.drawable.queen_heart);
+                                    break;
+                                case 13:
+                                    guiCards.get(i).setImageResource(R.drawable.king_heart);
+                                    break;
+                                case 14:
+                                    guiCards.get(i).setImageResource(R.drawable.ace_heart);
+                                    break;
+                                case 15:
+                                    guiCards.get(i).setImageResource(R.drawable.wizard_sly);
+                                    break;
+                            }
+                            break;
+                        case "spade":
+                            switch (card.getCardValue()) {
+                                case 0:
+                                    guiCards.get(i).setImageResource(R.drawable.jester_all);
+                                    break;
+                                case 2:
+                                    guiCards.get(i).setImageResource(R.drawable.two_spade);
+                                    break;
+                                case 3:
+                                    guiCards.get(i).setImageResource(R.drawable.three_spade);
+                                    break;
+                                case 4:
+                                    guiCards.get(i).setImageResource(R.drawable.four_spade);
+                                    break;
+                                case 5:
+                                    guiCards.get(i).setImageResource(R.drawable.five_spade);
+                                    break;
+                                case 6:
+                                    guiCards.get(i).setImageResource(R.drawable.six_spade);
+                                    break;
+                                case 7:
+                                    guiCards.get(i).setImageResource(R.drawable.seven_spade);
+                                    break;
+                                case 8:
+                                    guiCards.get(i).setImageResource(R.drawable.eight_spade);
+                                    break;
+                                case 9:
+                                    guiCards.get(i).setImageResource(R.drawable.nine_spade);
+                                    break;
+                                case 10:
+                                    guiCards.get(i).setImageResource(R.drawable.ten_spade);
+                                    break;
+                                case 11:
+                                    guiCards.get(i).setImageResource(R.drawable.jack_spade);
+                                    break;
+                                case 12:
+                                    guiCards.get(i).setImageResource(R.drawable.queen_spade);
+                                    break;
+                                case 13:
+                                    guiCards.get(i).setImageResource(R.drawable.king_spade);
+                                    break;
+                                case 14:
+                                    guiCards.get(i).setImageResource(R.drawable.ace_spade);
+                                    break;
+                                case 15:
+                                    guiCards.get(i).setImageResource(R.drawable.wizard_griff);
+                                    break;
+                            }
+                            break;
+                        case "club":
+                            switch (card.getCardValue()) {
+                                case 0:
+                                    guiCards.get(i).setImageResource(R.drawable.jester_all);
+                                    break;
+                                case 2:
+                                    guiCards.get(i).setImageResource(R.drawable.two_club);
+                                    break;
+                                case 3:
+                                    guiCards.get(i).setImageResource(R.drawable.three_club);
+                                    break;
+                                case 4:
+                                    guiCards.get(i).setImageResource(R.drawable.four_club);
+                                    break;
+                                case 5:
+                                    guiCards.get(i).setImageResource(R.drawable.five_club);
+                                    break;
+                                case 6:
+                                    guiCards.get(i).setImageResource(R.drawable.six_club);
+                                    break;
+                                case 7:
+                                    guiCards.get(i).setImageResource(R.drawable.seven_club);
+                                    break;
+                                case 8:
+                                    guiCards.get(i).setImageResource(R.drawable.eight_club);
+                                    break;
+                                case 9:
+                                    guiCards.get(i).setImageResource(R.drawable.nine_club);
+                                    break;
+                                case 10:
+                                    guiCards.get(i).setImageResource(R.drawable.ten_club);
+                                    break;
+                                case 11:
+                                    guiCards.get(i).setImageResource(R.drawable.jack_club);
+                                    break;
+                                case 12:
+                                    guiCards.get(i).setImageResource(R.drawable.queen_club);
+                                    break;
+                                case 13:
+                                    guiCards.get(i).setImageResource(R.drawable.king_club);
+                                    break;
+                                case 14:
+                                    guiCards.get(i).setImageResource(R.drawable.ace_club);
+                                    break;
+                                case 15:
+                                    guiCards.get(i).setImageResource(R.drawable.wizard_raven);
+                                    break;
+                            }
+                    }
                     }
                 }
+
                 //set the rest of the image views to invisible if hand is smaller than 15
                 for (; i < 15; i++) {
                     guiCards.get(i).setVisibility(View.INVISIBLE);
@@ -1148,61 +1148,60 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             }
             WizardCards cp0 = state.cardsPlayed.get(0);
 
-                //clears all the cards played
-                if (cp0 == null && cp1 == null && cp2 == null && cp3 == null) {
-                    card1Played.setVisibility(View.INVISIBLE);
-                    card2Played.setVisibility(View.INVISIBLE);
-                    card3Played.setVisibility(View.INVISIBLE);
-                    card4Played.setVisibility(View.INVISIBLE);
-                }
+            //clears all the cards played
+            if (cp0 == null && cp1 == null && cp2 == null && cp3 == null) {
+                card1Played.setVisibility(View.INVISIBLE);
+                card2Played.setVisibility(View.INVISIBLE);
+                card3Played.setVisibility(View.INVISIBLE);
+                card4Played.setVisibility(View.INVISIBLE);
+            }
 
-                //shows round num and player turn on GUI
-                roundText.setText("Round " + state.getRoundNum());
-                if(state.getGameStage()==0) {
-                    gameStage.setText("Stage: Bidding" + "\nPlayer Turn: " + (state.getPlayerTurn() + 1));
-                }
-                else if (state.getGameStage()==1) {
+            //shows round num, game stage, and player turn on GUI
+            roundText.setText("Round " + state.getRoundNum());
+            if(state.getGameStage()==0) {
+                gameStage.setText("Stage: Bidding" + "\nPlayer Turn: " + (state.getPlayerTurn() + 1));
+            }
+            else if (state.getGameStage()==1) {
                 gameStage.setText("Stage: Playing" + "\nPlayer Turn: " + (state.getPlayerTurn() + 1));
-                }
+            }
 
-                //updates gui for players scores and bids
-                player1Score.setText("PLAYER 1\n Bid: " + state.getPlayerBids().get(0) + "\nBids Won: "
-                        + state.getPlayerBidsWon().get(0) + "\nTotal Score: " + state.getPlayerInfo(0).getPlayerScore());
-                player2Score.setText("PLAYER 2\n Bid: " + state.getPlayerBids().get(1) + "\nBids Won: "
-                        + state.getPlayerBidsWon().get(1) + "\nTotal Score: " + state.getPlayerInfo(1).getPlayerScore());
-                player3Score.setText("PLAYER 3\n Bid: " + state.getPlayerBids().get(2) + "\nBids Won: "
-                        + state.getPlayerBidsWon().get(2) + "\nTotal Score: " + state.getPlayerInfo(2).getPlayerScore());
-                player4Score.setText("PLAYER 4\n Bid: " + state.getPlayerBids().get(3) + "\nBids Won: "
-                        + state.getPlayerBidsWon().get(3) + "\nTotal Score: " + state.getPlayerInfo(3).getPlayerScore());
+            //updates gui for players scores and bids
+            player1Score.setText("PLAYER 1\n Bid: " + state.getPlayerBids().get(0) + "\nBids Won: "
+                    + state.getPlayerBidsWon().get(0) + "\nTotal Score: " + state.getPlayerInfo(0).getPlayerScore());
+            player2Score.setText("PLAYER 2\n Bid: " + state.getPlayerBids().get(1) + "\nBids Won: "
+                    + state.getPlayerBidsWon().get(1) + "\nTotal Score: " + state.getPlayerInfo(1).getPlayerScore());
+            player3Score.setText("PLAYER 3\n Bid: " + state.getPlayerBids().get(2) + "\nBids Won: "
+                    + state.getPlayerBidsWon().get(2) + "\nTotal Score: " + state.getPlayerInfo(2).getPlayerScore());
+            player4Score.setText("PLAYER 4\n Bid: " + state.getPlayerBids().get(3) + "\nBids Won: "
+                    + state.getPlayerBidsWon().get(3) + "\nTotal Score: " + state.getPlayerInfo(3).getPlayerScore());
 
-                if(state.playerTurn==0){
-                    player1Score.setTextColor(Color.CYAN);
-                    player2Score.setTextColor(Color.WHITE);
-                    player3Score.setTextColor(Color.WHITE);
-                    player4Score.setTextColor(Color.WHITE);
-                }
-                else if(state.playerTurn==1){
-                    player2Score.setTextColor(Color.CYAN);
-                    player1Score.setTextColor(Color.WHITE);
-                    player3Score.setTextColor(Color.WHITE);
-                    player4Score.setTextColor(Color.WHITE);
-                }
-                else if(state.playerTurn==2){
-                    player3Score.setTextColor(Color.CYAN);
-                    player2Score.setTextColor(Color.WHITE);
-                    player1Score.setTextColor(Color.WHITE);
-                    player4Score.setTextColor(Color.WHITE);
-                }
-                else if(state.playerTurn==3){
-                    player4Score.setTextColor(Color.CYAN);
-                    player2Score.setTextColor(Color.WHITE);
-                    player3Score.setTextColor(Color.WHITE);
-                    player1Score.setTextColor(Color.WHITE);
-                }
+            //sets text color of player turn on GUI
+            if(state.playerTurn==0){
+                player1Score.setTextColor(Color.CYAN);
+                player2Score.setTextColor(Color.WHITE);
+                player3Score.setTextColor(Color.WHITE);
+                player4Score.setTextColor(Color.WHITE);
+            }
+            else if(state.playerTurn==1){
+                player2Score.setTextColor(Color.CYAN);
+                player1Score.setTextColor(Color.WHITE);
+                player3Score.setTextColor(Color.WHITE);
+                player4Score.setTextColor(Color.WHITE);
+            }
+            else if(state.playerTurn==2){
+                player3Score.setTextColor(Color.CYAN);
+                player2Score.setTextColor(Color.WHITE);
+                player1Score.setTextColor(Color.WHITE);
+                player4Score.setTextColor(Color.WHITE);
+            }
+            else if(state.playerTurn==3){
+                player4Score.setTextColor(Color.CYAN);
+                player2Score.setTextColor(Color.WHITE);
+                player3Score.setTextColor(Color.WHITE);
+                player1Score.setTextColor(Color.WHITE);
+            }
 
-
-                roundNum = state.getRoundNum();
-
+            roundNum = state.getRoundNum();
         }
     }
 
@@ -1289,7 +1288,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         rButton.setOnClickListener(this);
         sButton = (ImageButton) myActivity.findViewById(R.id.slythButton);
         sButton.setOnClickListener(this);
-
 
         if (guiCards.isEmpty()) {
             Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8,
@@ -1539,6 +1537,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     @Override
     public void onClick(View view) {
         switch(view.getId()){
+            //sets background color
             case R.id.gryffinButton:
                 mySurface.setBackgroundColor(Color.argb(225, 128, 0, 0));
                 mySurface.invalidate();
@@ -1569,6 +1568,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 this.sendInfo((GameInfo) this.state);
                 break;
         }
+
+        //used to set bid num and submit by human user
         if(state.getGameStage() == 0) {
             switch (view.getId()) {
                 case R.id.bidPlus:
@@ -1577,14 +1578,12 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                         bidText.setText("" + bidNum);
                     }
                     break;
-
                 case R.id.bidMinus:
                     if (bidNum > 0) {
                         bidNum--;
                         bidText.setText("" + bidNum);
                     }
                     break;
-
                 case R.id.bidSubmit:
                     myBid = new WizardBidAction(this, bidNum);
                     super.game.sendAction(myBid);

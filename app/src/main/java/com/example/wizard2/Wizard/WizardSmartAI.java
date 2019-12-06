@@ -51,9 +51,8 @@ public class WizardSmartAI extends GameComputerPlayer implements Serializable {
 
 
 
-            //BID STAGE: gets and sends random bid num
+            //BID STAGE: looks through hand, if wizard or trump suit present then increment bid
             if(((WizardState) info).getGameStage()==0) {
-                //looks through hand, if wizard or trump suit then increment bid.
                 bidNum=0;
                 for(int i=0; i< handSize; i++) {
                     aCard = player.getCurrentHand().get(i);
@@ -69,7 +68,7 @@ public class WizardSmartAI extends GameComputerPlayer implements Serializable {
                 game.sendAction(myBid);
             }
 
-            //PLAYING STAGE: gets a random index in players hand and sends that card to be played
+            //PLAYING STAGE: Tries to win, but if can't then play lowest card.
             else if(((WizardState) info).getGameStage()==1 && player.getCurrentHand() != null) {
                 tempValue=-1;
                 //goes through each card in players hand size
@@ -98,7 +97,6 @@ public class WizardSmartAI extends GameComputerPlayer implements Serializable {
                 tempValue=-1;
                 //checks cards played to see if it can win
                 for(int i=0; i < playerID; i++){
-                    Logger.log("WizardSmartAI","cards played " + ((WizardState) info).getCardsPlayed());
                     tempCard = ((WizardState) info).getCardsPlayed().get(i);
                     if(tempCard != null) {
                         if (tempCard.getCardNumber() >= cardToPlay.getCardNumber() && tempCard.getCardSuit()==trumpSuit) {
