@@ -20,6 +20,9 @@ public class WizardSmartAI extends GameComputerPlayer implements Serializable {
     private int tempValue = -1;
     private boolean canNotWin = false;
 
+    /**
+     * Constructor for the WizardSmartAI.
+     */
     public WizardSmartAI(String name){
         super(name);
     }

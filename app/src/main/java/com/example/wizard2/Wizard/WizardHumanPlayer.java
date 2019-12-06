@@ -2,24 +2,17 @@ package com.example.wizard2.Wizard;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.Surface;
 import android.view.SurfaceView;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.wizard2.GameFramework.GameHumanPlayer;
 import com.example.wizard2.GameFramework.GameMainActivity;
 import com.example.wizard2.GameFramework.infoMessage.GameInfo;
-import com.example.wizard2.GameFramework.infoMessage.IllegalMoveInfo;
-import com.example.wizard2.GameFramework.utilities.Logger;
 import com.example.wizard2.R;
 
 import java.io.Serializable;
@@ -38,7 +31,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     WizardBidAction myBid;
 
     private WizardState state = new WizardState();
-
     private ArrayList<ImageView> guiCards = new ArrayList<ImageView>();
 
     //Tag for logging
@@ -327,8 +319,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 cardTrump.setVisibility(View.INVISIBLE);
             }
 
-
-
             //sets image to cards in human hand
             if(state.getGameStage()==0 && state.getRoundNum()<16){
                 int i = 0;
@@ -340,20 +330,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     if (card == null) {
                     guiCards.get(i).setVisibility(View.INVISIBLE);
                     }
-
-                    if(playerNum==0){
-                        guiCards.get(i).setVisibility(View.VISIBLE);
-                    }
-                    else if(playerNum==1){
-                        guiCards.get(i).setVisibility(View.VISIBLE);
-                    }
-                    else if(playerNum==2){
-                        guiCards.get(i).setVisibility(View.VISIBLE);
-                    }
-                    else if(playerNum==3){
-                        guiCards.get(i).setVisibility(View.VISIBLE);
-                    }
-
 
                     //if not null then set image
                     if (card != null) {
@@ -1432,6 +1408,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
     /**
      * sets the current player as the activity's GUI
+     * @param activity the game activity
      */
     @SuppressLint("WrongViewCast")
     public void setAsGui(GameMainActivity activity) {
@@ -1488,7 +1465,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         roundText = (TextView) myActivity.findViewById(R.id.roundTextView);
         gameStage = (TextView) myActivity.findViewById(R.id.gameStage);
 
-
         bidText = (TextView) myActivity.findViewById(R.id.bidText);
         bidText.setText(""+ this.bidNum);
 
@@ -1503,6 +1479,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         quitButton.setOnClickListener(this);
         helpButton = (Button) myActivity.findViewById(R.id.helpButton);
         helpButton.setOnClickListener(this);
+        backToGameButton = (Button) myActivity.findViewById(R.id.backToGame);
 
         mySurface = (SurfaceView) myActivity.findViewById(R.id.surfaceView);
         gButton = (ImageButton) myActivity.findViewById(R.id.gryffinButton);
@@ -1529,17 +1506,23 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     }
 
     /**
-     External Citation
-     Date: 7 November 2019
-     Problem: More than one card disappeared when one card was touched
-     Resource: Dr. Tribelhorn
-     Solution: Changed condition of if statement and switch statement.
+     * Updates GUI after user picks which card they want to play.
+     * When player touches card it will send the card to WizardPlayAction if it is a valid move
+     * @param v the view
+     *        motionEvent the event
      */
-
-    //When player touches card it will send the card to WizardPlayAction if it is a valid move
     @Override
     public boolean onTouch(View v, MotionEvent motionEvent) {
         int i = 0;
+
+        /**
+         External Citation
+         Date: 7 November 2019
+         Problem: More than one card disappeared when one card was touched
+         Resource: Dr. Tribelhorn
+         Solution: Changed condition of if statement and switch statement.
+         */
+
         for (ImageView guiCard : guiCards){
 
             //checks if it is players turn and playing stage
@@ -2374,6 +2357,13 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         return false;
     }
 
+    /**
+     * Updates GUI after buttons are pressed.
+     * Change color of background
+     * Go to help screen or quit
+     * Increase or decrease bid and submit
+     * @param view the screen view
+     */
     @Override
     public void onClick(View view) {
         switch(view.getId()){
@@ -2396,7 +2386,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 break;
             case R.id.helpButton:
                 myActivity.setContentView(R.layout.game_help_screen);
-                backToGameButton = (Button) myActivity.findViewById(R.id.backToGame);
                 backToGameButton.setOnClickListener(this);
                 break;
             case R.id.quitButton:

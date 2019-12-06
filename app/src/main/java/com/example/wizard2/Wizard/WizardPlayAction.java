@@ -15,7 +15,14 @@ public class WizardPlayAction extends GameAction implements Serializable {
     public WizardCards cardToPlay;
     public int placeInHand;
 
-
+    /**
+     * createLocalGame
+     *
+     * Creates a new game that runs on the server tablet,
+     *
+     * @return a new, game-specific instance of a sub-class of the LocalGame
+     *         class.
+     */
     public WizardPlayAction(GamePlayer player, WizardCards myCard, int myPlace){
         super(player);
         this.cardToPlay = myCard;

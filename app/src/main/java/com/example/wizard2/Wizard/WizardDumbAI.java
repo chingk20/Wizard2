@@ -1,7 +1,5 @@
 package com.example.wizard2.Wizard;
 
-import android.widget.TextView;
-
 import com.example.wizard2.GameFramework.GameComputerPlayer;
 import com.example.wizard2.GameFramework.infoMessage.GameInfo;
 import com.example.wizard2.GameFramework.infoMessage.NotYourTurnInfo;
@@ -17,6 +15,9 @@ public class WizardDumbAI extends GameComputerPlayer implements Serializable {
     WizardPlayAction myPlay;
     WizardBidAction myBid;
 
+    /**
+     * Constructor for the WizardDumbAI.
+     */
     public WizardDumbAI(String name){
         super(name);
     }

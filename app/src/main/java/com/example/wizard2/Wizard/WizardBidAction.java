@@ -5,16 +5,15 @@ import com.example.wizard2.GameFramework.actionMessage.GameAction;
 
 import java.io.Serializable;
 
-/*  WizardBidAction:
-  *  Takes in the bid number the player want to bid
-  */
-
+//Takes in the bid number the player want to bid
 public class WizardBidAction extends GameAction implements Serializable {
 
     private static final long serialVersionUID = -2242980258970485343L;
-
     protected int bidNum;
 
+    /**
+     * Constructor for the WizardBidAction.
+     */
     public WizardBidAction(GamePlayer player, int myBid){
         super(player);
         this.bidNum = myBid;
