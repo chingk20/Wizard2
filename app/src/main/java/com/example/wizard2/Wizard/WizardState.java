@@ -154,10 +154,10 @@ public class WizardState extends GameState implements Serializable{
      *      Number of cards each player gets
      */
     public void dealDeck(int numTricks){
-        Logger.log("deck size", ""+deck.size());
+        Logger.log("deck size", "deck size: "+deck.size());
         Random random = new Random();
         //deals out a card to each players hand and removes it from the deck
-        for (int i = 0; i < listOfPlayers.size(); i++){
+        for (int i = 0; i < 4; i++){
 
             for (int round = 0; round < numTricks; round++) {
                 if(deck.size()<1){
@@ -225,7 +225,6 @@ public class WizardState extends GameState implements Serializable{
     public void calculateWinner(){
         int value=0;
         int base=-1;
-        //int winner=-1;
         for(int i=0; i<4; i++)
         {
             //HARD CODED VALUES FOR NOW
@@ -272,12 +271,15 @@ public class WizardState extends GameState implements Serializable{
      */
     public void resetImage()
     {
+        Logger.log("deck size", "deck size put back: "+deck.size());
         for(int i=0; i<cardsPlayed.size(); i++){
             if(cardsPlayed.get(i)!= null) {
+                Logger.log("WizardState","Card put back: " + cardsPlayed.get(i));
                 deck.add(cardsPlayed.get(i));
             }
             cardsPlayed.set(i, null);
         }
+        Logger.log("deck size", "deck size put back: "+deck.size());
     }
 
     /**
@@ -304,7 +306,6 @@ public class WizardState extends GameState implements Serializable{
         player1.setPlayerScore(player1.getRunningTotal());
         player2.setPlayerScore(player2.getRunningTotal());
         player3.setPlayerScore(player3.getRunningTotal());
-
     }
 
     /**

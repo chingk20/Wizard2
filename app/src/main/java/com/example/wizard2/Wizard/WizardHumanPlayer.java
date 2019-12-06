@@ -326,6 +326,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
             //sets image to cards in human hand
                 int i = 0;
+
                 for (; i < state.roundNum; i++) {
                     WizardCards card = ((WizardState) info).getPlayerInfo(playerNum).getCurrentHand().get(i);
                     guiCards.get(i).setVisibility(View.VISIBLE);
@@ -1363,20 +1364,20 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             //shows round num, game stage, and player turn on GUI
             roundText.setText("Round " + state.getRoundNum());
             if(state.getGameStage()==0) {
-                gameStage.setText("Stage: Bidding" + "\nPlayer Turn: " + (state.getPlayerTurn() + 1));
+                gameStage.setText("Stage: Bidding");
             }
             else if (state.getGameStage()==1) {
-                gameStage.setText("Stage: Playing" + "\nPlayer Turn: " + (state.getPlayerTurn() + 1));
+                gameStage.setText("Stage: Playing");
             }
 
             //updates gui for players scores and bids
-            player1Score.setText("PLAYER 1\n Bid: " + state.getPlayerBids().get(0) + "\nBids Won: "
+            player1Score.setText("WIZARD 1\n Bid: " + state.getPlayerBids().get(0) + "\nBids Won: "
                     + state.getPlayerBidsWon().get(0) + "\nTotal Score: " + state.getPlayerInfo(0).getPlayerScore());
-            player2Score.setText("PLAYER 2\n Bid: " + state.getPlayerBids().get(1) + "\nBids Won: "
+            player2Score.setText("WIZARD 2\n Bid: " + state.getPlayerBids().get(1) + "\nBids Won: "
                     + state.getPlayerBidsWon().get(1) + "\nTotal Score: " + state.getPlayerInfo(1).getPlayerScore());
-            player3Score.setText("PLAYER 3\n Bid: " + state.getPlayerBids().get(2) + "\nBids Won: "
+            player3Score.setText("WIZARD 3\n Bid: " + state.getPlayerBids().get(2) + "\nBids Won: "
                     + state.getPlayerBidsWon().get(2) + "\nTotal Score: " + state.getPlayerInfo(2).getPlayerScore());
-            player4Score.setText("PLAYER 4\n Bid: " + state.getPlayerBids().get(3) + "\nBids Won: "
+            player4Score.setText("WIZARD 4\n Bid: " + state.getPlayerBids().get(3) + "\nBids Won: "
                     + state.getPlayerBidsWon().get(3) + "\nTotal Score: " + state.getPlayerInfo(3).getPlayerScore());
 
             //sets text color of player turn on GUI
@@ -1505,7 +1506,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
      * knows what their game-position and opponents' names are.
      */
     protected void initAfterReady() {
-        //myActivity.setTitle("Tic-Tac-Toe: " + allPlayerNames[0] + " vs. " + allPlayerNames[1]);
     }
 
     /**

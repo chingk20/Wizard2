@@ -1,6 +1,5 @@
 package com.example.wizard2.Wizard;
 
-import android.util.Log;
 import java.io.Serializable;
 
 

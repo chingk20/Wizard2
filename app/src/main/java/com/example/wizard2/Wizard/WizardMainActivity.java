@@ -67,7 +67,4 @@ public class WizardMainActivity extends GameMainActivity implements Serializable
     public LocalGame createLocalGame() {
         return new WizardLocalGame();
     }
-
-
-
 }

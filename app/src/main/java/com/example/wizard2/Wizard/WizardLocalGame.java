@@ -118,7 +118,6 @@ public class WizardLocalGame extends LocalGame  implements Serializable {
                 myPlayer.setBidNum(myBidNum);
 
                 //check if it is end of round i.e. everyone has bid
-                //if (state.getPlayerTurn() == 3) {
                 if (roundCount == 0) {
                     //sets game stage to 1: playing stage and resets player turn to 0
                     roundCount=3;
@@ -171,9 +170,6 @@ public class WizardLocalGame extends LocalGame  implements Serializable {
                     getTimer().setInterval(2000);
                     getTimer().start();
                     waiting = true;
-
-                    //human.alreadyChosen=false;
-                    //state.resetImage();
                     return true;
                 }
 
@@ -245,7 +241,7 @@ public class WizardLocalGame extends LocalGame  implements Serializable {
 
             this.checkIfGameOver();
             Logger.log("Local Game", "Round num:" + state.getRoundNum());
-            if(state.getRoundNum()!=16) {
+            if(state.getRoundNum() < 15) {
                 state.setRoundNum(state.getRoundNum() + 1);
                 state.dealDeck(state.roundNum);
             }
