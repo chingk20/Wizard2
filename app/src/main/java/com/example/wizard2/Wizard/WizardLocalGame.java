@@ -21,6 +21,8 @@ public class WizardLocalGame extends LocalGame  {
     private boolean waiting = false;
     public boolean roundOver;
 
+   // public int startingTurn = 0;
+
 
     /**
      * Constructor for the WizardLocalGame.
@@ -43,7 +45,8 @@ public class WizardLocalGame extends LocalGame  {
     @Override
     protected String checkIfGameOver() {
         //Game is over after 15 rounds or the start of the 16th round
-        if(state.getRoundNum() == 16) {
+        if(state.getRoundNum() == 15 &&  gameOver()) {
+            state.calculateScores();
             int player1Score = state.getPlayerInfo(0).getPlayerScore();
             int player2Score = state.getPlayerInfo(1).getPlayerScore();
             int player3Score = state.getPlayerInfo(2).getPlayerScore();
@@ -63,6 +66,24 @@ public class WizardLocalGame extends LocalGame  {
         else{
             return null;
         }
+    }
+
+    public boolean gameOver(){
+        for(int i=0; i<15; i++){
+            if(state.getPlayerInfo(0).getCurrentHand().get(i) != null){
+                return false;
+            }
+            else if(state.getPlayerInfo(1).getCurrentHand().get(i) != null){
+                return false;
+            }
+            else if(state.getPlayerInfo(2).getCurrentHand().get(i) != null){
+                return false;
+            }
+            else if(state.getPlayerInfo(3).getCurrentHand().get(i) != null){
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -123,7 +144,8 @@ public class WizardLocalGame extends LocalGame  {
                 myPlayer.setBidNum(myBidNum);
 
                 //check if it is end of round i.e. everyone has bid
-                if (state.getPlayerTurn() == 3) {
+//                if (state.getPlayerTurn() == startingTurn -1 || (startingTurn == 0 && state.getPlayerTurn()==3)) {
+                if(state.getPlayerTurn()==3){
 
                     //sets game stage to 1: playing stage and resets player turn to 0
                     state.setGameStage(1);
@@ -132,7 +154,12 @@ public class WizardLocalGame extends LocalGame  {
                 }
 
                 //updates to next players turn
-                state.setPlayerTurn(state.playerTurn + 1);
+                if(state.getPlayerTurn()<3) {
+                    state.setPlayerTurn(state.playerTurn + 1);
+                }
+                else{
+                    state.setPlayerTurn(0);
+                }
 
                 return true;
             } else {
@@ -158,11 +185,13 @@ public class WizardLocalGame extends LocalGame  {
 
                 //checks if it is end of round
                 if (state.getPlayerTurn() == 3) {
+//                if(state.getPlayerTurn() == (startingTurn - 1) || (startingTurn == 0 && state.getPlayerTurn()==3)){
 
                     //need for clearing cards played
                     getTimer().setInterval(2000);
                     getTimer().start();
                     waiting = true;
+
 
                     //human.alreadyChosen=false;
                     //state.resetImage();
@@ -171,7 +200,13 @@ public class WizardLocalGame extends LocalGame  {
                 }
 
                 //updates to next players turn
-                state.setPlayerTurn(state.playerTurn + 1);
+                if(state.getPlayerTurn()<3) {
+                    state.setPlayerTurn(state.playerTurn + 1);
+                }
+                else if(state.roundNum < 16){
+                    state.setPlayerTurn(0);
+                }
+
                 return true;
             } else {
                 return false;
@@ -184,7 +219,17 @@ public class WizardLocalGame extends LocalGame  {
     public void resetTrick() {
         WizardPlayer myPlayer = state.getPlayerInfo(0);
 
+//        if(startingTurn < 3) {
+//            startingTurn++;
+//        }
+//        else{
+//            startingTurn = 0;
+//        }
+//
+//        state.setPlayerTurn(startingTurn);
+
         state.setPlayerTurn(0);
+
 
 
         //calculate who won sub round
@@ -213,13 +258,17 @@ public class WizardLocalGame extends LocalGame  {
                 state.setPlayerBidsWon(0, j);
                 //state.getPlayerInfo(j).getCurrentHand().removeAll(state.getPlayerInfo(j).getCurrentHand());
             }
-            state.setGameStage(0);
-            state.calculateScores();
 
-            state.setRoundNum(state.getRoundNum() + 1);
-            this.checkIfGameOver();
+            state.setGameStage(0);
+
+            state.calculateScores();
+            if(state.roundNum <15) {
+                state.setRoundNum(state.getRoundNum() + 1);
+            }
             Logger.log("Local Game", "Round num:" + state.getRoundNum());
+
             state.dealDeck(state.roundNum);
+
         }
 
     }

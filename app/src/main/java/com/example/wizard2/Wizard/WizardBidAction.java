@@ -3,9 +3,13 @@ package com.example.wizard2.Wizard;
 import com.example.wizard2.GameFramework.GamePlayer;
 import com.example.wizard2.GameFramework.actionMessage.GameAction;
 
- /*  WizardBidAction:
-  *  Takes in the bid number the player want to bid
-  */
+/**
+ * WizardBidAction: This class represents a bid action. It doesn't do the bidding action,
+ * it just represents a bid action object
+ *
+ * @param player keeps track of the player that is making the action
+ * @param myBid the (integer) bid the player is making
+ */
 
 public class WizardBidAction extends GameAction {
 

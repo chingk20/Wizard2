@@ -25,12 +25,13 @@ import com.example.wizard2.R;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
+/**
+ * WizardHumanPlayer: This class handles all user interactions with the gui and changes gui's display
+ */
 public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchListener, View.OnClickListener {
 
     private WizardCards cardToPlay;
     private int bidNum = 0;
-    private int roundNum;
 
     //ACTIONS
     WizardPlayAction myPlay;
@@ -40,10 +41,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
     private ArrayList<ImageView> guiCards = new ArrayList<ImageView>();
 
-    //Tag for logging
-    private static final String TAG = "WizardHumanPlayer";
-
-    // the current activity
+    // the current activity to interact with gui
     private GameMainActivity myActivity;
 
     //GUI
@@ -52,7 +50,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     private TextView player3Score = null;
     private TextView player4Score = null;
     private TextView roundText = null;
-    private ImageView card1 = null;         //humans player card 1
+    private ImageView card1 = null;         //humans player cards
     private ImageView card2 = null;
     private ImageView card3 = null;
     private ImageView card4 = null;
@@ -67,20 +65,19 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     private ImageView card13 = null;
     private ImageView card14 = null;
     private ImageView card15 = null;
-    private ImageView card1Played = null;   //the card that player 1 played
+    private ImageView card1Played = null;   //the card that players played in the middle
     private ImageView card2Played = null;
     private ImageView card3Played = null;
     private ImageView card4Played = null;
     private ImageView cardTrump = null;     //trump card
-   // private Spinner bidSpinner = null;
     private Button bidSubmitButton = null;
     private TextView bidText = null;
     private Button bidPlus = null;
     private Button bidMinus = null;
-    private ImageButton gButton;
-    private ImageButton sButton;
-    private ImageButton hButton;
-    private ImageButton rButton;
+    private ImageButton gButton; //gryffindor button
+    private ImageButton sButton; //slytherin button
+    private ImageButton hButton; //hufflepuff button
+    private ImageButton rButton; //ravenclaw button
     private SurfaceView mySurface;
 
     /**
@@ -110,7 +107,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         if (info instanceof WizardState) {
             state = (WizardState) info;
 
-            //sets trump card image
+            //sets trump card image if round number is less than 15
             if(state.getRoundNum() < 15) {
                 WizardCards trumpCard = ((WizardState) info).getTrumpCard();
                 switch (trumpCard.getCardSuit()) {
@@ -311,13 +308,14 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                         }
                 }
             }
+            //on 15th round, there is no trump card
             else if(state.getRoundNum() == 15){
                 cardTrump.setVisibility(View.INVISIBLE);
             }
 
-            //sets image to cards in human hand
+            //sets the appropriate card image to user's cards
             int i = 0;
-            if(state.playerTurn == this.playerNum){
+            if(state.playerTurn == this.playerNum && state.roundNum < 16){
                 for (; i < state.roundNum; i++) {
                     WizardCards card = ((WizardState) info).getPlayerInfo(0).getCurrentHand().get(i);
                     guiCards.get(i).setVisibility(View.VISIBLE);
@@ -534,7 +532,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 }
             }
 
-            //sets image of played card by each player in middle
+            //sets image for computer player 1's played card in the middle
             WizardCards cp1 = state.cardsPlayed.get(1);
             if (cp1 != null) {
                 card2Played.setVisibility(View.VISIBLE);
@@ -737,6 +735,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                         break;
                 }
             }
+            //sets image for computer player 2's played card in the middle
             WizardCards cp2 = state.cardsPlayed.get(2);
             if (cp2 != null) {
                 card3Played.setVisibility(View.VISIBLE);
@@ -939,6 +938,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                         break;
                 }
             }
+            //sets image for computer player 3's played card in the middle
             WizardCards cp3 = state.cardsPlayed.get(3);
             if (cp3 != null) {
                 card4Played.setVisibility(View.VISIBLE);
@@ -1141,8 +1141,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                         break;
                 }
             }
-            WizardCards cp0 = state.cardsPlayed.get(0);
 
+            WizardCards cp0 = state.cardsPlayed.get(0);
                 //clears all the cards played
                 if (cp0 == null && cp1 == null && cp2 == null && cp3 == null) {
                     card1Played.setVisibility(View.INVISIBLE);
@@ -1164,6 +1164,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 player4Score.setText("PLAYER 4\n Bid: " + state.getPlayerBids().get(3) + "\nBids Won: "
                         + state.getPlayerBidsWon().get(3) + "\nTotal Score: " + state.getPlayerInfo(3).getPlayerScore());
 
+                //highlights player whose turn it is in blue
                 if(state.playerTurn==0){
                     player1Score.setTextColor(Color.BLUE);
                     player2Score.setTextColor(Color.BLACK);
@@ -1189,9 +1190,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     player1Score.setTextColor(Color.BLACK);
                 }
 
-
-                roundNum = state.getRoundNum();
-
         }
     }
 
@@ -1208,6 +1206,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         activity.setContentView(R.layout.activity_main);
 
         //finds and sets listener on image views
+        //card1-card15 are the user's cards
         card1 = (ImageView) myActivity.findViewById(R.id.imageView1);
         card1.setOnTouchListener(this);
         card2 = (ImageView) myActivity.findViewById(R.id.imageView2);
@@ -1239,6 +1238,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         card15 = (ImageView) myActivity.findViewById(R.id.imageView15);
         card15.setOnTouchListener(this);
 
+        //card1Played-card4Played are each player's played cards in the middle
         card1Played = (ImageView) myActivity.findViewById(R.id.player1imageView);
         card2Played = (ImageView) myActivity.findViewById(R.id.player2ImageView);
         card3Played = (ImageView) myActivity.findViewById(R.id.player3ImageView);
@@ -1246,20 +1246,26 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 
         cardTrump = (ImageView) myActivity.findViewById(R.id.trumpImageView);
 
+        //TextViews holding each player's scores and bids
         player1Score = (TextView) myActivity.findViewById(R.id.player1TextView);
         player2Score = (TextView) myActivity.findViewById(R.id.player2TextView);
         player3Score = (TextView) myActivity.findViewById(R.id.player3TextView);
         player4Score = (TextView) myActivity.findViewById(R.id.player4TextView);
+
+        //TextView displaying the current round number
         roundText = (TextView) myActivity.findViewById(R.id.roundTextView);
 
+        //TextView that displays the human player's current bid before submitting
         bidText = (TextView) myActivity.findViewById(R.id.bidText);
         bidText.setText(""+ this.bidNum);
 
+        //bidPlus and bidMinus buttons allow user to increment or decrement their bid value
         bidPlus = (Button) myActivity.findViewById(R.id.bidPlus);
         bidPlus.setOnClickListener(this);
         bidMinus = (Button) myActivity.findViewById(R.id.bidMinus);
         bidMinus.setOnClickListener(this);
 
+        //bidSubmitButton submits user's chosen bid and sends a bidAction
         bidSubmitButton = (Button) myActivity.findViewById(R.id.bidSubmit);
         bidSubmitButton.setOnClickListener(this);
 
@@ -1273,6 +1279,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         sButton = (ImageButton) myActivity.findViewById(R.id.slythButton);
         sButton.setOnClickListener(this);
 
+        //adds all 15 of user's cards to an array of ImageViews called guiCards
         Collections.addAll(guiCards, card1, card2, card3, card4, card5, card6, card7, card8,
                 card9, card10, card11, card12, card13, card14, card15);
     }
@@ -1285,16 +1292,20 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         //myActivity.setTitle("Tic-Tac-Toe: " + allPlayerNames[0] + " vs. " + allPlayerNames[1]);
     }
 
-    //When player touches card it will send the card to WizardPlayAction if it is a valid move
+    /**
+     * This method handles which card user wants to play, checks if it's a valid move,
+     * and then sends that card to WizardPlayAction
+     */
     @Override
     public boolean onTouch(View v, MotionEvent motionEvent) {
         int i = 0;
+        //checks which
         for (ImageView guiCard : guiCards){
-
+            //iterates through each imageView in guiCards to see which card user touched
             //checks if it is players turn and playing stage
             if (v == guiCard && i<state.getPlayerInfo(0).getCurrentHand().size()
                     && state.getGameStage()==1 && state.getPlayerTurn()==0){
-               // alreadyChosen = true;
+                //determines which WizardCard was selected based on which imageView was selected
                 cardToPlay = state.getPlayerInfo(0).getCurrentHand().get(i);
                 if (cardToPlay == null)
                 {
@@ -1302,7 +1313,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                     return true;
                 }
 
-                //sets image to card played
+                //sets image to card played in middle
                 card1Played.setVisibility(View.VISIBLE);
                 switch (cardToPlay.getCardSuit()) {
                     case "diamond":
@@ -1502,6 +1513,8 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                         }
                         break;
                 }
+
+                //"removes" that card from user's hand by setting it invisible
                 guiCards.get(i).setVisibility(View.INVISIBLE);
 
                 //sends card picked to play action
@@ -1516,6 +1529,15 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         return false;
     }
 
+    /**
+     * This method handles all button clicks
+     * If a house button was clicked, changes the background color accordingly
+     *
+     * If the game is in bidding stage and bidPlus or bidMinus was clicked, increments or decrements
+     * the current bidNum
+     *
+     * If bidSubmit button is clicked, sends the current bidNum to WizardBidAction
+     */
     @Override
     public void onClick(View view) {
         switch(view.getId()){
@@ -1546,6 +1568,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
 ////                break;
         }
 
+        //only allows bid buttons to be pressed if game is in bidding stage (gameStage 0)
         if(state.getGameStage() == 0) {
             switch (view.getId()) {
                 case R.id.bidPlus:
