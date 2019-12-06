@@ -165,7 +165,7 @@ public class WizardLocalGame extends LocalGame  implements Serializable {
                 //checks if it is end of round
                 if (roundCount == 0) {
                     roundCount=3;
-                    state.setPlayerTurn(0);
+                    state.setPlayerTurn(4);
 
                     //need for clearing cards played
                     getTimer().setInterval(2000);

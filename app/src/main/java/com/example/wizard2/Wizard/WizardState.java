@@ -34,15 +34,17 @@ public class WizardState extends GameState implements Serializable{
     WizardPlayer player1 = new WizardPlayer(1, "Player 1");
     WizardPlayer player2 = new WizardPlayer(2, "Player 2");
     WizardPlayer player3 = new WizardPlayer(3, "Player 3");
+    WizardPlayer player4 = new WizardPlayer(4, "Player 4"); //ghost player for timer
 
     /**
      * Constructor for the WizardState.
      */
     public WizardState(){
-        listOfPlayers.add(player3);
         listOfPlayers.add(player0);
         listOfPlayers.add(player1);
         listOfPlayers.add(player2);
+        listOfPlayers.add(player3);
+        listOfPlayers.add(player4);
 
         currentPlayer = player0;
 
@@ -298,10 +300,10 @@ public class WizardState extends GameState implements Serializable{
         player2.setBidNumWon(playerBidsWon.get(2));
         player3.setBidNumWon(playerBidsWon.get(3));
 
-        player0.setPlayerScore(player1.getRunningTotal());
-        player1.setPlayerScore(player2.getRunningTotal());
-        player2.setPlayerScore(player3.getRunningTotal());
-        player3.setPlayerScore(player0.getRunningTotal());
+        player0.setPlayerScore(player0.getRunningTotal());
+        player1.setPlayerScore(player1.getRunningTotal());
+        player2.setPlayerScore(player2.getRunningTotal());
+        player3.setPlayerScore(player3.getRunningTotal());
 
     }
 

@@ -325,7 +325,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
             }
 
             //sets image to cards in human hand
-            if(state.getGameStage()==0 && state.getRoundNum()<16){
                 int i = 0;
                 for (; i < state.roundNum; i++) {
                     WizardCards card = ((WizardState) info).getPlayerInfo(playerNum).getCurrentHand().get(i);
@@ -542,7 +541,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 for (; i < 15; i++) {
                     guiCards.get(i).setVisibility(View.INVISIBLE);
                 }
-            }
 
             //sets image of played card by each player in middle
             WizardCards cp0 = state.cardsPlayed.get(0);
