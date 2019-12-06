@@ -14,10 +14,8 @@ public class WizardDumbAI extends GameComputerPlayer implements Serializable {
     private int bidNum;
     private int randomCard;
     private WizardCards cardToPlay;
-    //private int placeInHand;
     WizardPlayAction myPlay;
     WizardBidAction myBid;
-
 
     public WizardDumbAI(String name){
         super(name);
@@ -39,29 +37,35 @@ public class WizardDumbAI extends GameComputerPlayer implements Serializable {
             return;
         }
 
-        if (info instanceof WizardState){
+        if (info instanceof WizardState) {
             int playerID = ((WizardState) info).getPlayerTurn();
             WizardPlayer player = ((WizardState) info).getPlayerInfo(playerID);
+
+            /**
+             External Citation
+             Date: 19 November 2019
+             Problem: AI was playing when it was not its turn
+             Resource: Dr. Nuxoll
+             Solution: Went into the game framework and checked that playerID was equal to the player turn.
+             */
+
             if (this.playerNum != playerID) return;
 
-            //BID STAGE: gets and sends random bid num
-            if(((WizardState) info).getGameStage()==0) {
-
-                bidNum = (int) ((((WizardState) info).getRoundNum()+1) * Math.random());
+            //BIDDING STAGE: gets and sends random bid num
+            if (((WizardState) info).getGameStage() == 0) {
+                bidNum = (int) ((((WizardState) info).getRoundNum() + 1) * Math.random());
                 myBid = new WizardBidAction(this, bidNum);
                 Logger.log("WizardDumbComputer", "Sending bidding move");
                 sleep(1);
                 game.sendAction(myBid);
-
             }
 
             //PLAYING STAGE: gets a random index in players hand and sends that card to be played
-            else if(((WizardState) info).getGameStage()==1 && ((WizardState) info).getPlayerTurn() >=1 &&
-                    ((WizardState) info).getPlayerTurn() <=3) {
+            else if (((WizardState) info).getGameStage() == 1) {
                 randomCard = (int) (player.getCurrentHand().size() * Math.random());
 
                 //checks that index of card is not null
-                while(player.getCurrentHand().get(randomCard)==null) {
+                while (player.getCurrentHand().get(randomCard) == null) {
                     randomCard = (int) (player.getCurrentHand().size() * Math.random());
                 }
                 cardToPlay = player.getCurrentHand().get(randomCard);
@@ -71,12 +75,5 @@ public class WizardDumbAI extends GameComputerPlayer implements Serializable {
                 game.sendAction(myPlay);
             }
         }
-
-        // Submit our move to the game object. We haven't even checked it it's
-        // our turn, or that that position is unoccupied. If it was not our turn,
-        // we'll get a message back that we'll ignore. If it was an illegal move,
-        // we'll end up here again (and possibly again, and again). At some point,
-        // we'll end up randomly pick a move that is legal.
-
     }
 }
