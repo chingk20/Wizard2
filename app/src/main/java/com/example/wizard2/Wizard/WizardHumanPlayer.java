@@ -82,6 +82,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
     private Button helpButton = null;
     private Button backToGameButton = null;
     private TextView gameStage = null;
+    private TextView helpText = null;
 
     /**
      * constructor
@@ -1484,7 +1485,6 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         quitButton.setOnClickListener(this);
         helpButton = (Button) myActivity.findViewById(R.id.helpButton);
         helpButton.setOnClickListener(this);
-        backToGameButton = (Button) myActivity.findViewById(R.id.backToGame);
 
         mySurface = (SurfaceView) myActivity.findViewById(R.id.surfaceView);
         gButton = (ImageButton) myActivity.findViewById(R.id.gryffinButton);
@@ -2391,7 +2391,10 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 break;
             case R.id.helpButton:
                 myActivity.setContentView(R.layout.game_help_screen);
+                backToGameButton = (Button) myActivity.findViewById(R.id.backToGame);
                 backToGameButton.setOnClickListener(this);
+                helpText = (TextView) myActivity.findViewById(R.id.helpText);
+                this.setHelpText();
                 break;
             case R.id.quitButton:
                 myActivity.recreate();
@@ -2427,5 +2430,39 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         }
     }
 
+    public void setHelpText(){
+        helpText.setTextColor(Color.BLACK);
+        helpText.setText("Cards:\n" +
+                "\n" +
+                "There is a normal deck of cards with four Wizard cards and four Jester cards (60 cards total). The Jesters are lowest in value followed by two, three, four, and so on with ace being high. The Wizards have the highest value.\n" +
+                "\n" +
+                "Object of the Game:\n" +
+                "\n" +
+                "The object of the game is to correctly predict the number of tricks (sub rounds) you will win within each round. You will earn points for guessing the correct value and lose points when you don’t. The player with the most points at the end of the game wins.\n" +
+                "\n" +
+                "Dealing and Trump:\n" +
+                "\n" +
+                "Each player will be dealt the same number of cards at the start of each round. The number of cards is determined by the round number. For example, if it’s round two, each player gets two cards, round three, three cards and so on. There are fifteen rounds in total. Once the cards are dealt one card will be in the middle and that determines the trump suit for that round. The last round, all cards will be dealt (each player will have fifteen) and therefore there is no trump for that round. The trump becomes the leading suit of each trick.\n" +
+                "\n" +
+                "Bidding:\n" +
+                "\n" +
+                "Before cards can be played, each player must make a bid starting with Player 1. You are bidding the number of tricks you are expecting to win that round. You can make a bid zero to the round number (including both), but not any more than that. For example, you can’t bid ten for round four. To place your bid, tap the drop-down menu under the submit bid button and select an appropriate value, then press the submit bid button. Once you submit your bid, you cannot change the value.\n" +
+                "\n" +
+                "Playing:\n" +
+                "\n" +
+                "Player 1 will start each round after everyone has made a bid. Tap the card you would like to play and wait while everyone else plays their card. When the cards disappear, that means the winner of the trick has been calculated and their Bids Won value should increment by one.\n" +
+                "\n" +
+                "To win a trick you must:\n" +
+                "\n" +
+                "o Be the first one to play a Wizard (only the first Wizard wins)\n" +
+                "\n" +
+                "o Play the highest value in the trump suit if there are no Wizards\n" +
+                "\n" +
+                "o or play the highest value in the leading suit, if no trump cards or Wizards\n" +
+                "\n" +
+                "Scoring:\n" +
+                "\n" +
+                "After each round each player’s score will be tallied. If you won the value of tricks that you bid, you get twenty points plus ten points for every trick you won. For example, if you bid two and you won two, you get forty points added to your total score. Even if you bid zero and won zero you still get twenty points. If you didn’t guess correctly and won too many tricks or didn’t win enough, ten points are deducted for how far off you were. For example, if you bid three and you only won one trick, you lose twenty points. Another example is you bid zero and you won one trick you lose ten points.");
+    }
 
 }
