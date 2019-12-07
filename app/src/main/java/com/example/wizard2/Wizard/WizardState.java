@@ -358,7 +358,9 @@ public class WizardState extends GameState implements Serializable{
             player3.setBidNumWon(newPlayerBids);
         }
     }
-
+    /**
+        Setters and getters used to set and retrieve aspects of the game
+     */
     public void setWinner(int winner) { this.winner = winner; }
 
     public void setPlayerTurn(int playerTurn) { this.playerTurn = playerTurn; }

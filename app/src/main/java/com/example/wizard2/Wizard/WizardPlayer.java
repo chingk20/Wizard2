@@ -34,6 +34,7 @@ public class WizardPlayer implements Serializable {
         this.bidNumWon = 0;
     }
 
+    //adds a card to a player's hand
     public void addCardtoHand(WizardCards cardToAdd){
         currentHand.add(0, cardToAdd);
     }
@@ -49,6 +50,10 @@ public class WizardPlayer implements Serializable {
         }
     }
 
+    /**
+     * Setters and getters for obtaining and setting information
+     */
+
     public void setBidNum(int bidNum) {this.bidNum=bidNum;}
 
     public void setBidNumWon(int bidNumWon) {this.bidNumWon=bidNumWon;}
@@ -56,8 +61,6 @@ public class WizardPlayer implements Serializable {
     public void setPlayerScore(int runningTotal) { this.playerScore = playerScore + runningTotal; }
 
     public int getBidNum() { return bidNum; }
-
-    public int getBidNumWon() {return bidNumWon;}
 
     public int getRunningTotal()
     {

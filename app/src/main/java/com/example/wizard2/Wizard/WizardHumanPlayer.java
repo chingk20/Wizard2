@@ -2430,15 +2430,16 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
         }
     }
 
+    //Adds text to the help screen
     public void setHelpText(){
         helpText.setTextColor(Color.BLACK);
         helpText.setText("Cards:\n" +
                 "\n" +
                 "There is a normal deck of cards with four Wizard cards and four Jester cards (60 cards total). The Jesters are lowest in value followed by two, three, four, and so on with ace being high. The Wizards have the highest value.\n" +
                 "\n" +
-                "Object of the Game:\n" +
+                "Objective:\n" +
                 "\n" +
-                "The object of the game is to correctly predict the number of tricks (sub rounds) you will win within each round. You will earn points for guessing the correct value and lose points when you don’t. The player with the most points at the end of the game wins.\n" +
+                "The objective of the game is to correctly predict the number of tricks (sub rounds) you will win within each round. You will earn points for guessing the correct value and lose points when you don’t. The player with the most points at the end of the game wins.\n" +
                 "\n" +
                 "Dealing and Trump:\n" +
                 "\n" +
@@ -2446,7 +2447,7 @@ public class WizardHumanPlayer extends GameHumanPlayer implements View.OnTouchLi
                 "\n" +
                 "Bidding:\n" +
                 "\n" +
-                "Before cards can be played, each player must make a bid starting with Player 1. You are bidding the number of tricks you are expecting to win that round. You can make a bid zero to the round number (including both), but not any more than that. For example, you can’t bid ten for round four. To place your bid, tap the drop-down menu under the submit bid button and select an appropriate value, then press the submit bid button. Once you submit your bid, you cannot change the value.\n" +
+                "Before cards can be played, each player must make a bid starting with Player 1. You are bidding the number of tricks you are expecting to win that round. You can make a bid zero to the round number (including both), but not any more than that. For example, you can’t bid ten for round four. To place your bid, use the plus/minus buttons to set your desired bid, then press the submit bid button. Once you submit your bid, you cannot change the value.\n" +
                 "\n" +
                 "Playing:\n" +
                 "\n" +
